@@ -1,0 +1,664 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "14f473cb-ac61-4043-9f8d-ae2e6fedfe53",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "Charity": {
+      "name": "Charity",
+      "columns": {
+        "charityId": {
+          "name": "charityId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "streetAddress": {
+          "name": "streetAddress",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "barangay": {
+          "name": "barangay",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "province": {
+          "name": "province",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contactNumber": {
+          "name": "contactNumber",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Charity_userId_Users_Id_fk": {
+          "name": "Charity_userId_Users_Id_fk",
+          "tableFrom": "Charity",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "Charity_charityId": {
+          "name": "Charity_charityId",
+          "columns": [
+            "charityId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "Contact": {
+      "name": "Contact",
+      "columns": {
+        "contactId": {
+          "name": "contactId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "midinit": {
+          "name": "midinit",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contactNumber": {
+          "name": "contactNumber",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "Contact_contactId": {
+          "name": "Contact_contactId",
+          "columns": [
+            "contactId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "DonationHistory": {
+      "name": "DonationHistory",
+      "columns": {
+        "historyId": {
+          "name": "historyId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "scheduleId": {
+          "name": "scheduleId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "completionDate": {
+          "name": "completionDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "completionTime": {
+          "name": "completionTime",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "DonationHistory_scheduleId_PickupSchedule_scheduleId_fk": {
+          "name": "DonationHistory_scheduleId_PickupSchedule_scheduleId_fk",
+          "tableFrom": "DonationHistory",
+          "tableTo": "PickupSchedule",
+          "columnsFrom": [
+            "scheduleId"
+          ],
+          "columnsTo": [
+            "scheduleId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "DonationHistory_historyId": {
+          "name": "DonationHistory_historyId",
+          "columns": [
+            "historyId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "FoodDonation": {
+      "name": "FoodDonation",
+      "columns": {
+        "donationId": {
+          "name": "donationId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "restaurantId": {
+          "name": "restaurantId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "itemName": {
+          "name": "itemName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pickupTime": {
+          "name": "pickupTime",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pickupLocationId": {
+          "name": "pickupLocationId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pickupDate": {
+          "name": "pickupDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "specialInstructions": {
+          "name": "specialInstructions",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "allergens": {
+          "name": "allergens",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "restaurantContactId": {
+          "name": "restaurantContactId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "donationStatus": {
+          "name": "donationStatus",
+          "type": "enum('PENDING','ACCEPTED','REJECTED')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'PENDING'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FoodDonation_restaurantId_Restaurant_restaurantId_fk": {
+          "name": "FoodDonation_restaurantId_Restaurant_restaurantId_fk",
+          "tableFrom": "FoodDonation",
+          "tableTo": "Restaurant",
+          "columnsFrom": [
+            "restaurantId"
+          ],
+          "columnsTo": [
+            "restaurantId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FoodDonation_pickupLocationId_PickupLocation_locationId_fk": {
+          "name": "FoodDonation_pickupLocationId_PickupLocation_locationId_fk",
+          "tableFrom": "FoodDonation",
+          "tableTo": "PickupLocation",
+          "columnsFrom": [
+            "pickupLocationId"
+          ],
+          "columnsTo": [
+            "locationId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FoodDonation_restaurantContactId_Contact_contactId_fk": {
+          "name": "FoodDonation_restaurantContactId_Contact_contactId_fk",
+          "tableFrom": "FoodDonation",
+          "tableTo": "Contact",
+          "columnsFrom": [
+            "restaurantContactId"
+          ],
+          "columnsTo": [
+            "contactId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "FoodDonation_donationId": {
+          "name": "FoodDonation_donationId",
+          "columns": [
+            "donationId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "PickupLocation": {
+      "name": "PickupLocation",
+      "columns": {
+        "locationId": {
+          "name": "locationId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "streetAddress": {
+          "name": "streetAddress",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "barangay": {
+          "name": "barangay",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "province": {
+          "name": "province",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "PickupLocation_locationId": {
+          "name": "PickupLocation_locationId",
+          "columns": [
+            "locationId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "PickupSchedule": {
+      "name": "PickupSchedule",
+      "columns": {
+        "scheduleId": {
+          "name": "scheduleId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "donationId": {
+          "name": "donationId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "charityId": {
+          "name": "charityId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "charityContactId": {
+          "name": "charityContactId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "PickupSchedule_donationId_FoodDonation_donationId_fk": {
+          "name": "PickupSchedule_donationId_FoodDonation_donationId_fk",
+          "tableFrom": "PickupSchedule",
+          "tableTo": "FoodDonation",
+          "columnsFrom": [
+            "donationId"
+          ],
+          "columnsTo": [
+            "donationId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "PickupSchedule_charityId_Charity_charityId_fk": {
+          "name": "PickupSchedule_charityId_Charity_charityId_fk",
+          "tableFrom": "PickupSchedule",
+          "tableTo": "Charity",
+          "columnsFrom": [
+            "charityId"
+          ],
+          "columnsTo": [
+            "charityId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "PickupSchedule_charityContactId_Contact_contactId_fk": {
+          "name": "PickupSchedule_charityContactId_Contact_contactId_fk",
+          "tableFrom": "PickupSchedule",
+          "tableTo": "Contact",
+          "columnsFrom": [
+            "charityContactId"
+          ],
+          "columnsTo": [
+            "contactId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "PickupSchedule_scheduleId": {
+          "name": "PickupSchedule_scheduleId",
+          "columns": [
+            "scheduleId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "Restaurant": {
+      "name": "Restaurant",
+      "columns": {
+        "restaurantId": {
+          "name": "restaurantId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "streetAddress": {
+          "name": "streetAddress",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "barangay": {
+          "name": "barangay",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "province": {
+          "name": "province",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contactNumber": {
+          "name": "contactNumber",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Restaurant_userId_Users_Id_fk": {
+          "name": "Restaurant_userId_Users_Id_fk",
+          "tableFrom": "Restaurant",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "Restaurant_restaurantId": {
+          "name": "Restaurant_restaurantId",
+          "columns": [
+            "restaurantId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "Users": {
+      "name": "Users",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userRole": {
+          "name": "userRole",
+          "type": "enum('ADMIN','RESTAURANT')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'RESTAURANT'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "Users_Id": {
+          "name": "Users_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "Users_email_unique": {
+          "name": "Users_email_unique",
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
