@@ -13,20 +13,26 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const user = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.email, profile.emails![0].value));
+        if (!profile.emails || profile.emails.length === 0) {
+          return done(new Error('No email found in Google profile'));
+        }
+
+        const email = profile.emails[0].value;
+
+        const user = await db.select().from(usersTable).where(eq(usersTable.email, email));
         if (user.length > 0) {
           return done(null, user[0]);
         } else {
           const newUser = await db.insert(usersTable).values({
             name: profile.displayName,
-            email: profile.emails![0].value,
+            email: email,
             password: '',
             userType: 'RESTAURANT',
           });
-          return done(null, newUser);
+
+          const createdUser = await db.select().from(usersTable).where(eq(usersTable.email, email));
+
+          return done(null, createdUser[0]);
         }
       } catch (error) {
         console.error(error);
@@ -37,14 +43,24 @@ passport.use(
 );
 
 passport.serializeUser((user: any, done) => {
-  done(null, user);
+  console.log('Serializing user:', user);
+  if (!user || !user.Id) {
+    return done(new Error('User  ID is missing'));
+  }
+  done(null, user.Id);
 });
 
 passport.deserializeUser(async (id: any, done) => {
-  const user = await db
-    .select({ id: usersTable.Id })
-    .from(usersTable)
-    .where(eq(usersTable.Id, id))
-    .limit(1);
-  done(null, user);
+  try {
+    const user = await db.select().from(usersTable).where(eq(usersTable.Id, id));
+
+    if (!user || user.length === 0) {
+      return done(new Error('User  not found'));
+    }
+
+    done(null, user[0]); // Return the user object
+  } catch (error) {
+    console.error('Error during deserialization:', error);
+    done(error);
+  }
 });
