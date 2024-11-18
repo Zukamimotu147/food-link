@@ -11,8 +11,8 @@ import './config/passport';
 dotenv.config();
 
 const app = express();
-const server = createServer(app);
-const PORT = process.env.PORT;
+// const server = createServer(app);
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,13 +24,14 @@ app.use(
   })
 );
 
-const io = new IO(server, {
-  cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-  },
-});
+// const io = new IO(server, {
+//   cors: {
+//     origin: 'http://localhost:5173',
+//     methods: ['GET', 'POST'],
+//   },
+// });
 
+// Session Config
 app.use(
   session({
     secret: process.env.SESSION_SECRET!,
@@ -38,20 +39,32 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 // initSocket(io);
 
+// Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Routes
 app.use('/auth', authRoutes);
 
 // app.use('/api/admin', adminRoutes);
 // app.use('/api/user', userRoutes);
 
+// Basic route
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.listen(PORT || 5000, () => {
+app.use((err: any, req: Request, res: Response, next: Function) => {
+  console.error('Error occurred:', err);
+
+  if (!res.headersSent) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
