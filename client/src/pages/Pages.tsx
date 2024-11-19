@@ -1,4 +1,4 @@
-import Home from './landing/Home';
+import Home from './landing/home/Home';
 import Contact from './landing/Contact';
 import AboutUs from './landing/AboutUs';
 import FAQ from './landing/FAQ';

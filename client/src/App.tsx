@@ -4,10 +4,10 @@ import HomeNavBar from './components/navbar/HomeNavBar';
 
 function App() {
   return (
-    <section>
+    <main className="overflow-hidden">
       <HomeNavBar />
       <Outlet />
-    </section>
+    </main>
   );
 }
 
