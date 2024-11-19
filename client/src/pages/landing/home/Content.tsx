@@ -7,7 +7,7 @@ import { TextPlugin } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 const Content = () => {
   const contentRef = useRef(null);
-  const contentPinRef = useRef(null);
+  //   const contentPinRef = useRef(null);
 
   useGSAP(() => {
     gsap.to('.contentText', {
