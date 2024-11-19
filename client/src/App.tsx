@@ -1,7 +1,14 @@
+import { Outlet } from 'react-router-dom';
 import './index.css';
+import HomeNavBar from './components/navbar/HomeNavBar';
 
 function App() {
-  return <div className="text-red-500">HELLOW</div>;
+  return (
+    <section>
+      <HomeNavBar />
+      <Outlet />
+    </section>
+  );
 }
 
 export default App;
