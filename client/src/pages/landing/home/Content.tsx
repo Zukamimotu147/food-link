@@ -25,7 +25,6 @@ const Content = () => {
         start: '-150px center',
         end: '90% center',
         toggleActions: 'restart pause reverse pause',
-        markers: true,
         scrub: true,
       },
     });
