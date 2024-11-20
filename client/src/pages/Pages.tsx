@@ -1,6 +1,6 @@
 import Home from './landing/home/Home';
 import Contact from './landing/Contact';
-import AboutUs from './landing/AboutUs';
+import AboutUs from './landing/aboutus/AboutUs';
 import FAQ from './landing/FAQ';
 import Error from './error/Error';
 

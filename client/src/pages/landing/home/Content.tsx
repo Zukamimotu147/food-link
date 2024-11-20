@@ -22,8 +22,8 @@ const Content = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: contentRef.current,
-        start: '-150px center',
-        end: '90% center',
+        start: '-250px center',
+        end: '87% center',
         toggleActions: 'restart pause reverse pause',
         scrub: true,
       },
@@ -254,7 +254,7 @@ const Content = () => {
         </h1>
         <p className="text-lg sm:text-2xl text-balance text-center">
           Food Link is a platform that bridges the gap between surplus food and those in need. We
-          connect restaurants with charities to make food donation simple and impactful..
+          connect restaurants with charities to make food donation simple and impactful.
         </p>
         <div>
           <div className="relative">

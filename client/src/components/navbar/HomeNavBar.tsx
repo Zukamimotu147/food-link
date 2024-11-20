@@ -20,7 +20,9 @@ import { Menu } from 'lucide-react';
 
 const HomeNavBar = () => {
   return (
-    <header className="bg-customGreen w-full p-3 flex justify-between items-center text-white">
+    <header
+      className="fixed top-0 left-0 z-20 bg-customGreen w-full p-3 flex justify-between items-center text-white"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
       <div className="flex gap-3 items-center ml-3">
         <Link to="/">
           <img src="/logo.png" alt="Logo" className="w-25 h-25" />
