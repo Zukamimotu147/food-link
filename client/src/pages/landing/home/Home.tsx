@@ -3,7 +3,7 @@ import Content from './Content';
 
 const Home = () => {
   return (
-    <section>
+    <section className="overflow-hidden">
       <Hero />
       <Content />
     </section>
