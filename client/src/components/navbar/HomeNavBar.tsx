@@ -68,11 +68,11 @@ const HomeNavBar = () => {
         </NavigationMenu>
       </div>
       <div className="flex gap-3">
-        <Button variant={'outline'} className="font-bold text-black">
-          Sign-Up
+        <Button variant={'outline'} className="font-bold text-black" asChild>
+          <Link to="/auth/register">Sign-Up</Link>
         </Button>
         <Button variant={'outline'} className="font-bold text-black">
-          Login
+          <Link to="/auth/login">Login</Link>
         </Button>
         <div className="sm:hidden block">
           <Sheet>

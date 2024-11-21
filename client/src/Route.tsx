@@ -1,6 +1,6 @@
 import App from './App';
 import { createBrowserRouter } from 'react-router-dom';
-import { Home, Contact, AboutUs, FAQ, Error } from './pages/Pages';
+import { Home, Contact, AboutUs, FAQ, Error, Login, Register } from './pages/Pages';
 
 export const router = createBrowserRouter([
   {
@@ -29,5 +29,15 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
     ],
+  },
+  {
+    path: '/auth/register',
+    element: <Register />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/auth/login',
+    element: <Login />,
+    errorElement: <Error />,
   },
 ]);

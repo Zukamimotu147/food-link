@@ -15,12 +15,12 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { contactSchema } from './schema/contactSchema';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 
 type ContactFields = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
-  const navigation = useNavigate();
   const form = useForm<ContactFields>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -31,10 +31,28 @@ const ContactForm = () => {
     },
   });
 
+  const [isSubmitting, setSubmitting] = useState(false);
+
   const onSubmit = async (data: ContactFields) => {
-    console.log(data);
-    toast.success('Message sent successfully');
-    navigation('/');
+    setSubmitting(true);
+
+    try {
+      await axios.post('http://localhost:3000/api/landing/contact', data);
+
+      toast.success('Message sent successfully');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 400) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error('An unexpected error occurred. Please try again.');
+        }
+      } else {
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
   return (
     <CardWrapper title="Contact Us">
@@ -103,8 +121,11 @@ const ContactForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full bg-customGreen hover:bg-customGreen/80">
-            Contact Us
+          <Button
+            type="submit"
+            className="w-full bg-customGreen hover:bg-customGreen/80"
+            disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Contact Us'}
           </Button>
         </form>
       </Form>
