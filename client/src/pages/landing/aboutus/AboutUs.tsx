@@ -40,7 +40,7 @@ const AboutUs = () => {
   return (
     <main>
       <section className="max-container h-screen padding">
-        <h1 className="teamText text-6xl font-bold text-center text-customGreen h-[100px]"></h1>
+        <h1 className="teamText text-6xl font-bold text-center text-customGreen h-[100px] mt-10 sm:mt-0"></h1>
         <Team />
       </section>
       <div ref={aboutUsRef}>
