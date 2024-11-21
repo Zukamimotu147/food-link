@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "14f473cb-ac61-4043-9f8d-ae2e6fedfe53",
+  "id": "29d882b9-906c-4581-827e-fc02de592a24",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -115,13 +115,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "midinit": {
-          "name": "midinit",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "lastname": {
           "name": "lastname",
           "type": "varchar(255)",
@@ -129,8 +122,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "contactNumber": {
-          "name": "contactNumber",
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "message": {
+          "name": "message",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,

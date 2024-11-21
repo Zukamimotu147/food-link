@@ -14,9 +14,9 @@ CREATE TABLE `Charity` (
 CREATE TABLE `Contact` (
 	`contactId` int AUTO_INCREMENT NOT NULL,
 	`firstname` varchar(255) NOT NULL,
-	`midinit` varchar(255) NOT NULL,
 	`lastname` varchar(255) NOT NULL,
-	`contactNumber` varchar(255) NOT NULL,
+	`email` varchar(255) NOT NULL,
+	`message` varchar(255) NOT NULL,
 	CONSTRAINT `Contact_contactId` PRIMARY KEY(`contactId`)
 );
 --> statement-breakpoint

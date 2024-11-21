@@ -6,6 +6,7 @@ import { Server as IO } from 'socket.io';
 import cors from 'cors';
 import dotenv, { config } from 'dotenv';
 import authRoutes from './routes/authRoute';
+import landingRoutes from './routes/landingRoutes';
 import './config/passport';
 
 dotenv.config();
@@ -19,8 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: 'http://localhost:5000',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   })
 );
 
@@ -48,6 +50,7 @@ app.use(passport.session());
 
 //Routes
 app.use('/auth', authRoutes);
+app.use('/api/landing', landingRoutes);
 
 // app.use('/api/admin', adminRoutes);
 // app.use('/api/user', userRoutes);
