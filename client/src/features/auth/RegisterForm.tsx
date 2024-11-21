@@ -14,6 +14,8 @@ import { z } from 'zod';
 import { registerAuthSchema } from './schema/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import { toast, Toaster } from 'sonner';
+import axios from 'axios';
 
 type AuthFields = z.infer<typeof registerAuthSchema>;
 const RegisterForm = () => {
@@ -28,9 +30,25 @@ const RegisterForm = () => {
     resolver: zodResolver(registerAuthSchema),
   });
 
-  const handleLogin = (data: AuthFields) => {
-    console.log(data);
+  const handleRegister = async (data: AuthFields) => {
+    try {
+      await axios.post('http://localhost:3000/auth/register', data);
+
+      toast.success('User registered successfully');
+      navigation('/auth/login');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 400) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error('An unexpected error occurred. Please try again.');
+        }
+      } else {
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    }
   };
+
   return (
     <section className="relative h-screen w-screen">
       <video
@@ -50,13 +68,13 @@ const RegisterForm = () => {
           backButtonHref="/auth/login"
           backButtonLabel="Already have an account?">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel className="text-white">Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Name..." {...field} />
                     </FormControl>
@@ -69,7 +87,7 @@ const RegisterForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-white">Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Email..." {...field} type="email" />
                     </FormControl>
@@ -82,7 +100,7 @@ const RegisterForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className="text-white">Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Password..." {...field} type="password" />
                     </FormControl>
@@ -95,7 +113,7 @@ const RegisterForm = () => {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className="text-white">Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter confirm Password..." {...field} type="password" />
                     </FormControl>
@@ -104,13 +122,10 @@ const RegisterForm = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full bg-customGreen hover:bg-customGreen/90">
+                Register
               </Button>
             </form>
-            <div className="flex justify-center">
-              <Button className="m-2">Sign In with Google</Button>
-            </div>
           </Form>
         </CardWrapper>
       </div>
