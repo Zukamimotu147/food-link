@@ -1,5 +1,5 @@
-import Hero from './Hero';
-import Content from './Content';
+import Hero from '../../features/home/Hero';
+import Content from '../../features/home/Content';
 
 const Home = () => {
   return (
