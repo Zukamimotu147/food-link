@@ -1,5 +1,5 @@
-const resDashboard = () => {
+const ResDashboard = () => {
   return <div>resDashboard</div>;
 };
 
-export default resDashboard;
+export default ResDashboard;

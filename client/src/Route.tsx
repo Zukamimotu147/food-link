@@ -1,6 +1,16 @@
 import App from './App';
 import { createBrowserRouter } from 'react-router-dom';
-import { Home, Contact, AboutUs, FAQ, Error, Login, Register } from './pages/Pages';
+import {
+  Home,
+  Contact,
+  AboutUs,
+  FAQ,
+  Error,
+  Login,
+  Register,
+  ResDashboard,
+  AdminDashboard,
+} from './pages/Pages';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +48,16 @@ export const router = createBrowserRouter([
   {
     path: '/auth/login',
     element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/dashboard/restaurant',
+    element: <ResDashboard />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/dashboard/admin',
+    element: <AdminDashboard />,
     errorElement: <Error />,
   },
 ]);

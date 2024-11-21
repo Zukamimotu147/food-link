@@ -1,9 +1,8 @@
-import { Toaster } from 'sonner';
+import LoginForm from '@/features/auth/LoginForm';
 const Login = () => {
   return (
     <main>
-      Login
-      <Toaster richColors />
+      <LoginForm />
     </main>
   );
 };
