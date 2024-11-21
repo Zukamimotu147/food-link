@@ -1,5 +1,11 @@
+import { Toaster } from 'sonner';
 const Login = () => {
-  return <div>Login</div>;
+  return (
+    <main>
+      Login
+      <Toaster richColors />
+    </main>
+  );
 };
 
 export default Login;

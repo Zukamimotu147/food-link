@@ -23,7 +23,7 @@ const Content = () => {
       scrollTrigger: {
         trigger: contentRef.current,
         start: '-250px center',
-        end: '87% center',
+        end: '89% center',
         toggleActions: 'restart pause reverse pause',
         scrub: true,
       },

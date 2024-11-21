@@ -1,4 +1,5 @@
 import RegisterForm from '@/features/auth/RegisterForm';
+
 const Register = () => {
   return (
     <main>
