@@ -33,6 +33,7 @@ const ContactForm = () => {
 
   const onSubmit = async (data: ContactFields) => {
     console.log(data);
+    toast.success('Message sent successfully');
     navigation('/');
   };
   return (
@@ -102,10 +103,7 @@ const ContactForm = () => {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="w-full bg-customGreen hover:bg-customGreen/80"
-            onClick={() => toast.success('Message sent successfully')}>
+          <Button type="submit" className="w-full bg-customGreen hover:bg-customGreen/80">
             Contact Us
           </Button>
         </form>

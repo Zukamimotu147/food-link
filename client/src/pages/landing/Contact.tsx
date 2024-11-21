@@ -1,8 +1,8 @@
 import ContactForm from '@/features/contact/ContactForm';
 const Contact = () => {
   return (
-    <main>
-      <div className="padding max-container flex justify-center items-center h-screen">
+    <main className="bg-black bg-opacity-50 bg-blend-multiply bg-no-repeat bg-center bg-cover bg-contactImage">
+      <div className="padding max-container flex flex-col lg:flex-row justify-center items-center h-screen gap-5">
         <ContactForm />
       </div>
 
