@@ -12,9 +12,9 @@ export const usersTable = mysqlTable('Users', {
 export const contactTable = mysqlTable('Contact', {
   contactId: int().primaryKey().autoincrement().notNull(),
   firstname: varchar({ length: 255 }).notNull(),
-  midinit: varchar({ length: 255 }).notNull(),
   lastname: varchar({ length: 255 }).notNull(),
-  contactNumber: varchar({ length: 255 }).notNull(),
+  email: varchar({ length: 255 }).notNull(),
+  message: varchar({ length: 255 }).notNull(),
 });
 
 export const restaurantTable = mysqlTable('Restaurant', {

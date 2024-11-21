@@ -13,7 +13,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
       .select({ email: usersTable.email })
       .from(usersTable)
       .where(eq(usersTable.email, email));
-    console.log('Existing user:', existingUser);
+
     if (existingUser.length > 0) {
       return res.status(400).json({ message: 'User  already exists' });
     }
@@ -35,7 +35,12 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
   try {
     const user = await db
-      .select({ id: usersTable.Id, email: usersTable.email, password: usersTable.password })
+      .select({
+        id: usersTable.Id,
+        email: usersTable.email,
+        password: usersTable.password,
+        role: usersTable.userType,
+      })
       .from(usersTable)
       .where(eq(usersTable.email, email));
 
@@ -48,7 +53,13 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ userId: user[0].id }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = jwt.sign(
+      { userId: user[0].id, password: user[0].password, role: user[0].role },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: '1d',
+      }
+    );
     return res.status(200).json({ token });
   } catch (error) {
     console.error('Error during login:', error);
