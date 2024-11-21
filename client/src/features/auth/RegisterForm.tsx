@@ -1,5 +1,7 @@
 import CardWrapper from './components/CardWrapper';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -19,6 +21,7 @@ import axios from 'axios';
 
 type AuthFields = z.infer<typeof registerAuthSchema>;
 const RegisterForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigate();
   const form = useForm<AuthFields>({
     defaultValues: {
@@ -99,11 +102,20 @@ const RegisterForm = () => {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel className="text-white">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter Password..." {...field} type="password" />
+                      <Input
+                        placeholder="Enter Password..."
+                        {...field}
+                        type={showPassword ? 'text' : 'password'}
+                      />
                     </FormControl>
+                    <p
+                      className="absolute right-3 top-[62%] transform -translate-y-1/2 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </p>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -112,10 +124,14 @@ const RegisterForm = () => {
                 control={form.control}
                 name="confirmPassword"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel className="text-white">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter confirm Password..." {...field} type="password" />
+                      <Input
+                        placeholder="Enter confirm Password..."
+                        {...field}
+                        type={showPassword ? 'text' : 'password'}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

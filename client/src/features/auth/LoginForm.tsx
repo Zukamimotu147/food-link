@@ -1,6 +1,8 @@
 import CardWrapper from './components/CardWrapper';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
+import { Eye, EyeOff } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -26,6 +28,7 @@ type DecodedToken = {
 
 type AuthFields = z.infer<typeof loginAuthSchema>;
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigate();
 
   const form = useForm<AuthFields>({
@@ -35,6 +38,7 @@ const LoginForm = () => {
     },
     resolver: zodResolver(loginAuthSchema),
   });
+
   const handleLogin = async (data: AuthFields) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/login', data);
@@ -110,19 +114,31 @@ const LoginForm = () => {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel className="text-white">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter Password..." {...field} type="password" />
+                      <Input
+                        placeholder="Enter Password..."
+                        {...field}
+                        type={showPassword ? 'text' : 'password'}
+                        className="pr-10"
+                      />
                     </FormControl>
+                    <p
+                      className="absolute right-3 top-[62%] transform -translate-y-1/2 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </p>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <Button type="submit" className="w-full">
                 Login
               </Button>
             </form>
+
             <div className="flex justify-center">
               <Button className="m-2" onClick={handleLoginGoogle}>
                 <img
