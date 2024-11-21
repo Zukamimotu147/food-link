@@ -14,7 +14,7 @@ import { z } from 'zod';
 import { registerAuthSchema } from './schema/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
 import axios from 'axios';
 
 type AuthFields = z.infer<typeof registerAuthSchema>;
