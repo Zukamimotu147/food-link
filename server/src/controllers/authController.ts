@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { db } from '../drizzle/database/connection';
 import { eq } from 'drizzle-orm';
 import { usersTable } from '../drizzle/tableSchema';
+
+import { generateToken } from '../services/generateToken';
 
 export const register = async (req: Request, res: Response): Promise<Response> => {
   const { name, email, password, userType } = req.body;
@@ -36,7 +38,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
   try {
     const user = await db
       .select({
-        id: usersTable.Id,
+        Id: usersTable.Id,
         email: usersTable.email,
         password: usersTable.password,
         role: usersTable.userType,
@@ -53,14 +55,9 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign(
-      { userId: user[0].id, password: user[0].password, role: user[0].role },
-      process.env.JWT_SECRET!,
-      {
-        expiresIn: '1d',
-      }
-    );
-    return res.status(200).json({ token });
+    const token = generateToken(user);
+
+    return res.status(200).json({ token, userId: user[0].Id });
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ message: 'Internal server error' });

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "29d882b9-906c-4581-827e-fc02de592a24",
+  "id": "924083da-66f3-4030-8db9-9d7236c24695",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -21,8 +21,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "name": {
-          "name": "name",
+        "charityName": {
+          "name": "charityName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -219,15 +219,22 @@
           "notNull": true,
           "autoincrement": true
         },
-        "restaurantId": {
-          "name": "restaurantId",
+        "userId": {
+          "name": "userId",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "itemName": {
-          "name": "itemName",
+        "charityId": {
+          "name": "charityId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "foodItemName": {
+          "name": "foodItemName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -240,13 +247,12 @@
           "notNull": true,
           "autoincrement": false
         },
-        "pickupTime": {
-          "name": "pickupTime",
-          "type": "timestamp",
+        "category": {
+          "name": "category",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "autoincrement": false
         },
         "description": {
           "name": "description",
@@ -254,113 +260,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-        },
-        "pickupLocationId": {
-          "name": "pickupLocationId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "pickupDate": {
-          "name": "pickupDate",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "specialInstructions": {
-          "name": "specialInstructions",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "allergens": {
-          "name": "allergens",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "restaurantContactId": {
-          "name": "restaurantContactId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "donationStatus": {
-          "name": "donationStatus",
-          "type": "enum('PENDING','ACCEPTED','REJECTED')",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'PENDING'"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "FoodDonation_restaurantId_Restaurant_restaurantId_fk": {
-          "name": "FoodDonation_restaurantId_Restaurant_restaurantId_fk",
-          "tableFrom": "FoodDonation",
-          "tableTo": "Restaurant",
-          "columnsFrom": [
-            "restaurantId"
-          ],
-          "columnsTo": [
-            "restaurantId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "FoodDonation_pickupLocationId_PickupLocation_locationId_fk": {
-          "name": "FoodDonation_pickupLocationId_PickupLocation_locationId_fk",
-          "tableFrom": "FoodDonation",
-          "tableTo": "PickupLocation",
-          "columnsFrom": [
-            "pickupLocationId"
-          ],
-          "columnsTo": [
-            "locationId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "FoodDonation_restaurantContactId_Contact_contactId_fk": {
-          "name": "FoodDonation_restaurantContactId_Contact_contactId_fk",
-          "tableFrom": "FoodDonation",
-          "tableTo": "Contact",
-          "columnsFrom": [
-            "restaurantContactId"
-          ],
-          "columnsTo": [
-            "contactId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "FoodDonation_donationId": {
-          "name": "FoodDonation_donationId",
-          "columns": [
-            "donationId"
-          ]
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
-    "PickupLocation": {
-      "name": "PickupLocation",
-      "columns": {
-        "locationId": {
-          "name": "locationId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
         },
         "streetAddress": {
           "name": "streetAddress",
@@ -389,15 +288,99 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "pickupDate": {
+          "name": "pickupDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "specialInstructions": {
+          "name": "specialInstructions",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contactName": {
+          "name": "contactName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contactNumber": {
+          "name": "contactNumber",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "allergens": {
+          "name": "allergens",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "storageRequirements": {
+          "name": "storageRequirements",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "photoUrl": {
+          "name": "photoUrl",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "donationStatus": {
+          "name": "donationStatus",
+          "type": "enum('PENDING','ACCEPTED','REJECTED')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'PENDING'"
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "FoodDonation_userId_Users_Id_fk": {
+          "name": "FoodDonation_userId_Users_Id_fk",
+          "tableFrom": "FoodDonation",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FoodDonation_charityId_Charity_charityId_fk": {
+          "name": "FoodDonation_charityId_Charity_charityId_fk",
+          "tableFrom": "FoodDonation",
+          "tableTo": "Charity",
+          "columnsFrom": [
+            "charityId"
+          ],
+          "columnsTo": [
+            "charityId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {
-        "PickupLocation_locationId": {
-          "name": "PickupLocation_locationId",
+        "FoodDonation_donationId": {
+          "name": "FoodDonation_donationId",
           "columns": [
-            "locationId"
+            "donationId"
           ]
         }
       },
@@ -423,13 +406,6 @@
         },
         "charityId": {
           "name": "charityId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "charityContactId": {
-          "name": "charityContactId",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
@@ -470,19 +446,6 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
-        },
-        "PickupSchedule_charityContactId_Contact_contactId_fk": {
-          "name": "PickupSchedule_charityContactId_Contact_contactId_fk",
-          "tableFrom": "PickupSchedule",
-          "tableTo": "Contact",
-          "columnsFrom": [
-            "charityContactId"
-          ],
-          "columnsTo": [
-            "contactId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -513,8 +476,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "name": {
-          "name": "name",
+        "restaurantName": {
+          "name": "restaurantName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -550,13 +513,6 @@
         },
         "contactNumber": {
           "name": "contactNumber",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "email": {
-          "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -619,6 +575,13 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "googleId": {
+          "name": "googleId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "userRole": {

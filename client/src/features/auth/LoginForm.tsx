@@ -21,6 +21,7 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 type DecodedToken = {
+  userId: number;
   email: string;
   role: string;
   password: string;
@@ -42,9 +43,10 @@ const LoginForm = () => {
   const handleLogin = async (data: AuthFields) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/login', data);
-
+      console.log('User Info:', response.data);
       const decodedToken: DecodedToken = jwtDecode(response.data.token);
 
+      localStorage.setItem('userId', response.data.userId);
       localStorage.setItem('token', response.data.token);
 
       toast.success(`User logged in successfully`);
@@ -72,8 +74,13 @@ const LoginForm = () => {
       }
     }
   };
-  const handleLoginGoogle = () => {
+
+  const handleLoginGoogle = async () => {
     window.open('http://localhost:3000/auth/google', '_self');
+
+    const res = await axios.get('http://localhost:3000/auth/google/callback');
+    console.log('from google', res);
+
     toast.success('User logged in successfully');
   };
   return (
@@ -139,7 +146,7 @@ const LoginForm = () => {
               </Button>
             </form>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2">
               <Button className="m-2" onClick={handleLoginGoogle}>
                 <img
                   src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000"
