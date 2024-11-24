@@ -7,13 +7,17 @@ import cors from 'cors';
 import dotenv, { config } from 'dotenv';
 import authRoutes from './routes/authRoute';
 import landingRoutes from './routes/landingRoutes';
+
 import './config/passport';
+import { initSocket } from './config/socket/socket';
+import restaurantRoutes from './routes/restaurantRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 dotenv.config();
 
 const app = express();
-// const server = createServer(app);
-const PORT = process.env.PORT || 5000;
+const server = createServer(app);
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,23 +30,26 @@ app.use(
   })
 );
 
-// const io = new IO(server, {
-//   cors: {
-//     origin: 'http://localhost:5173',
-//     methods: ['GET', 'POST'],
-//   },
-// });
+const io = new IO(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  },
+});
 
-// Session Config
+initSocket(io);
+// Cookie Session Config
+// Set up express-session
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET!,
+    secret: process.env.SESSION_SECRET!, // Change this to a strong secret
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
-
-// initSocket(io);
 
 // Passport initialization
 app.use(passport.initialize());
@@ -52,8 +59,8 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/api/landing', landingRoutes);
 
-// app.use('/api/admin', adminRoutes);
-// app.use('/api/user', userRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/restaurant', restaurantRoutes);
 
 // Basic route
 app.get('/', (req: Request, res: Response) => {

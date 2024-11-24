@@ -264,7 +264,7 @@ const Content = () => {
               className=" h-[3125%] object-cover"
             />
             <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-              <Link to="/login">
+              <Link to="/auth/login">
                 <Button
                   variant={'secondary'}
                   className="bg-customGreen hover:bg-customGreen/90 text-white text-xl sm:text-4xl px-6 sm:py-10 sm:px-5 rounded-full">

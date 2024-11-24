@@ -2,7 +2,8 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { db } from '../drizzle/database/connection';
 import { usersTable } from '../drizzle/tableSchema';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
+import { generateToken } from '../services/generateToken';
 
 passport.use(
   new GoogleStrategy(
@@ -25,11 +26,11 @@ passport.use(
         } else {
           const newUser = await db.insert(usersTable).values({
             name: profile.displayName,
+            googleId: profile.id,
             email: email,
             password: '',
             userType: 'RESTAURANT',
           });
-
           const createdUser = await db.select().from(usersTable).where(eq(usersTable.email, email));
 
           return done(null, createdUser[0]);
@@ -47,18 +48,23 @@ passport.serializeUser((user: any, done) => {
   if (!user || !user.Id) {
     return done(new Error('User  ID is missing'));
   }
-  done(null, user.Id);
+  done(null, {
+    userId: user.Id,
+    userType: user.userType,
+    googleId: user.googleId,
+    name: user.name,
+  });
 });
 
-passport.deserializeUser(async (id: any, done) => {
+passport.deserializeUser(async (Id: any, done) => {
   try {
-    const user = await db.select().from(usersTable).where(eq(usersTable.Id, id));
+    const user = await db.select().from(usersTable).where(eq(usersTable.Id, Id));
 
     if (!user || user.length === 0) {
       return done(new Error('User  not found'));
     }
 
-    done(null, user[0]); // Return the user object
+    done(null, user[0]);
   } catch (error) {
     console.error('Error during deserialization:', error);
     done(error);
