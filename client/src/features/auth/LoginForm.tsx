@@ -47,9 +47,7 @@ const LoginForm = () => {
       const decodedToken: DecodedToken = jwtDecode(response.data.token);
 
       localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('token', response.data.token);
-
-      toast.success(`User logged in successfully`);
+      localStorage.setItem('localToken', response.data.token);
 
       if (decodedToken.role === 'ADMIN') {
         navigation('/dashboard/admin');
@@ -58,6 +56,7 @@ const LoginForm = () => {
       } else {
         navigation('/');
       }
+      toast.success(`User logged in successfully`);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         if (
