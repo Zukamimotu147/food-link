@@ -25,6 +25,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 type User = {
   Id: string;
   googleId: string;
+  googleProfilePic: string;
   name: string;
   email: string;
   password: string;
@@ -43,6 +44,7 @@ router.get(
         userId: userData.Id,
         password: userData.password,
         googleId: userData.googleId,
+        googleProfilePic: userData.googleProfilePic,
         email: userData.email,
         role: userData.userType,
         name: userData.name,

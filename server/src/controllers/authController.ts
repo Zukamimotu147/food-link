@@ -40,6 +40,7 @@ export const login = async (req: Request, res: Response) => {
       .select({
         Id: usersTable.Id,
         email: usersTable.email,
+        name: usersTable.name,
         password: usersTable.password,
         role: usersTable.userType,
       })
@@ -57,7 +58,15 @@ export const login = async (req: Request, res: Response) => {
 
     const token = generateToken(user);
 
-    return res.status(200).json({ token, userId: user[0].Id });
+    return res.status(200).json({
+      token,
+      user: {
+        userId: user[0].Id,
+        name: user[0].name,
+        email: user[0].email,
+        role: user[0].role,
+      },
+    });
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ message: 'Internal server error' });

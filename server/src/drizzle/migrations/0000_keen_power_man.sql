@@ -77,6 +77,7 @@ CREATE TABLE `Users` (
 	`email` varchar(255) NOT NULL,
 	`password` varchar(255) NOT NULL,
 	`googleId` varchar(255),
+	`googleProfilePic` varchar(255),
 	`userRole` enum('ADMIN','RESTAURANT') NOT NULL DEFAULT 'RESTAURANT',
 	CONSTRAINT `Users_Id` PRIMARY KEY(`Id`),
 	CONSTRAINT `Users_email_unique` UNIQUE(`email`)
