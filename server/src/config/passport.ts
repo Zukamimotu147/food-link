@@ -20,6 +20,15 @@ passport.use(
 
         const email = profile.emails[0].value;
 
+        const existingUser = await db
+          .select()
+          .from(usersTable)
+          .where(and(eq(usersTable.email, email), eq(usersTable.userType, 'RESTAURANT')));
+
+        if (existingUser.length > 0) {
+          return done(null, existingUser[0]);
+        }
+
         const user = await db.select().from(usersTable).where(eq(usersTable.email, email));
         if (user.length > 0) {
           return done(null, user[0]);
@@ -33,7 +42,7 @@ passport.use(
           });
           const createdUser = await db.select().from(usersTable).where(eq(usersTable.email, email));
 
-          return done(null, createdUser[0]);
+          return done(null, newUser[0]);
         }
       } catch (error) {
         console.error(error);
@@ -48,17 +57,15 @@ passport.serializeUser((user: any, done) => {
   if (!user || !user.Id) {
     return done(new Error('User  ID is missing'));
   }
-  done(null, {
-    userId: user.Id,
-    userType: user.userType,
-    googleId: user.googleId,
-    name: user.name,
-  });
+
+  done(null, user.Id);
 });
 
-passport.deserializeUser(async (Id: any, done) => {
+passport.deserializeUser(async (id: any, done) => {
+  console.log('Deserializing user:', id);
   try {
-    const user = await db.select().from(usersTable).where(eq(usersTable.Id, Id));
+    const user = await db.select().from(usersTable).where(eq(usersTable.Id, id));
+    console.log('Deserialized user:', user);
 
     if (!user || user.length === 0) {
       return done(new Error('User  not found'));

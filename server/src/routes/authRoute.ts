@@ -70,23 +70,15 @@ router.get(
 );
 
 router.get('/logout', (req, res) => {
-  // Passport provides `req.logout` to clear the session
   req.logout((err) => {
-    if (err) {
-      console.error('Logout error:', err);
-      return res.status(500).send({ message: 'Error during logout' });
-    }
-
-    // Clear session and cookies
-    req.session.destroy((sessionErr) => {
-      if (sessionErr) {
-        console.error('Session destruction error:', sessionErr);
-        return res.status(500).send({ message: 'Error clearing session' });
+    try {
+      if (err) {
+        throw err;
       }
-
-      res.clearCookie('connect.sid'); // Default cookie name for session
-      res.status(200).send({ message: 'Logged out successfully' });
-    });
+      res.redirect('http://localhost:5173/auth/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   });
 });
 
