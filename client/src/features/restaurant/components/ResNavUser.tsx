@@ -40,31 +40,31 @@ const ResNavUser = () => {
   const [currentUser, setCurrentUser] = useState<ResUser>();
 
   const { isMobile } = useSidebar();
-  //   useEffect(() => {
-  //     const getCurrentRestaurantUser = async () => {
-  //       try {
-  //         const userId = localStorage.getItem('userId');
-  //         const res = await axios.get(
-  //           `http://localhost:3000/api/restaurant/getCurrentRestaurantUser/${userId}`
-  //         );
-  //         console.log('Restaurant data successfully fetched', res.data);
-  //         setResUser(res.data);
-  //         console.log(res.data);
-  //       } catch (error) {
-  //         if (axios.isAxiosError(error) && error.response) {
-  //           if (error.response.status === 500) {
-  //             // toast.error(error.response.data.message);
-  //           } else {
-  //             toast.error('An error occurred while fetching data.');
-  //           }
-  //         } else {
-  //           toast.error('An unknown error occurred.');
-  //         }
-  //       }
-  //     };
+  useEffect(() => {
+    const getCurrentRestaurantUser = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const res = await axios.get(
+          `http://localhost:3000/api/restaurant/getCurrentRestaurantUser/${userId}`
+        );
+        console.log('Restaurant data successfully fetched', res.data);
+        setResUser(res.data);
+        console.log(res.data);
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          if (error.response.status === 500) {
+            // toast.error(error.response.data.message);
+          } else {
+            toast.error('An error occurred while fetching data.');
+          }
+        } else {
+          toast.error('An unknown error occurred.');
+        }
+      }
+    };
 
-  //     getCurrentRestaurantUser();
-  //   }, []);
+    getCurrentRestaurantUser();
+  }, []);
   const getCurrentUser = async (token: string) => {
     try {
       const res = await axios.get('http://localhost:3000/auth/currentUser', {
@@ -84,17 +84,13 @@ const ResNavUser = () => {
       getCurrentUser(token);
     }
   }, [token]);
-  //   const handleLogout = () => {
-  //     localStorage.removeItem('token');
-  //     localStorage.removeItem('userId');
-  //     toast.success('Logged out successfully');
-  //     navigate('/');
-  //   };
 
   const handleLogout = async () => {
     try {
       await axios.get('http://localhost:3000/auth/logout', { withCredentials: true });
       toast.success('Logged out successfully');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       navigate('/auth/login');
     } catch (error) {
       console.error('Logout failed:', error);

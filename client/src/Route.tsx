@@ -62,9 +62,9 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard/restaurant',
     element: (
-      // <ProtectedRoute>
-      <ResDashboard />
-      // </ProtectedRoute>
+      <ProtectedRoute>
+        <ResDashboard />
+      </ProtectedRoute>
     ),
     errorElement: <Error />,
     children: [
