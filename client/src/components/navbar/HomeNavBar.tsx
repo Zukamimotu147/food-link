@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
+import Foodlinklogo from '/src/assets/Foodlinklogo.png';
 
 const HomeNavBar = () => {
   return (
@@ -25,7 +26,7 @@ const HomeNavBar = () => {
       style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
       <div className="flex gap-3 items-center ml-3">
         <Link to="/">
-          <img src="/logo.png" alt="Logo" className="w-25 h-25" />
+          <img src={Foodlinklogo} alt="Logo" className="w-10 h-10" />
         </Link>
         <p className="font-bold sm:block hidden">Food Link</p>
       </div>

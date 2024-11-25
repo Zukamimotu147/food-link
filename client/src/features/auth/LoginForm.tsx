@@ -46,8 +46,9 @@ const LoginForm = () => {
       console.log('User Info:', response.data);
       const decodedToken: DecodedToken = jwtDecode(response.data.token);
 
-      localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('localToken', response.data.token);
+      localStorage.setItem('userData', JSON.stringify(response.data.user));
+      localStorage.setItem('role', decodedToken.role);
+      localStorage.setItem('token', response.data.token);
 
       if (decodedToken.role === 'ADMIN') {
         navigation('/dashboard/admin');
@@ -76,9 +77,6 @@ const LoginForm = () => {
 
   const handleLoginGoogle = async () => {
     window.open('http://localhost:3000/auth/google', '_self');
-
-    const res = await axios.get('http://localhost:3000/auth/google/callback');
-    console.log('from google', res);
 
     toast.success('User logged in successfully');
   };

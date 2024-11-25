@@ -25,6 +25,8 @@ import { jwtDecode } from 'jwt-decode';
 import { set } from 'date-fns';
 
 type ResUser = {
+  Id?: string;
+  googleProfilePic?: string;
   name: string;
   email: string;
 };
@@ -33,38 +35,22 @@ const ResNavUser = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get('token');
-  console.log('token', token);
-  //   const decodedToken: any = jwtDecode(token);
+
   //   console.log('decodedToken', decodedToken);
-  const [resUser, setResUser] = useState<ResUser>();
-  const [currentUser, setCurrentUser] = useState<ResUser>();
+  const [resUser, setResUser] = useState<ResUser | null>();
+  const [currentGoogleUser, setCurrentGoogleUser] = useState<ResUser | null>();
+  const [googleUserPP, setGoogleUserPP] = useState<string | null>();
+  const [userPP, setUserPP] = useState<string | null>();
 
   const { isMobile } = useSidebar();
-  useEffect(() => {
-    const getCurrentRestaurantUser = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const res = await axios.get(
-          `http://localhost:3000/api/restaurant/getCurrentRestaurantUser/${userId}`
-        );
-        console.log('Restaurant data successfully fetched', res.data);
-        setResUser(res.data);
-        console.log(res.data);
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          if (error.response.status === 500) {
-            // toast.error(error.response.data.message);
-          } else {
-            toast.error('An error occurred while fetching data.');
-          }
-        } else {
-          toast.error('An unknown error occurred.');
-        }
-      }
-    };
 
-    getCurrentRestaurantUser();
+  useEffect(() => {
+    const resUserData = localStorage.getItem('userData');
+    const resUserObject = resUserData ? JSON.parse(resUserData) : null;
+    console.log('resUserData', resUserData);
+    setResUser(resUserObject);
   }, []);
+
   const getCurrentUser = async (token: string) => {
     try {
       const res = await axios.get('http://localhost:3000/auth/currentUser', {
@@ -74,7 +60,8 @@ const ResNavUser = () => {
       });
       localStorage.setItem('token', token);
       console.log('User data successfully fetched', res.data);
-      setCurrentUser(res.data);
+      setGoogleUserPP(res.data.googleProfilePic);
+      setCurrentGoogleUser(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -90,7 +77,8 @@ const ResNavUser = () => {
       await axios.get('http://localhost:3000/auth/logout', { withCredentials: true });
       toast.success('Logged out successfully');
       localStorage.removeItem('token');
-      localStorage.removeItem('userId');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('role');
       navigate('/auth/login');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -106,22 +94,22 @@ const ResNavUser = () => {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src="" alt="" />
+                <AvatarImage src={googleUserPP ?? userPP ?? ''} alt="Profile Pic" />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
                   {resUser?.name
                     ? resUser.name
-                    : currentUser?.name
-                    ? currentUser.name
+                    : currentGoogleUser?.name
+                    ? currentGoogleUser.name
                     : 'Unknown User'}
                 </span>
                 <span className="truncate text-xs">
                   {resUser?.email
                     ? resUser.email
-                    : currentUser?.email
-                    ? currentUser.email
+                    : currentGoogleUser?.email
+                    ? currentGoogleUser.email
                     : 'Unknown User'}
                 </span>
               </div>
@@ -136,12 +124,24 @@ const ResNavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src="" alt="" />
+                  <AvatarImage src={googleUserPP ?? userPP ?? ''} alt="" />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{resUser?.name}</span>
-                  <span className="truncate text-xs">{resUser?.email}</span>
+                  <span className="truncate font-semibold">
+                    {resUser?.name
+                      ? resUser.name
+                      : currentGoogleUser?.name
+                      ? currentGoogleUser.name
+                      : 'Unknown User'}
+                  </span>
+                  <span className="truncate text-xs">
+                    {resUser?.email
+                      ? resUser.email
+                      : currentGoogleUser?.email
+                      ? currentGoogleUser.email
+                      : 'Unknown User'}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>

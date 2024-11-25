@@ -1,16 +1,14 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const localToken = localStorage.getItem('localToken');
   const token = queryParams.get('token');
+  const localToken = localStorage.getItem('token');
 
   // Use either the local token or the token from the Google login
-  const authToken = localToken || token;
+  const authToken = token || localToken;
 
   // Check if the token exists and is valid
   if (!authToken) {

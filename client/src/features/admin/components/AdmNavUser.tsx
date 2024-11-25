@@ -22,42 +22,26 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 type AdminUser = {
+  Id?: string;
   name: string;
   email: string;
+  googleProfilePic: string;
 };
 const AdmNavUser = () => {
   const [adminUser, setAdminUser] = useState<AdminUser>();
   const navigate = useNavigate();
+
   useEffect(() => {
-    const getAdminUser = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        console.log('In admin nav user', userId);
-        const response = await axios.get(
-          `http://localhost:3000/api/admin/getCurrentAdminUser/${userId}`
-        );
-        console.log('Admin data successfully fetched', response.data);
-        setAdminUser(response.data);
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          if (error.response.status === 500) {
-            toast.error(error.response.data.message);
-          } else {
-            toast.error('An error occurred while fetching data in Admin user.');
-          }
-        } else {
-          toast.error('An unknown error occurred.');
-        }
-      }
-    };
-
-    getAdminUser();
+    const adminUserData = localStorage.getItem('userData');
+    const adminUserObject = adminUserData ? JSON.parse(adminUserData) : null;
+    console.log('adminUserData', adminUserData);
+    setAdminUser(adminUserObject);
   }, []);
-
   const { isMobile } = useSidebar();
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('userData');
+    localStorage.removeItem('role');
     toast.success('Logged out successfully');
     navigate('/');
   };
@@ -70,7 +54,7 @@ const AdmNavUser = () => {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src="" alt="" />
+                <AvatarImage src={adminUser?.googleProfilePic} alt="Profile Pic" />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -88,7 +72,8 @@ const AdmNavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src="" alt="" />
+                  <AvatarImage src={adminUser?.googleProfilePic} alt="" />
+                  <img src={adminUser?.googleProfilePic} alt="" />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
