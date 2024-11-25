@@ -77,8 +77,6 @@ const LoginForm = () => {
 
   const handleLoginGoogle = async () => {
     window.open('http://localhost:3000/auth/google', '_self');
-
-    toast.success('User logged in successfully');
   };
   return (
     <section className="relative h-screen w-screen">

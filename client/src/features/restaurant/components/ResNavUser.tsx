@@ -58,6 +58,7 @@ const ResNavUser = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success('User logged in successfully');
       localStorage.setItem('token', token);
       console.log('User data successfully fetched', res.data);
       setGoogleUserPP(res.data.googleProfilePic);
