@@ -7,6 +7,7 @@ export const usersTable = mysqlTable('Users', {
   email: varchar({ length: 255 }).notNull().unique(),
   password: varchar({ length: 255 }).notNull(),
   googleId: varchar({ length: 255 }),
+  googleProfilePic: varchar({ length: 255 }),
   userType: mysqlEnum('userRole', ['ADMIN', 'RESTAURANT']).default('RESTAURANT').notNull(),
 });
 

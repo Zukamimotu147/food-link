@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "924083da-66f3-4030-8db9-9d7236c24695",
+  "id": "99a39de6-08e4-4670-bcda-9795b8324a21",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -579,6 +579,13 @@
         },
         "googleId": {
           "name": "googleId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "googleProfilePic": {
+          "name": "googleProfilePic",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,

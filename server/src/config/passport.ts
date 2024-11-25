@@ -26,6 +26,10 @@ passport.use(
           .where(and(eq(usersTable.email, email), eq(usersTable.userType, 'RESTAURANT')));
 
         if (existingUser.length > 0) {
+          await db
+            .update(usersTable)
+            .set({ googleProfilePic: profile.photos?.[0]?.value })
+            .where(eq(usersTable.googleId, profile.id));
           return done(null, existingUser[0]);
         }
 
@@ -36,6 +40,7 @@ passport.use(
           const newUser = await db.insert(usersTable).values({
             name: profile.displayName,
             googleId: profile.id,
+            googleProfilePic: profile.photos?.[0]?.value,
             email: email,
             password: '',
             userType: 'RESTAURANT',
