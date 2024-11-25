@@ -95,7 +95,7 @@ const ResNavUser = () => {
     try {
       await axios.get('http://localhost:3000/auth/logout', { withCredentials: true });
       toast.success('Logged out successfully');
-      navigate('/auth/login'); // Redirect to login page
+      navigate('/auth/login');
     } catch (error) {
       console.error('Logout failed:', error);
       toast.error('Failed to log out');
