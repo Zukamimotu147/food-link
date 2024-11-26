@@ -34,7 +34,7 @@ const ResNavUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get('token');
+  const urlToken = queryParams.get('token');
 
   //   console.log('decodedToken', decodedToken);
   const [resUser, setResUser] = useState<ResUser | null>();
@@ -51,6 +51,16 @@ const ResNavUser = () => {
     setResUser(resUserObject);
   }, []);
 
+  useEffect(() => {
+    const token = urlToken || localStorage.getItem('token');
+    if (token) {
+      if (urlToken) {
+        localStorage.setItem('token', urlToken);
+      }
+      getCurrentUser(token);
+    }
+  }, [urlToken]);
+
   const getCurrentUser = async (token: string) => {
     try {
       const res = await axios.get('http://localhost:3000/auth/currentUser', {
@@ -59,19 +69,15 @@ const ResNavUser = () => {
         },
       });
       toast.success('User logged in successfully');
-      localStorage.setItem('token', token);
+      //   localStorage.setItem('token', token);
+      const decodedToken: any = jwtDecode(token);
       console.log('User data successfully fetched', res.data);
-      setGoogleUserPP(res.data.googleProfilePic);
-      setCurrentGoogleUser(res.data);
+      setGoogleUserPP(decodedToken.googleProfilePic);
+      setCurrentGoogleUser(decodedToken);
     } catch (error) {
       console.error(error);
     }
   };
-  useEffect(() => {
-    if (token) {
-      getCurrentUser(token);
-    }
-  }, [token]);
 
   const handleLogout = async () => {
     try {

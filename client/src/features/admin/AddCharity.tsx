@@ -15,9 +15,11 @@ import { addCharitySchema } from './schema/addCharitySchema';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 type CharityFields = z.infer<typeof addCharitySchema>;
 const AddCharity = () => {
+  const navigate = useNavigate();
   const form = useForm<CharityFields>({
     defaultValues: {
       charityName: '',
@@ -34,7 +36,7 @@ const AddCharity = () => {
   const addCharity = async (data: CharityFields) => {
     try {
       await axios.post('http://localhost:3000/api/admin/addCharity', data);
-
+      navigate('/dashboard/admin/charities');
       toast.success('Charity added successfully');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

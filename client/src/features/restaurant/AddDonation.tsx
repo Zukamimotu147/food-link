@@ -26,12 +26,17 @@ import { useForm } from 'react-hook-form';
 import { addDonationSchema } from './schema/addDonationSchema';
 import { toast } from 'sonner';
 import axios from 'axios';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 type AddDonationFields = z.infer<typeof addDonationSchema>;
+type DecodedToken = {
+  userId?: number;
+  email?: string;
+  role?: string;
+  password?: string;
+};
 
 const AddDonation = () => {
   const form = useForm<AddDonationFields>({
@@ -56,9 +61,12 @@ const AddDonation = () => {
     resolver: zodResolver(addDonationSchema),
   });
 
-  const charities = JSON.parse(localStorage.getItem('charities') || '{}');
+  const charities = JSON.parse(localStorage.getItem('charities') || '{}'); // make sure there is a charity on the db
   //   console.log('iN add donation', charities);
-  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+  const decodedToken: DecodedToken | null = token ? jwtDecode(token) : null;
+
+  const userId = decodedToken?.userId;
   const handleSubmit = async (data: AddDonationFields) => {
     const formattedPickupDate = format(data.pickupDate, 'yyyy-MM-dd');
 
@@ -183,14 +191,20 @@ const AddDonation = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {charities.map((charity: any) => (
-                        <SelectItem
-                          key={charity.charityId}
-                          value={charity.charityName}
-                          className="text-black">
-                          {charity.charityName}
-                        </SelectItem>
-                      ))}
+                      {charities?.length > 0 ? (
+                        charities.map((charity: any) => (
+                          <SelectItem
+                            key={charity.charityId}
+                            value={charity.charityName}
+                            className="text-black">
+                            {charity.charityName}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <p className="px-4 py-2 text-muted-foreground text-sm">
+                          No charities available
+                        </p>
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -391,7 +405,10 @@ const AddDonation = () => {
               )}
             />
 
-            <Button type="submit" className="w-full bg-customGreen hover:bg-customGreen/80">
+            <Button
+              type="submit"
+              disabled={charities?.length === 0}
+              className="w-full bg-customGreen hover:bg-customGreen/80">
               Submit
             </Button>
           </form>
