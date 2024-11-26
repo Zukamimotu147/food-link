@@ -1,0 +1,20 @@
+export type ActiveDonationData = {
+  charityName: string;
+  foodItemName: string;
+  quantity: number;
+  category: string;
+  description: string;
+  streetAddress: string;
+  barangay: string;
+  city: string;
+  province: string;
+  pickupDate: string;
+  specialInstructions: string;
+  contactName: string;
+  contactNumber: string;
+  allergens: string;
+  storageRequirements: string;
+  status: string;
+  photoUrl: string;
+  createdAt: string;
+};

@@ -7,7 +7,7 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import ResDashboard from './restaurant/ResDashboard';
 import AdminDashboard from './admin/AdminDashboard';
-import ActiveDonation from '@/features/restaurant/ActiveDonation';
+import ActiveDonation from '@/features/restaurant/active donation/ActiveDonation';
 import AddDonation from '@/features/restaurant/AddDonation';
 import ResDonationHistory from '@/features/restaurant/ResDonationHistory';
 import ResOverview from '@/features/restaurant/ResOverview';
