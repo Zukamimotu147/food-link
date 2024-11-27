@@ -29,6 +29,7 @@ import axios from 'axios';
 import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 import { jwtDecode } from 'jwt-decode';
+import useFetchCharities from '@/hooks/useFetchCharities';
 
 type AddDonationFields = z.infer<typeof addDonationSchema>;
 type DecodedToken = {
@@ -61,8 +62,9 @@ const AddDonation = () => {
     resolver: zodResolver(addDonationSchema),
   });
 
-  const charities = JSON.parse(localStorage.getItem('charities') || '{}'); // make sure there is a charity on the db
-  //   console.log('iN add donation', charities);
+  const { data: Charitydata } = useFetchCharities();
+  //   console.log('from add donation', Charitydata);
+
   const token = localStorage.getItem('token');
   const decodedToken: DecodedToken | null = token ? jwtDecode(token) : null;
 
@@ -191,8 +193,8 @@ const AddDonation = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {charities?.length > 0 ? (
-                        charities.map((charity: any) => (
+                      {Charitydata?.length > 0 ? (
+                        Charitydata.map((charity: any) => (
                           <SelectItem
                             key={charity.charityId}
                             value={charity.charityName}
@@ -407,7 +409,7 @@ const AddDonation = () => {
 
             <Button
               type="submit"
-              disabled={charities?.length === 0}
+              disabled={Charitydata?.length === 0}
               className="w-full bg-customGreen hover:bg-customGreen/80">
               Submit
             </Button>

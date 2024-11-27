@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const addDonationSchema = z.object({
+export const updateDonationSchema = z.object({
   foodItemName: z.string().min(1, { message: 'Food item name is required' }),
   quantity: z.number().int().positive({ message: 'Quantity must be a positive integer' }),
   category: z.string().min(1, { message: 'Category is required' }),

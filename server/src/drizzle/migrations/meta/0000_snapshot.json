@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "99a39de6-08e4-4670-bcda-9795b8324a21",
+  "id": "3353ff56-3199-4157-ae84-5d0a25a57041",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -345,6 +345,14 @@
           "notNull": true,
           "autoincrement": false,
           "default": "'PENDING'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},

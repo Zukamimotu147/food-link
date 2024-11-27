@@ -97,6 +97,7 @@ export const foodDonationTable = mysqlTable('FoodDonation', {
   status: mysqlEnum('donationStatus', ['PENDING', 'ACCEPTED', 'REJECTED'])
     .default('PENDING')
     .notNull(),
+  createdAt: timestamp().defaultNow().notNull(),
 });
 
 // Sa restaurant side og admin side mo gamit  ani
@@ -120,3 +121,35 @@ export const donationHistoryTable = mysqlTable('DonationHistory', {
   completionDate: date().notNull(),
   completionTime: timestamp().notNull(),
 });
+
+// RELATIONS
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  restaurants: many(restaurantTable),
+  charities: many(charityTable),
+  foodDonations: many(foodDonationTable),
+}));
+
+export const restaurantRelations = relations(restaurantTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [restaurantTable.userId],
+    references: [usersTable.Id],
+  }),
+}));
+
+export const charityRelations = relations(charityTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [charityTable.userId],
+    references: [usersTable.Id],
+  }),
+}));
+
+export const foodDonationRelations = relations(foodDonationTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [foodDonationTable.userId],
+    references: [usersTable.Id],
+  }),
+  charity: one(charityTable, {
+    fields: [foodDonationTable.charityId],
+    references: [charityTable.charityId],
+  }),
+}));

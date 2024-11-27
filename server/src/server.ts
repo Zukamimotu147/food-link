@@ -30,15 +30,16 @@ app.use(
   })
 );
 
-const io = new IO(server, {
-  cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  },
-});
+// const io = new IO(server, {
+//   cors: {
+//     origin: 'http://localhost:5173',
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+//   },
+// });
 
-initSocket(io);
+// initSocket(io);
+
 // Cookie Session Config
 // Set up express-session
 

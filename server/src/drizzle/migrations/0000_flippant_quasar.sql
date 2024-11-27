@@ -48,6 +48,7 @@ CREATE TABLE `FoodDonation` (
 	`storageRequirements` varchar(255) NOT NULL,
 	`photoUrl` varchar(255) NOT NULL,
 	`donationStatus` enum('PENDING','ACCEPTED','REJECTED') NOT NULL DEFAULT 'PENDING',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `FoodDonation_donationId` PRIMARY KEY(`donationId`)
 );
 --> statement-breakpoint
