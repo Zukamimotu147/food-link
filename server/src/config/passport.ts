@@ -47,7 +47,7 @@ passport.use(
           });
           const createdUser = await db.select().from(usersTable).where(eq(usersTable.email, email));
 
-          return done(null, newUser[0]);
+          return done(null, createdUser[0]);
         }
       } catch (error) {
         console.error(error);

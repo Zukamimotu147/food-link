@@ -5,7 +5,6 @@ import {
   updateDonationRequest,
   viewDonationRequests,
   editRestaurantProfile,
-  getCurrentRestaurantUser,
 } from '../controllers/restaurant/restaurantController';
 
 const router = Router();
@@ -44,7 +43,7 @@ router.put(
 );
 
 router.get(
-  '/viewDonationRequests/:restaurantId',
+  '/viewDonationRequests/:userId',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await viewDonationRequests(req, res);
@@ -65,14 +64,14 @@ router.put(
   }
 );
 
-router.get(
-  '/getCurrentRestaurantUser/:userId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await getCurrentRestaurantUser(req, res);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// router.get(
+//   '/getCurrentRestaurantUser/:userId',
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       await getCurrentRestaurantUser(req, res);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 export default router;

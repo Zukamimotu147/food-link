@@ -10,6 +10,7 @@ import {
   charityTable,
   usersTable,
 } from '../../drizzle/tableSchema';
+import { char } from 'drizzle-orm/pg-core';
 
 export const addDonationRequest = async (req: Request, res: Response) => {
   const { userId, charityName } = req.params;
@@ -135,9 +136,13 @@ export const deleteDonationRequest = async (req: Request, res: Response) => {
   const { donationId } = req.params;
 
   try {
-    await db
+    const donationExists = await db
       .delete(foodDonationTable)
       .where(eq(foodDonationTable.donationId, parseInt(donationId)));
+
+    if (!donationExists) {
+      return res.status(400).json({ message: 'Donation request does not exist' });
+    }
 
     res.status(200).json({ message: 'Donation request deleted successfully' });
   } catch (error) {
@@ -150,33 +155,43 @@ export const viewDonationRequests = async (req: Request, res: Response) => {
 
   try {
     const donations = await db
-      .select()
+      .select({
+        foodDonationTable,
+        charityName: charityTable.charityName,
+        email: charityTable.email,
+        streetAddress: charityTable.streetAddress,
+        barangay: charityTable.barangay,
+        city: charityTable.city,
+        province: charityTable.province,
+        contactNumber: charityTable.contactNumber,
+      })
       .from(foodDonationTable)
+      .innerJoin(charityTable, eq(foodDonationTable.charityId, charityTable.charityId))
       .where(eq(foodDonationTable.userId, parseInt(userId)));
 
-    res.status(200).json(donations);
+    res.status(200).json({ donations });
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving donation requests', error });
   }
 };
 
-export const getCurrentRestaurantUser = async (req: Request, res: Response) => {
-  try {
-    const { userId } = req.params;
-    const RestaurantUser = await db
-      .select()
-      .from(usersTable)
-      .where(and(eq(usersTable.Id, parseInt(userId)), eq(usersTable.userType, 'RESTAURANT')));
+// export const getCurrentRestaurantUser = async (req: Request, res: Response) => {
+//   try {
+//     const { userId } = req.params;
+//     const RestaurantUser = await db
+//       .select()
+//       .from(usersTable)
+//       .where(and(eq(usersTable.Id, parseInt(userId)), eq(usersTable.userType, 'RESTAURANT')));
 
-    if (RestaurantUser.length === 0) {
-      return res.status(404).json({ message: 'Restaurant user not found' });
-    }
-    return res.status(200).json(RestaurantUser[0]);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Error retrieving Restaurant user', error });
-  }
-};
+//     if (RestaurantUser.length === 0) {
+//       return res.status(404).json({ message: 'Restaurant user not found' });
+//     }
+//     return res.status(200).json(RestaurantUser[0]);
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({ message: 'Error retrieving Restaurant user', error });
+//   }
+// };
 
 export const editRestaurantProfile = async (req: Request, res: Response) => {
   const { restaurantId } = req.params;

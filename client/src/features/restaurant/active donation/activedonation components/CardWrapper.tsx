@@ -27,9 +27,7 @@ const CardWrapper = ({ label, title, children }: CardWrapperProps) => {
     gsap.from(addCharityFormRef.current, { opacity: 0, y: 50, duration: 1, ease: 'power2.out' });
   });
   return (
-    <Card
-      className="bg-transparent backdrop-blur-none rounded-3xl shadow-2xl border border-gray-700/50 sm:w-[300px] lg:w-[600px]"
-      ref={addCharityFormRef}>
+    <Card className="cursor-pointer" ref={addCharityFormRef}>
       <CardHeader>
         <FormHeader label={label} title={title} />
       </CardHeader>
