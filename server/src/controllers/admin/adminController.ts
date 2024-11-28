@@ -91,6 +91,42 @@ export const getCharities = async (req: Request, res: Response) => {
   }
 };
 
+export const getDonationRequests = async (req: Request, res: Response) => {
+  try {
+    const donationRequests = await db
+      .select({
+        donationId: foodDonationTable.donationId,
+        userId: foodDonationTable.userId,
+        restaurantName: foodDonationTable.restaurantName,
+        foodItemName: foodDonationTable.foodItemName,
+        quantity: foodDonationTable.quantity,
+        category: foodDonationTable.category,
+        description: foodDonationTable.description,
+        streetAddress: foodDonationTable.streetAddress,
+        barangay: foodDonationTable.barangay,
+        city: foodDonationTable.city,
+        province: foodDonationTable.province,
+        pickupDate: foodDonationTable.pickupDate,
+        specialInstructions: foodDonationTable.specialInstructions,
+        contactName: foodDonationTable.contactName,
+        contactNumber: foodDonationTable.contactNumber,
+        allergens: foodDonationTable.allergens,
+        storageRequirements: foodDonationTable.storageRequirements,
+        photoUrl: foodDonationTable.photoUrl,
+        status: foodDonationTable.status,
+        createdAt: foodDonationTable.createdAt,
+        charityName: charityTable.charityName, // Join only the charityName
+      })
+      .from(foodDonationTable)
+      .innerJoin(charityTable, eq(foodDonationTable.charityId, charityTable.charityId))
+      .where(eq(foodDonationTable.status, 'PENDING'));
+
+    res.status(200).json(donationRequests);
+  } catch (error) {
+    console.error('Error during getting donation requests:', error);
+  }
+};
+
 export const approveDonation = async (req: Request, res: Response) => {
   const { donationId } = req.params;
   try {
@@ -128,24 +164,24 @@ export const getDonationHistory = async (req: Request, res: Response) => {
   }
 };
 
-export const getCurrentAdminUser = async (req: Request, res: Response): Promise<Response> => {
-  try {
-    const { userId } = req.params;
-    console.log('Received userId:', userId);
+// export const getCurrentAdminUser = async (req: Request, res: Response): Promise<Response> => {
+//   try {
+//     const { userId } = req.params;
+//     console.log('Received userId:', userId);
 
-    const adminUser = await db
-      .select()
-      .from(usersTable)
-      .where(and(eq(usersTable.Id, parseInt(userId)), eq(usersTable.userType, 'ADMIN')));
+//     const adminUser = await db
+//       .select()
+//       .from(usersTable)
+//       .where(and(eq(usersTable.Id, parseInt(userId)), eq(usersTable.userType, 'ADMIN')));
 
-    if (adminUser.length === 0) {
-      return res.status(404).json({ message: 'Admin user not found' });
-    }
+//     if (adminUser.length === 0) {
+//       return res.status(404).json({ message: 'Admin user not found' });
+//     }
 
-    return res.status(200).json(adminUser[0]);
-  } catch (error) {
-    console.log(error);
+//     return res.status(200).json(adminUser[0]);
+//   } catch (error) {
+//     console.log(error);
 
-    return res.status(500).json({ message: 'Error retrieving admin user', error });
-  }
-};
+//     return res.status(500).json({ message: 'Error retrieving admin user', error });
+//   }
+// };

@@ -5,8 +5,8 @@ import { NextFunction, Request, Response } from 'express';
 import {
   restaurantTable,
   foodDonationTable,
-  pickupScheduleTable,
-  donationHistoryTable,
+  //   pickupScheduleTable,
+  //   donationHistoryTable,
   charityTable,
   usersTable,
 } from '../../drizzle/tableSchema';
@@ -15,6 +15,7 @@ import { char } from 'drizzle-orm/pg-core';
 export const addDonationRequest = async (req: Request, res: Response) => {
   const { userId, charityName } = req.params;
   const {
+    restaurantName,
     foodItemName,
     quantity,
     category,
@@ -57,6 +58,7 @@ export const addDonationRequest = async (req: Request, res: Response) => {
     await db.insert(foodDonationTable).values({
       userId: userExists[0].Id,
       charityId: charityExists[0].charityId,
+      restaurantName,
       foodItemName,
       quantity,
       category,
@@ -164,10 +166,13 @@ export const viewDonationRequests = async (req: Request, res: Response) => {
         city: charityTable.city,
         province: charityTable.province,
         contactNumber: charityTable.contactNumber,
+        status: foodDonationTable.status,
       })
       .from(foodDonationTable)
       .innerJoin(charityTable, eq(foodDonationTable.charityId, charityTable.charityId))
-      .where(eq(foodDonationTable.userId, parseInt(userId)));
+      .where(
+        and(eq(foodDonationTable.userId, parseInt(userId)), eq(foodDonationTable.status, 'PENDING'))
+      );
 
     res.status(200).json({ donations });
   } catch (error) {

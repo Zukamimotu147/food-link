@@ -12,7 +12,7 @@ import AddDonation from '@/features/restaurant/AddDonation';
 import ResDonationHistory from '@/features/restaurant/ResDonationHistory';
 import ResOverview from '@/features/restaurant/ResOverview';
 import AddCharity from '@/features/admin/AddCharity';
-import ApprovalDonation from '@/features/admin/ApprovalDonation';
+import ApprovalDonation from '@/features/admin/approval-donation/ApprovalDonation';
 import AdmDonationHistory from '@/features/admin/AdmDonationHistory';
 import CharityTable from '@/features/admin/charity/CharityTable';
 

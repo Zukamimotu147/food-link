@@ -1,5 +1,6 @@
-import CardActiveDonation from './CardActiveDonation';
-import useActiveDonations from '@/hooks/useFetchActiveDonationData';
+import useFetchDonationRequest from '@/hooks/useFetchDonationRequest';
+import CardApprovalDonation from './CardApprovalDonation';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState } from 'react';
 import axios, { isAxiosError } from 'axios';
 import { toast } from 'sonner';
@@ -22,96 +23,77 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-
-import { formatDate, formatDatePickup } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { formatDate, formatDatePickup } from '@/lib/utils';
 
-import UpdateDonation from './activedonation components/UpdateDonation';
-
-type Donation = {
-  foodItem: string;
+type Request = {
+  donationId: number;
+  userId: number;
+  charityId: number;
+  charityName: string;
+  restaurantName: string;
+  foodItemName: string;
   quantity: number;
   category: string;
   description: string;
-  pickupLocation: string;
+  streetAddress: string;
+  barangay: string;
+  city: string;
+  province: string;
   pickupDate: string;
-  specialInstructions?: string;
-  contactPerson: string;
+  specialInstructions: string;
+  contactName: string;
   contactNumber: string;
-  allergen?: string;
-  charityName: string;
-  storageRequirement?: string;
-  foodDonationTable: {
-    foodItemName: string;
-    quantity: number;
-    createdAt: string;
-    category: string;
-    description: string;
-    streetAddress: string;
-    barangay: string;
-    city: string;
-    pickupDate: string;
-    specialInstructions: string;
-    contactName: string;
-    contactNumber: string;
-    allergens: string;
-    storageRequirements: string;
-    donationId: number;
-  };
+  allergens: string;
+  storageRequirements: string;
+  photoUrl: string;
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  createdAt: string;
 };
+const ApprovalDonation = () => {
+  const [selectedDonation, setSelectedDonation] = useState<Request | null>(null);
+  const { loading } = useFetchDonationRequest();
+  if (loading) return <div>Loading...</div>;
 
-const ActiveDonation = () => {
-  const { loading } = useActiveDonations();
-  const [selectedDonation, setSelectedDonation] = useState<Donation | null>(null);
-  const [donationId, setDonationId] = useState<number | null>(null);
-  console.log('Data from selected donation', selectedDonation);
-
-  const deleteDonation = async (donationId: number) => {
+  const approveDonation = async (donationId: number) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/restaurant/deleteDonationRequest/${donationId}`
-      );
-      console.log('Donation Deleted', res.data);
-      toast.success('Donation request deleted successfully');
-
-      window.location.reload();
-      //   console.log('Donation Id send delete', donationId);
+      await axios.put(`http://localhost:3000/api/admin/approveDonation/${donationId}`);
+      toast.success('Donation approved successfully');
     } catch (error) {
-      if (isAxiosError(error) && error.response) {
-        if (error.response.status === 400) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error('An unexpected error occurred. Please try again.');
-        }
-      }
-      console.log(error);
+      console.error(error);
     }
   };
 
-  if (loading) return <div>Loading Active Donations...</div>;
+  const rejectDonation = async (donationId: number) => {
+    try {
+      await axios.put(`http://localhost:3000/api/admin/rejectDonation/${donationId}`);
+      toast.success('Donation rejected successfully');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <CardActiveDonation
-          onClick={(donation: any) => {
-            setSelectedDonation(donation);
-            setDonationId(donation.foodDonationTable.donationId);
+        <CardApprovalDonation
+          onClick={(request: any) => {
+            setSelectedDonation(request);
+            // setDonationId(donation.foodDonationTable.donationId);
           }}
         />
       </div>
 
       <Dialog open={!!selectedDonation} onOpenChange={() => setSelectedDonation(null)}>
-        <DialogContent className="md:max-w-[500px] lg:max-w-[500px]">
+        <DialogContent>
           <DialogHeader>
-            <DialogTitle className="text-center">
-              Created At {formatDate(selectedDonation?.foodDonationTable.createdAt ?? '')}
-            </DialogTitle>
-            <p className="text-center">
-              Recipient:{' '}
+            <DialogTitle className="text-center font-bold">Donation Request</DialogTitle>
+            <DialogDescription className="text-center">
+              Charity Chosen:{' '}
               <span className="text-black text-1xl font-semibold">
                 {selectedDonation?.charityName}
               </span>
-            </p>
+            </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col">
             <h1 className="text-black text-1xl mb-3 font-semibold">Donation Details</h1>
@@ -120,25 +102,25 @@ const ActiveDonation = () => {
                 <div>
                   Food Item:{' '}
                   <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.foodItemName}
+                    {selectedDonation?.restaurantName}
                   </span>
                 </div>
                 <div>
                   Quantity:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.quantity}
+                    {selectedDonation?.foodItemName}
                   </span>
                 </div>
                 <div>
                   Category:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.category}
+                    {selectedDonation?.quantity}
                   </span>
                 </div>
                 <div>
                   Description:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.description}
+                    {selectedDonation?.description}
                   </span>
                 </div>
               </div>
@@ -151,27 +133,20 @@ const ActiveDonation = () => {
                 <div>
                   Pickup Location:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.streetAddress},{' '}
-                    {selectedDonation?.foodDonationTable.barangay},{' '}
-                    {selectedDonation?.foodDonationTable.city},{' '}
+                    {selectedDonation?.streetAddress}, {selectedDonation?.barangay},{' '}
+                    {selectedDonation?.city},{' '}
                   </span>
                 </div>
                 <div>
                   Pickup Date:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {formatDatePickup(selectedDonation?.foodDonationTable.pickupDate ?? '')}
+                    {selectedDonation?.pickupDate}
                   </span>
                 </div>
-                {/* <div>
-                  Category:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.category}
-                  </span>
-                </div> */}
                 <div>
                   Special Instructions:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.specialInstructions}
+                    {selectedDonation?.specialInstructions}
                   </span>
                 </div>
               </div>
@@ -183,14 +158,14 @@ const ActiveDonation = () => {
               <div className="flex flex-col ml-2">
                 <div>
                   Contact Person:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.contactName}
+                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                    {selectedDonation?.contactName}
                   </span>
                 </div>
                 <div>
                   Contact Number:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.contactNumber}
+                    {selectedDonation?.contactNumber}
                   </span>
                 </div>
               </div>
@@ -201,15 +176,15 @@ const ActiveDonation = () => {
             <DialogDescription className="text-black flex flex-col">
               <div className="flex flex-col ml-2">
                 <div>
-                  Allergen:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.allergens}
+                  Allergens:{' '}
+                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                    {selectedDonation?.allergens}
                   </span>
                 </div>
                 <div>
-                  Storage Requirement:{' '}
+                  Storage Requirements:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.storageRequirements}
+                    {selectedDonation?.storageRequirements}
                   </span>
                 </div>
               </div>
@@ -217,25 +192,49 @@ const ActiveDonation = () => {
           </div>
 
           <DialogFooter>
-            <UpdateDonation donationId={donationId!} />
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant={'destructive'}>Delete</Button>
+                <Button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Approve
+                </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete the donation resquest
+                    This action cannot be undone. This will permanently{' '}
+                    <span className="text-green-400 font-semibold">APPROVE</span> the donation
+                    resquest and remove the data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>No</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => approveDonation(selectedDonation?.donationId ?? 0)}>
+                    Yes
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant={'destructive'} className="font-bold px-4 py-2 rounded">
+                  Reject
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently{' '}
+                    <span className="text-red-400 font-semibold">REJECT</span> the donation resquest
                     and remove the data from our servers.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>No</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() =>
-                      deleteDonation(selectedDonation?.foodDonationTable.donationId ?? 0)
-                    }>
+                    onClick={() => rejectDonation(selectedDonation?.donationId ?? 0)}>
                     Yes
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -248,4 +247,4 @@ const ActiveDonation = () => {
   );
 };
 
-export default ActiveDonation;
+export default ApprovalDonation;

@@ -76,6 +76,7 @@ const AddDonation = () => {
       await axios.post(
         `http://localhost:3000/api/restaurant/addDonationRequest/${userId}/${data.charity}`,
         {
+          restaurantName: data.restaurantName,
           foodItemName: data.foodItemName,
           quantity: data.quantity,
           category: data.category,
@@ -113,6 +114,19 @@ const AddDonation = () => {
       <CardWrapper title="Food Donation Request">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="restaurantName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Restaurant Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Restaurant Name..." className="w-full" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="flex justify-between gap-2">
               <FormField
                 control={form.control}
