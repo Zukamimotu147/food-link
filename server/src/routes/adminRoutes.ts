@@ -7,7 +7,8 @@ import {
   getDonationHistory,
   approveDonation,
   rejectDonation,
-  getCurrentAdminUser,
+  getDonationRequests,
+  //   getCurrentAdminUser,
 } from '../controllers/admin/adminController';
 
 const router = Router();
@@ -69,6 +70,14 @@ router.put(
   }
 );
 
+router.get('/getDonationRequest', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await getDonationRequests(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/getDonationHistory', async (req: Request, res: Response, next: NextFunction) => {
   try {
     await getDonationHistory(req, res);
@@ -77,15 +86,15 @@ router.get('/getDonationHistory', async (req: Request, res: Response, next: Next
   }
 });
 
-router.get(
-  '/getCurrentAdminUser/:userId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await getCurrentAdminUser(req, res);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// router.get(
+//   '/getCurrentAdminUser/:userId',
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       await getCurrentAdminUser(req, res);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 export default router;

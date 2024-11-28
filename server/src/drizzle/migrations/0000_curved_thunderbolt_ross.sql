@@ -20,18 +20,11 @@ CREATE TABLE `Contact` (
 	CONSTRAINT `Contact_contactId` PRIMARY KEY(`contactId`)
 );
 --> statement-breakpoint
-CREATE TABLE `DonationHistory` (
-	`historyId` int AUTO_INCREMENT NOT NULL,
-	`scheduleId` int NOT NULL,
-	`completionDate` date NOT NULL,
-	`completionTime` timestamp NOT NULL,
-	CONSTRAINT `DonationHistory_historyId` PRIMARY KEY(`historyId`)
-);
---> statement-breakpoint
 CREATE TABLE `FoodDonation` (
 	`donationId` int AUTO_INCREMENT NOT NULL,
 	`userId` int NOT NULL,
 	`charityId` int NOT NULL,
+	`restaurantName` varchar(255) NOT NULL,
 	`foodItemName` varchar(255) NOT NULL,
 	`quantity` int NOT NULL,
 	`category` varchar(255) NOT NULL,
@@ -50,14 +43,6 @@ CREATE TABLE `FoodDonation` (
 	`donationStatus` enum('PENDING','ACCEPTED','REJECTED') NOT NULL DEFAULT 'PENDING',
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `FoodDonation_donationId` PRIMARY KEY(`donationId`)
-);
---> statement-breakpoint
-CREATE TABLE `PickupSchedule` (
-	`scheduleId` int AUTO_INCREMENT NOT NULL,
-	`donationId` int NOT NULL,
-	`charityId` int NOT NULL,
-	`status` varchar(255) NOT NULL,
-	CONSTRAINT `PickupSchedule_scheduleId` PRIMARY KEY(`scheduleId`)
 );
 --> statement-breakpoint
 CREATE TABLE `Restaurant` (
@@ -85,9 +70,6 @@ CREATE TABLE `Users` (
 );
 --> statement-breakpoint
 ALTER TABLE `Charity` ADD CONSTRAINT `Charity_userId_Users_Id_fk` FOREIGN KEY (`userId`) REFERENCES `Users`(`Id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `DonationHistory` ADD CONSTRAINT `DonationHistory_scheduleId_PickupSchedule_scheduleId_fk` FOREIGN KEY (`scheduleId`) REFERENCES `PickupSchedule`(`scheduleId`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `FoodDonation` ADD CONSTRAINT `FoodDonation_userId_Users_Id_fk` FOREIGN KEY (`userId`) REFERENCES `Users`(`Id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `FoodDonation` ADD CONSTRAINT `FoodDonation_charityId_Charity_charityId_fk` FOREIGN KEY (`charityId`) REFERENCES `Charity`(`charityId`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `PickupSchedule` ADD CONSTRAINT `PickupSchedule_donationId_FoodDonation_donationId_fk` FOREIGN KEY (`donationId`) REFERENCES `FoodDonation`(`donationId`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `PickupSchedule` ADD CONSTRAINT `PickupSchedule_charityId_Charity_charityId_fk` FOREIGN KEY (`charityId`) REFERENCES `Charity`(`charityId`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `Restaurant` ADD CONSTRAINT `Restaurant_userId_Users_Id_fk` FOREIGN KEY (`userId`) REFERENCES `Users`(`Id`) ON DELETE no action ON UPDATE no action;

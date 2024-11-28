@@ -20,7 +20,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
   SheetClose,
 } from '@/components/ui/sheet';
 import {
@@ -39,9 +38,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { FC } from 'react';
 
 type updateDonationField = z.infer<typeof updateDonationSchema>;
-const UpdateDonation = (donationId: number) => {
+
+type UpdateDonationProps = {
+  donationId: number;
+};
+const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
   const { data: Charitydata } = useFetchCharities();
 
   const form = useForm<updateDonationField>({
@@ -410,7 +414,6 @@ const UpdateDonation = (donationId: number) => {
             </form>
           </Form>
         </ScrollArea>
-        <SheetFooter></SheetFooter>
       </SheetContent>
     </Sheet>
   );

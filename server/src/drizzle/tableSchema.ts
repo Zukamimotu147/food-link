@@ -79,6 +79,7 @@ export const foodDonationTable = mysqlTable('FoodDonation', {
   charityId: int()
     .references(() => charityTable.charityId)
     .notNull(),
+  restaurantName: varchar({ length: 255 }).notNull(),
   foodItemName: varchar({ length: 255 }).notNull(),
   quantity: int().notNull(),
   category: varchar({ length: 255 }).notNull(),
@@ -101,26 +102,26 @@ export const foodDonationTable = mysqlTable('FoodDonation', {
 });
 
 // Sa restaurant side og admin side mo gamit  ani
-export const pickupScheduleTable = mysqlTable('PickupSchedule', {
-  scheduleId: int().primaryKey().autoincrement().notNull(),
-  donationId: int()
-    .references(() => foodDonationTable.donationId)
-    .notNull(),
-  charityId: int()
-    .references(() => charityTable.charityId)
-    .notNull(),
-  status: varchar({ length: 255 }).notNull(),
-});
+// export const pickupScheduleTable = mysqlTable('PickupSchedule', {
+//   scheduleId: int().primaryKey().autoincrement().notNull(),
+//   donationId: int()
+//     .references(() => foodDonationTable.donationId)
+//     .notNull(),
+//   charityId: int()
+//     .references(() => charityTable.charityId)
+//     .notNull(),
+//   status: varchar({ length: 255 }).notNull(),
+// });
 
 // Sa restaurant side ni
-export const donationHistoryTable = mysqlTable('DonationHistory', {
-  historyId: int().primaryKey().autoincrement().notNull(),
-  scheduleId: int()
-    .references(() => pickupScheduleTable.scheduleId)
-    .notNull(),
-  completionDate: date().notNull(),
-  completionTime: timestamp().notNull(),
-});
+// export const donationHistoryTable = mysqlTable('DonationHistory', {
+//   historyId: int().primaryKey().autoincrement().notNull(),
+//   scheduleId: int()
+//     .references(() => pickupScheduleTable.scheduleId)
+//     .notNull(),
+//   completionDate: date().notNull(),
+//   completionTime: timestamp().notNull(),
+// });
 
 // RELATIONS
 export const usersRelations = relations(usersTable, ({ many }) => ({

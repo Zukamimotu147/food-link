@@ -23,7 +23,9 @@ const CardActiveDonation: FC<CardActiveDonationProps> = ({ onClick }) => {
           </div>
         ))
       ) : (
-        <p>No donations available</p>
+        <h1 className="flex justify-center items-center">
+          <span>No donations request available</span>
+        </h1>
       )}
     </>
   );

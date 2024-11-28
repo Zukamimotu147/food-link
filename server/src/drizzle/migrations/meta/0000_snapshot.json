@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "3353ff56-3199-4157-ae84-5d0a25a57041",
+  "id": "f6fc244c-5ee9-4bcb-9274-b66a37fd668d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -150,65 +150,6 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
-    "DonationHistory": {
-      "name": "DonationHistory",
-      "columns": {
-        "historyId": {
-          "name": "historyId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "scheduleId": {
-          "name": "scheduleId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "completionDate": {
-          "name": "completionDate",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "completionTime": {
-          "name": "completionTime",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "DonationHistory_scheduleId_PickupSchedule_scheduleId_fk": {
-          "name": "DonationHistory_scheduleId_PickupSchedule_scheduleId_fk",
-          "tableFrom": "DonationHistory",
-          "tableTo": "PickupSchedule",
-          "columnsFrom": [
-            "scheduleId"
-          ],
-          "columnsTo": [
-            "scheduleId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "DonationHistory_historyId": {
-          "name": "DonationHistory_historyId",
-          "columns": [
-            "historyId"
-          ]
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
     "FoodDonation": {
       "name": "FoodDonation",
       "columns": {
@@ -229,6 +170,13 @@
         "charityId": {
           "name": "charityId",
           "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "restaurantName": {
+          "name": "restaurantName",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -389,78 +337,6 @@
           "name": "FoodDonation_donationId",
           "columns": [
             "donationId"
-          ]
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
-    "PickupSchedule": {
-      "name": "PickupSchedule",
-      "columns": {
-        "scheduleId": {
-          "name": "scheduleId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "donationId": {
-          "name": "donationId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "charityId": {
-          "name": "charityId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "status": {
-          "name": "status",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "PickupSchedule_donationId_FoodDonation_donationId_fk": {
-          "name": "PickupSchedule_donationId_FoodDonation_donationId_fk",
-          "tableFrom": "PickupSchedule",
-          "tableTo": "FoodDonation",
-          "columnsFrom": [
-            "donationId"
-          ],
-          "columnsTo": [
-            "donationId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "PickupSchedule_charityId_Charity_charityId_fk": {
-          "name": "PickupSchedule_charityId_Charity_charityId_fk",
-          "tableFrom": "PickupSchedule",
-          "tableTo": "Charity",
-          "columnsFrom": [
-            "charityId"
-          ],
-          "columnsTo": [
-            "charityId"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "PickupSchedule_scheduleId": {
-          "name": "PickupSchedule_scheduleId",
-          "columns": [
-            "scheduleId"
           ]
         }
       },
