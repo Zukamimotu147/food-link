@@ -59,6 +59,7 @@ const ApprovalDonation = () => {
     try {
       await axios.put(`http://localhost:3000/api/admin/approveDonation/${donationId}`);
       toast.success('Donation approved successfully');
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -68,6 +69,7 @@ const ApprovalDonation = () => {
     try {
       await axios.put(`http://localhost:3000/api/admin/rejectDonation/${donationId}`);
       toast.success('Donation rejected successfully');
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -79,7 +81,6 @@ const ApprovalDonation = () => {
         <CardApprovalDonation
           onClick={(request: any) => {
             setSelectedDonation(request);
-            // setDonationId(donation.foodDonationTable.donationId);
           }}
         />
       </div>
@@ -140,7 +141,7 @@ const ApprovalDonation = () => {
                 <div>
                   Pickup Date:{' '}
                   <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.pickupDate}
+                    {formatDatePickup(selectedDonation?.pickupDate ?? '')},
                   </span>
                 </div>
                 <div>
