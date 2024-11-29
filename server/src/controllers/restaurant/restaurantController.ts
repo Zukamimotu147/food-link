@@ -1,6 +1,7 @@
 import { db } from '../../drizzle/database/connection';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, or, sql } from 'drizzle-orm';
 import { NextFunction, Request, Response } from 'express';
+import { cloudinary } from '../../config/cloudinary';
 
 import {
   restaurantTable,
@@ -10,10 +11,10 @@ import {
   charityTable,
   usersTable,
 } from '../../drizzle/tableSchema';
-import { char } from 'drizzle-orm/pg-core';
 
 export const addDonationRequest = async (req: Request, res: Response) => {
   const { userId, charityName } = req.params;
+
   const {
     restaurantName,
     foodItemName,
@@ -31,7 +32,6 @@ export const addDonationRequest = async (req: Request, res: Response) => {
     allergens,
     storageRequirements,
     status,
-    photoUrl,
   } = req.body;
 
   try {
@@ -52,6 +52,21 @@ export const addDonationRequest = async (req: Request, res: Response) => {
 
     if (!charityExists || charityExists.length === 0) {
       return res.status(400).json({ message: 'Charity does not exist' });
+    }
+
+    let photoUrl = '';
+
+    if (req.file) {
+      const file = req.file;
+      const uploadResponse = await cloudinary.v2.uploader.upload(file.path, {
+        folder: 'food-donation/restaurant-donations',
+      });
+
+      if (!uploadResponse || !uploadResponse.secure_url) {
+        return res.status(400).json({ message: 'Photo upload failed, URL is empty' });
+      }
+
+      photoUrl = uploadResponse.secure_url;
     }
 
     // Insert the donation request
@@ -177,6 +192,50 @@ export const viewDonationRequests = async (req: Request, res: Response) => {
     res.status(200).json({ donations });
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving donation requests', error });
+  }
+};
+
+export const viewResDonationHistory = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const resDonationHistory = await db
+      .select({
+        donationId: foodDonationTable.donationId,
+        restaurantName: foodDonationTable.restaurantName,
+        foodItemName: foodDonationTable.foodItemName,
+        quantity: foodDonationTable.quantity,
+        category: foodDonationTable.category,
+        description: foodDonationTable.description,
+        address:
+          sql`CONCAT(${foodDonationTable.streetAddress}, ', ', ${foodDonationTable.barangay}, ', ', ${foodDonationTable.city})`.as(
+            'address'
+          ),
+        // streetAddress: foodDonationTable.streetAddress,
+        // barangay: foodDonationTable.barangay,
+        // city: foodDonationTable.city,
+        // province: foodDonationTable.province,
+        pickupDate: foodDonationTable.pickupDate,
+        specialInstructions: foodDonationTable.specialInstructions,
+        contactName: foodDonationTable.contactName,
+        contactNumber: foodDonationTable.contactNumber,
+        allergens: foodDonationTable.allergens,
+        storageRequirements: foodDonationTable.storageRequirements,
+        status: foodDonationTable.status,
+        charityName: charityTable.charityName,
+      })
+      .from(foodDonationTable)
+      .innerJoin(charityTable, eq(foodDonationTable.charityId, charityTable.charityId))
+      .where(
+        and(
+          eq(foodDonationTable.userId, parseInt(userId)),
+          or(eq(foodDonationTable.status, 'ACCEPTED'), eq(foodDonationTable.status, 'REJECTED'))
+        )
+      );
+
+    res.status(200).json({ resDonationHistory });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving Restaurantdonation history', error });
   }
 };
 

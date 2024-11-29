@@ -20,6 +20,7 @@ import CardWrapper from './components/CardWrapper';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { LoaderCircle } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -29,6 +30,7 @@ import axios from 'axios';
 import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 import { jwtDecode } from 'jwt-decode';
+import { useState } from 'react';
 import useFetchCharities from '@/hooks/useFetchCharities';
 
 type AddDonationFields = z.infer<typeof addDonationSchema>;
@@ -40,6 +42,8 @@ type DecodedToken = {
 };
 
 const AddDonation = () => {
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
   const form = useForm<AddDonationFields>({
     defaultValues: {
       foodItemName: '',
@@ -69,30 +73,46 @@ const AddDonation = () => {
   const decodedToken: DecodedToken | null = token ? jwtDecode(token) : null;
 
   const userId = decodedToken?.userId;
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImgFile(file);
+    }
+  };
   const handleSubmit = async (data: AddDonationFields) => {
     const formattedPickupDate = format(data.pickupDate, 'yyyy-MM-dd');
+    const formData = new FormData();
 
+    formData.append('restaurantName', data.restaurantName);
+    formData.append('foodItemName', data.foodItemName);
+    formData.append('quantity', data.quantity.toString());
+    formData.append('category', data.category);
+    formData.append('description', data.description);
+    formData.append('streetAddress', data.streetAddress);
+    formData.append('barangay', data.barangay);
+    formData.append('city', data.city);
+    formData.append('province', data.province);
+    formData.append('pickupDate', formattedPickupDate);
+    formData.append('specialInstructions', data.specialInstructions);
+    formData.append('contactName', data.contactName);
+    formData.append('contactNumber', data.contactNumber);
+    formData.append('allergens', data.allergens);
+    formData.append('storageRequirements', data.storageRequirements);
+    formData.append('charity', data.charity);
+    if (imgFile) {
+      formData.append('photoUrl', imgFile);
+    }
+
+    setLoading(true);
     try {
       await axios.post(
         `http://localhost:3000/api/restaurant/addDonationRequest/${userId}/${data.charity}`,
+        formData,
         {
-          restaurantName: data.restaurantName,
-          foodItemName: data.foodItemName,
-          quantity: data.quantity,
-          category: data.category,
-          description: data.description,
-          streetAddress: data.streetAddress,
-          barangay: data.barangay,
-          city: data.city,
-          province: data.province,
-          pickupDate: formattedPickupDate,
-          specialInstructions: data.specialInstructions,
-          contactName: data.contactName,
-          contactNumber: data.contactNumber,
-          allergens: data.allergens,
-          storageRequirements: data.storageRequirements,
-          photoUrl: data.photoUrl,
-          charity: data.charity,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
       );
       toast.success('Donation request submitted successfully');
@@ -106,6 +126,8 @@ const AddDonation = () => {
       } else {
         toast.error('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -414,7 +436,15 @@ const AddDonation = () => {
                 <FormItem>
                   <FormLabel className="text-black">Upload Photos</FormLabel>
                   <FormControl>
-                    <Input placeholder="Upload Photos..." {...field} type="file" />
+                    <Input
+                      placeholder="Upload Photos..."
+                      {...field}
+                      type="file"
+                      onChange={(e) => {
+                        handleFileChange(e);
+                        field.onChange(e);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -423,9 +453,9 @@ const AddDonation = () => {
 
             <Button
               type="submit"
-              disabled={Charitydata?.length === 0}
+              disabled={loading || Charitydata?.length === 0}
               className="w-full bg-customGreen hover:bg-customGreen/80">
-              Submit
+              {loading ? <LoaderCircle className="animate-spin" /> : 'Submit'}
             </Button>
           </form>
         </Form>

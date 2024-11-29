@@ -57,6 +57,7 @@ type Donation = {
     allergens: string;
     storageRequirements: string;
     donationId: number;
+    photoUrl: string;
   };
 };
 
@@ -101,7 +102,7 @@ const ActiveDonation = () => {
       </div>
 
       <Dialog open={!!selectedDonation} onOpenChange={() => setSelectedDonation(null)}>
-        <DialogContent className="md:max-w-[500px] lg:max-w-[500px]">
+        <DialogContent className="max-w-[300px] sm:max-w-[500px] lg:max-w-[600px]">
           <DialogHeader>
             <DialogTitle className="text-center">
               Created At {formatDate(selectedDonation?.foodDonationTable.createdAt ?? '')}
@@ -113,107 +114,121 @@ const ActiveDonation = () => {
               </span>
             </p>
           </DialogHeader>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Donation Details</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Food Item:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.foodItemName}
-                  </span>
+          <div className="flex flex-col sm:flex-row sm:space-x-4">
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Donation Details</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Food Item:{' '}
+                    <span className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.foodItemName}
+                    </span>
+                  </div>
+                  <div>
+                    Quantity:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.quantity}
+                    </span>
+                  </div>
+                  <div>
+                    Category:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.category}
+                    </span>
+                  </div>
+                  <div>
+                    Description:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.description}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Quantity:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.quantity}
-                  </span>
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Pickup Information</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Pickup Location:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.streetAddress},{' '}
+                      {selectedDonation?.foodDonationTable.barangay},{' '}
+                      {selectedDonation?.foodDonationTable.city},{' '}
+                    </span>
+                  </div>
+                  <div>
+                    Pickup Date:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {formatDatePickup(selectedDonation?.foodDonationTable.pickupDate ?? '')}
+                    </span>
+                  </div>
+                  {/* <div>
+                    Category:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.category}
+                    </span>
+                  </div> */}
+                  <div>
+                    Special Instructions:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.specialInstructions}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Category:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.category}
-                  </span>
-                </div>
-                <div>
-                  Description:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.description}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
+              </DialogDescription>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Pickup Information</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Pickup Location:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.streetAddress},{' '}
-                    {selectedDonation?.foodDonationTable.barangay},{' '}
-                    {selectedDonation?.foodDonationTable.city},{' '}
-                  </span>
+          <div className="flex flex-col sm:flex-row sm:space-x-4">
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Contact Details</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Contact Person:{' '}
+                    <span className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.contactName}
+                    </span>
+                  </div>
+                  <div>
+                    Contact Number:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.contactNumber}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Pickup Date:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {formatDatePickup(selectedDonation?.foodDonationTable.pickupDate ?? '')}
-                  </span>
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Additional Information</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Allergen:{' '}
+                    <span className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.allergens}
+                    </span>
+                  </div>
+                  <div>
+                    Storage Requirement:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodDonationTable.storageRequirements}
+                    </span>
+                  </div>
                 </div>
-                {/* <div>
-                  Category:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.category}
-                  </span>
-                </div> */}
-                <div>
-                  Special Instructions:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.specialInstructions}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
+              </DialogDescription>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Contact Details</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Contact Person:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.contactName}
-                  </span>
-                </div>
-                <div>
-                  Contact Number:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.contactNumber}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Additional Information</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Allergen:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.allergens}
-                  </span>
-                </div>
-                <div>
-                  Storage Requirement:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodDonationTable.storageRequirements}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
+          <div className="flex justify-center items-center m-auto">
+            <div className="text-center">
+              Image:{' '}
+              <img
+                src={selectedDonation?.foodDonationTable.photoUrl}
+                alt="Donation request Image"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            </div>
           </div>
 
           <DialogFooter>

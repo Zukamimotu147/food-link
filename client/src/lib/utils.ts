@@ -19,12 +19,6 @@ export const formatDate = (dateString: string) => {
   return `${formatteddate} ${time}`;
 };
 
-// export const formatDatePickup = (dateString: string) => {
-//   const date = dateString ? new Date(dateString) : new Date();
-//   const formatteddate = date.toISOString().split('T')[0];
-
-//   return `${formatteddate}`;
-// };
 export const formatDatePickup = (dateString: string) => {
   const date = dateString ? new Date(dateString) : new Date();
   const monthName = date.toLocaleString('default', { month: 'long' });

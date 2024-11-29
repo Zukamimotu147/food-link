@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { db } from '../../drizzle/database/connection';
 import { charityTable, foodDonationTable, usersTable } from '../../drizzle/tableSchema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 
 export const addCharity = async (req: Request, res: Response) => {
   const { charityName, streetAddress, barangay, city, province, contactNumber, email } = req.body;
@@ -157,7 +157,33 @@ export const rejectDonation = async (req: Request, res: Response) => {
 
 export const getDonationHistory = async (req: Request, res: Response) => {
   try {
-    const donations = await db.select().from(foodDonationTable);
+    const donations = await db
+      .select({
+        donationId: foodDonationTable.donationId,
+        userId: foodDonationTable.userId,
+        restaurantName: foodDonationTable.restaurantName,
+        foodItemName: foodDonationTable.foodItemName,
+        quantity: foodDonationTable.quantity,
+        category: foodDonationTable.category,
+        description: foodDonationTable.description,
+        address:
+          sql`CONCAT(${foodDonationTable.streetAddress}, ', ', ${foodDonationTable.barangay}, ', ', ${foodDonationTable.city})`.as(
+            'address'
+          ),
+        pickupDate: foodDonationTable.pickupDate,
+        specialInstructions: foodDonationTable.specialInstructions,
+        contactName: foodDonationTable.contactName,
+        contactNumber: foodDonationTable.contactNumber,
+        allergens: foodDonationTable.allergens,
+        storageRequirements: foodDonationTable.storageRequirements,
+        photoUrl: foodDonationTable.photoUrl,
+        status: foodDonationTable.status,
+        createdAt: foodDonationTable.createdAt,
+      })
+      .from(foodDonationTable)
+      .where(
+        and(eq(foodDonationTable.status, 'ACCEPTED'), eq(foodDonationTable.status, 'REJECTED'))
+      );
     res.status(200).json(donations);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving donation history', error });

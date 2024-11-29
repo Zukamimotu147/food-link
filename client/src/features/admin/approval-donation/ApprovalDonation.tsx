@@ -1,6 +1,5 @@
 import useFetchDonationRequest from '@/hooks/useFetchDonationRequest';
 import CardApprovalDonation from './CardApprovalDonation';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState } from 'react';
 import axios, { isAxiosError } from 'axios';
 import { toast } from 'sonner';
@@ -24,7 +23,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { formatDate, formatDatePickup } from '@/lib/utils';
+import { formatDatePickup } from '@/lib/utils';
 
 type Request = {
   donationId: number;
@@ -190,6 +189,16 @@ const ApprovalDonation = () => {
                 </div>
               </div>
             </DialogDescription>
+          </div>
+          <div className="flex justify-center items-center m-auto">
+            <div className="text-center">
+              Image:{' '}
+              <img
+                src={selectedDonation?.photoUrl}
+                alt="Donation request Image"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            </div>
           </div>
 
           <DialogFooter>
