@@ -5,12 +5,15 @@ import {
   updateDonationRequest,
   viewDonationRequests,
   editRestaurantProfile,
+  viewResDonationHistory,
 } from '../controllers/restaurant/restaurantController';
+import { upload } from '../middleware/multer';
 
 const router = Router();
 
 router.post(
   '/addDonationRequest/:userId/:charityName',
+  upload.single('photoUrl'),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await addDonationRequest(req, res);
@@ -52,6 +55,14 @@ router.get(
     }
   }
 );
+
+router.get('/viewResDonationHistory/:userId', async (req: Request, res: Response) => {
+  try {
+    await viewResDonationHistory(req, res);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.put(
   '/editRestaurantProfile/:restaurantId',

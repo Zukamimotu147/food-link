@@ -9,7 +9,7 @@ import ResDashboard from './restaurant/ResDashboard';
 import AdminDashboard from './admin/AdminDashboard';
 import ActiveDonation from '@/features/restaurant/active donation/ActiveDonation';
 import AddDonation from '@/features/restaurant/AddDonation';
-import ResDonationHistory from '@/features/restaurant/ResDonationHistory';
+import ResDonationHistory from '@/features/restaurant/res-donation-history/ResDonationHistory';
 import ResOverview from '@/features/restaurant/ResOverview';
 import AddCharity from '@/features/admin/AddCharity';
 import ApprovalDonation from '@/features/admin/approval-donation/ApprovalDonation';
