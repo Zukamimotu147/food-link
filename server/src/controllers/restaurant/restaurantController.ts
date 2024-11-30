@@ -69,7 +69,6 @@ export const addDonationRequest = async (req: Request, res: Response) => {
       photoUrl = uploadResponse.secure_url;
     }
 
-    // Insert the donation request
     await db.insert(foodDonationTable).values({
       userId: userExists[0].Id,
       charityId: charityExists[0].charityId,
@@ -211,10 +210,6 @@ export const viewResDonationHistory = async (req: Request, res: Response) => {
           sql`CONCAT(${foodDonationTable.streetAddress}, ', ', ${foodDonationTable.barangay}, ', ', ${foodDonationTable.city})`.as(
             'address'
           ),
-        // streetAddress: foodDonationTable.streetAddress,
-        // barangay: foodDonationTable.barangay,
-        // city: foodDonationTable.city,
-        // province: foodDonationTable.province,
         pickupDate: foodDonationTable.pickupDate,
         specialInstructions: foodDonationTable.specialInstructions,
         contactName: foodDonationTable.contactName,
@@ -239,6 +234,79 @@ export const viewResDonationHistory = async (req: Request, res: Response) => {
   }
 };
 
+//RESTAURANT OVERVIEW
+export const viewDonationStatusSummary = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const donationStatusSummary = await db
+      .select({
+        status: foodDonationTable.status,
+        count: sql<number>`COUNT(*)`.as('count'),
+      })
+      .from(foodDonationTable)
+      .where(
+        and(
+          eq(foodDonationTable.userId, parseInt(userId)),
+          or(eq(foodDonationTable.status, 'ACCEPTED'), eq(foodDonationTable.status, 'REJECTED'))
+        )
+      )
+      .groupBy(foodDonationTable.status);
+
+    res.status(200).json({ count: donationStatusSummary.length });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error retrieving donation status summary',
+      error,
+    });
+  }
+};
+
+export const viewTotalUsers = async (req: Request, res: Response) => {
+  try {
+    const totalUsers = await db
+      .select({
+        count: sql<number>`COUNT(*)`.as('count'),
+      })
+      .from(usersTable)
+      .where(eq(usersTable.userType, 'RESTAURANT'));
+
+    res.status(200).json({ totalUsers });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving total users', error });
+  }
+};
+
+export const viewTotalCharities = async (req: Request, res: Response) => {
+  try {
+    const totalCharities = await db
+      .select({
+        count: sql<number>`COUNT(*)`.as('count'),
+      })
+      .from(charityTable);
+
+    res.status(200).json({ totalCharities });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving total charities', error });
+  }
+};
+
+export const viewTotalDonations = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  try {
+    const totalDonations = await db
+      .select({
+        count: sql<number>`COUNT(*)`.as('count'),
+      })
+      .from(foodDonationTable)
+      .where(eq(foodDonationTable.userId, parseInt(userId)));
+
+    res.status(200).json({ totalDonations });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving total donations', error });
+  }
+};
+
 // export const getCurrentRestaurantUser = async (req: Request, res: Response) => {
 //   try {
 //     const { userId } = req.params;
@@ -257,25 +325,25 @@ export const viewResDonationHistory = async (req: Request, res: Response) => {
 //   }
 // };
 
-export const editRestaurantProfile = async (req: Request, res: Response) => {
-  const { restaurantId } = req.params;
-  const { restaurantName, streetAddress, barangay, city, province, contactNumber } = req.body;
+// export const editRestaurantProfile = async (req: Request, res: Response) => {
+//   const { restaurantId } = req.params;
+//   const { restaurantName, streetAddress, barangay, city, province, contactNumber } = req.body;
 
-  try {
-    await db
-      .update(restaurantTable)
-      .set({
-        restaurantName,
-        streetAddress,
-        barangay,
-        city,
-        province,
-        contactNumber,
-      })
-      .where(eq(restaurantTable.restaurantId, parseInt(restaurantId)));
+//   try {
+//     await db
+//       .update(restaurantTable)
+//       .set({
+//         restaurantName,
+//         streetAddress,
+//         barangay,
+//         city,
+//         province,
+//         contactNumber,
+//       })
+//       .where(eq(restaurantTable.restaurantId, parseInt(restaurantId)));
 
-    res.status(200).json({ message: 'Restaurant profile updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating restaurant profile', error });
-  }
-};
+//     res.status(200).json({ message: 'Restaurant profile updated successfully' });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error updating restaurant profile', error });
+//   }
+// };

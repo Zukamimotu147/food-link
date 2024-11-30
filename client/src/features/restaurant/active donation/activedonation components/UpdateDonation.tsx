@@ -408,7 +408,7 @@ const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
 
               <SheetClose asChild>
                 <Button type="submit" disabled={Charitydata?.length === 0} className="w-full">
-                  Update
+                  Save Changes
                 </Button>
               </SheetClose>
             </form>

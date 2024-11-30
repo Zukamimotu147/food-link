@@ -10,10 +10,10 @@ import AdminDashboard from './admin/AdminDashboard';
 import ActiveDonation from '@/features/restaurant/active donation/ActiveDonation';
 import AddDonation from '@/features/restaurant/AddDonation';
 import ResDonationHistory from '@/features/restaurant/res-donation-history/ResDonationHistory';
-import ResOverview from '@/features/restaurant/ResOverview';
+import ResOverview from '@/features/restaurant/res-overview/ResOverview';
 import AddCharity from '@/features/admin/AddCharity';
 import ApprovalDonation from '@/features/admin/approval-donation/ApprovalDonation';
-import AdmDonationHistory from '@/features/admin/AdmDonationHistory';
+import AdmDonationHistory from '@/features/admin/admin-donation-history/AdmDonationHistory';
 import CharityTable from '@/features/admin/charity/CharityTable';
 
 export {
