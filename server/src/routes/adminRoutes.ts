@@ -4,7 +4,7 @@ import {
   deleteCharity,
   updateCharity,
   getCharities,
-  getDonationHistory,
+  getAdminDonationHistory,
   approveDonation,
   rejectDonation,
   getDonationRequests,
@@ -78,9 +78,9 @@ router.get('/getDonationRequest', async (req: Request, res: Response, next: Next
   }
 });
 
-router.get('/getDonationHistory', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/getAdminDonationHistory', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await getDonationHistory(req, res);
+    await getAdminDonationHistory(req, res);
   } catch (error) {
     next(error);
   }

@@ -155,7 +155,7 @@ export const rejectDonation = async (req: Request, res: Response) => {
   }
 };
 
-export const getDonationHistory = async (req: Request, res: Response) => {
+export const getAdminDonationHistory = async (req: Request, res: Response) => {
   try {
     const donations = await db
       .select({
@@ -180,10 +180,10 @@ export const getDonationHistory = async (req: Request, res: Response) => {
         status: foodDonationTable.status,
         createdAt: foodDonationTable.createdAt,
       })
-      .from(foodDonationTable)
-      .where(
-        and(eq(foodDonationTable.status, 'ACCEPTED'), eq(foodDonationTable.status, 'REJECTED'))
-      );
+      .from(foodDonationTable);
+    //   .where(
+    //     and(eq(foodDonationTable.status, 'ACCEPTED'), eq(foodDonationTable.status, 'REJECTED'))
+    //   );
     res.status(200).json(donations);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving donation history', error });

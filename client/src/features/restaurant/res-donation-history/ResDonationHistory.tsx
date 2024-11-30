@@ -26,7 +26,7 @@ const ResDonationHistory = () => {
         console.log('Res Donation History Data', res.data.resDonationHistory);
         setData(res.data.resDonationHistory);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching res donation history:', error);
       }
     };
     getResDonationHistory();

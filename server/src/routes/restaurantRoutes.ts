@@ -4,8 +4,12 @@ import {
   deleteDonationRequest,
   updateDonationRequest,
   viewDonationRequests,
-  editRestaurantProfile,
+  //   editRestaurantProfile,
   viewResDonationHistory,
+  viewDonationStatusSummary,
+  viewTotalUsers,
+  viewTotalCharities,
+  viewTotalDonations,
 } from '../controllers/restaurant/restaurantController';
 import { upload } from '../middleware/multer';
 
@@ -64,16 +68,55 @@ router.get('/viewResDonationHistory/:userId', async (req: Request, res: Response
   }
 });
 
-router.put(
-  '/editRestaurantProfile/:restaurantId',
+// RESTAURANT OVERVIEW
+router.get('/viewTotalUsers', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await viewTotalUsers(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/viewTotalCharities', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await viewTotalCharities(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get(
+  '/viewTotalDonations/:userId',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await editRestaurantProfile(req, res);
+      await viewTotalDonations(req, res);
     } catch (error) {
       next(error);
     }
   }
 );
+
+router.get(
+  '/viewDonationStatusSummary/:userId',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await viewDonationStatusSummary(req, res);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// router.put(
+//   '/editRestaurantProfile/:restaurantId',
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       await editRestaurantProfile(req, res);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 // router.get(
 //   '/getCurrentRestaurantUser/:userId',
