@@ -227,6 +227,7 @@ const ActiveDonation = () => {
                 src={selectedDonation?.foodDonationTable.photoUrl}
                 alt="Donation request Image"
                 style={{ width: 'auto', height: '400px' }}
+                className="object-cover"
               />
             </div>
           </div>

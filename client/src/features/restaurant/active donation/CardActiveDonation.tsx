@@ -2,6 +2,7 @@ import { FC } from 'react';
 import CardWrapper from './activedonation components/CardWrapper';
 import { ActiveDonationData } from '../types/donationTypes';
 import useActiveDonations from '@/hooks/useFetchActiveDonationData';
+import NoDonationReqAvail from './activedonation components/NoDonationReqAvail';
 
 interface CardActiveDonationProps {
   onClick: (donate: ActiveDonationData) => void;
@@ -23,9 +24,10 @@ const CardActiveDonation: FC<CardActiveDonationProps> = ({ onClick }) => {
           </div>
         ))
       ) : (
-        <h1 className="flex justify-center items-center">
-          <span>No donations request available</span>
-        </h1>
+        // <h1 className="flex justify-center items-center">
+        //   <span>No donations request available</span>
+        // </h1>
+        <NoDonationReqAvail />
       )}
     </>
   );

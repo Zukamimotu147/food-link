@@ -11,7 +11,6 @@ export const usersTable = mysqlTable('Users', {
   userType: mysqlEnum('userRole', ['ADMIN', 'RESTAURANT']).default('RESTAURANT').notNull(),
 });
 
-// ambot unsaon ni
 export const contactTable = mysqlTable('Contact', {
   contactId: int().primaryKey().autoincrement().notNull(),
   firstname: varchar({ length: 255 }).notNull(),
@@ -57,6 +56,7 @@ export const charityTable = mysqlTable('Charity', {
   province: varchar({ length: 255 }).notNull(),
   contactNumber: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull(),
+  charityPhotoUrl: varchar({ length: 255 }).notNull(),
 });
 
 // export const pickupLocationTable = mysqlTable('PickupLocation', {

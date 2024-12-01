@@ -1,16 +1,22 @@
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbLink,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from '@/components/ui/breadcrumb';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { Separator } from '@/components/ui/separator';
 import ResSidebar from '@/features/restaurant/components/ResSidebar';
 import { Outlet } from 'react-router-dom';
+
+gsap.registerPlugin(useGSAP);
+
 const ResDashboard = () => {
+  useGSAP(() => {
+    gsap.to('.contentText', {
+      duration: 2,
+      repeat: -1,
+      repeatDelay: 1,
+      yoyo: true,
+      text: 'Welcome to Food Link Dashboard',
+    });
+  });
   return (
     <main>
       <SidebarProvider>
@@ -20,17 +26,7 @@ const ResDashboard = () => {
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
-              {/* <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb> */}
+              <h1 className="contentText text-customGreen font-semibold"></h1>
             </div>
           </header>
           <div className="">

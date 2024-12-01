@@ -15,6 +15,7 @@ import AddCharity from '@/features/admin/AddCharity';
 import ApprovalDonation from '@/features/admin/approval-donation/ApprovalDonation';
 import AdmDonationHistory from '@/features/admin/admin-donation-history/AdmDonationHistory';
 import CharityTable from '@/features/admin/charity/CharityTable';
+import CharityView from '@/features/restaurant/charity-view/CharityView';
 
 export {
   Home,
@@ -34,4 +35,5 @@ export {
   ApprovalDonation,
   AdmDonationHistory,
   CharityTable,
+  CharityView,
 };

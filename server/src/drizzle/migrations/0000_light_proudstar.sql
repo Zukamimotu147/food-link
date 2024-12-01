@@ -8,6 +8,7 @@ CREATE TABLE `Charity` (
 	`province` varchar(255) NOT NULL,
 	`contactNumber` varchar(255) NOT NULL,
 	`email` varchar(255) NOT NULL,
+	`charityPhotoUrl` varchar(255) NOT NULL,
 	CONSTRAINT `Charity_charityId` PRIMARY KEY(`charityId`)
 );
 --> statement-breakpoint

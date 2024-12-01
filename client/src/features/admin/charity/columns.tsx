@@ -9,6 +9,7 @@ export type CharityInfo = {
   province: string;
   contactNumber: string;
   email: string;
+  charityPhotoUrl?: string;
 };
 
 export const columns: ColumnDef<CharityInfo>[] = [

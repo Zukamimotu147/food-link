@@ -12,4 +12,5 @@ export const addCharitySchema = z.object({
     .regex(/^\d{11}$/, { message: 'Invalid contact number' })
     .min(1, { message: 'Contact number is required' }),
   email: z.string().email({ message: 'Invalid email address' }),
+  charityPhotoUrl: z.string().url({ message: 'Charity photo URL must be a valid URL' }),
 });
