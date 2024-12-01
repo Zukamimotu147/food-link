@@ -91,7 +91,7 @@ const ActiveDonation = () => {
 
   if (loading) return <div>Loading Active Donations...</div>;
   return (
-    <>
+    <main className="container m-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <CardActiveDonation
           onClick={(donation: any) => {
@@ -226,7 +226,7 @@ const ActiveDonation = () => {
               <img
                 src={selectedDonation?.foodDonationTable.photoUrl}
                 alt="Donation request Image"
-                style={{ width: '100%', height: 'auto' }}
+                style={{ width: 'auto', height: '400px' }}
               />
             </div>
           </div>
@@ -259,7 +259,7 @@ const ActiveDonation = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </main>
   );
 };
 

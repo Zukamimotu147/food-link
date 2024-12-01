@@ -9,8 +9,19 @@ type DecodedToken = {
   password?: string;
 };
 
+type TotalDonationStatus = {
+  status: string;
+  count: number;
+};
+
+type ChartData = {
+  name: string;
+  value: number;
+  fill: string;
+};
+
 const useFetchTotalDonationStatus = () => {
-  const [totalDonationStatus, setTotalDonationStatus] = useState('');
+  const [chartData, setChartData] = useState<ChartData[]>([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
   const decodedToken: DecodedToken | null = token ? jwtDecode(token) : null;
@@ -23,9 +34,17 @@ const useFetchTotalDonationStatus = () => {
           throw new Error('User ID is missing.');
         }
         const res = await axios.get(
-          `http://localhost:3000/api/restaurant/viewTotalDonationStatus/${userId}`
+          `http://localhost:3000/api/restaurant/viewDonationStatusSummary/${userId}`
         );
-        setTotalDonationStatus(res.data.totalDonationStatus);
+
+        const formattedData = res.data.donationStatusSummary.map((item: TotalDonationStatus) => ({
+          status: item.status,
+          count: item.count,
+          fill: item.status === 'ACCEPTED' ? '#008000' : '#FF4141',
+        }));
+
+        console.log('Total Donation Status Data', res.data.donationStatusSummary);
+        setChartData(formattedData);
       } catch (error) {
         console.error('Error fetching total donation status:', error);
       } finally {
@@ -35,7 +54,7 @@ const useFetchTotalDonationStatus = () => {
     fetchTotalDonationStatus();
   }, [userId]);
 
-  return { totalDonationStatus, loading };
+  return { chartData, loading };
 };
 
 export default useFetchTotalDonationStatus;
