@@ -1,7 +1,7 @@
 import useFetchDonationRequest from '@/hooks/useFetchDonationRequest';
 import CardApprovalDonation from './CardApprovalDonation';
 import { useState } from 'react';
-import axios, { isAxiosError } from 'axios';
+import axios from 'axios';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -207,6 +207,7 @@ const ApprovalDonation = () => {
                 src={selectedDonation?.photoUrl}
                 alt="Donation request Image"
                 style={{ width: 'auto', height: '400px' }}
+                className="object-cover"
               />
             </div>
           </div>

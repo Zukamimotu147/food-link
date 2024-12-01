@@ -16,9 +16,13 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
 
 type CharityFields = z.infer<typeof addCharitySchema>;
 const AddCharity = () => {
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const form = useForm<CharityFields>({
     defaultValues: {
@@ -29,13 +33,37 @@ const AddCharity = () => {
       province: '',
       contactNumber: '',
       email: '',
+      charityPhotoUrl: '',
     },
     resolver: zodResolver(addCharitySchema),
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImgFile(file);
+    }
+  };
+
   const addCharity = async (data: CharityFields) => {
+    const formData = new FormData();
+    formData.append('charityName', data.charityName);
+    formData.append('streetAddress', data.streetAddress);
+    formData.append('barangay', data.barangay);
+    formData.append('city', data.city);
+    formData.append('province', data.province);
+    formData.append('contactNumber', data.contactNumber);
+    formData.append('email', data.email);
+    if (imgFile) {
+      formData.append('charityPhotoUrl', imgFile);
+    }
+    setLoading(true);
     try {
-      await axios.post('http://localhost:3000/api/admin/addCharity', data);
+      await axios.post('http://localhost:3000/api/admin/addCharity', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       navigate('/dashboard/admin/charities');
       toast.success('Charity added successfully');
     } catch (error) {
@@ -48,6 +76,8 @@ const AddCharity = () => {
       } else {
         toast.error('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -156,9 +186,33 @@ const AddCharity = () => {
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name="charityPhotoUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Upload Photos</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Upload Photos..."
+                      {...field}
+                      type="file"
+                      onChange={(e) => {
+                        handleFileChange(e);
+                        field.onChange(e);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <Button type="submit" className="w-full bg-customGreen hover:bg-customGreen/80">
-              Submit
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-customGreen hover:bg-customGreen/80">
+              {loading ? <LoaderCircle className="animate-spin" /> : 'Submit'}
             </Button>
           </form>
         </Form>

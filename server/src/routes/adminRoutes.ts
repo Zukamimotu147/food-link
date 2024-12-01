@@ -10,16 +10,21 @@ import {
   getDonationRequests,
   //   getCurrentAdminUser,
 } from '../controllers/admin/adminController';
+import { upload } from '../middleware/multer';
 
 const router = Router();
 
-router.post('/addCharity', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    await addCharity(req, res);
-  } catch (error) {
-    next(error);
+router.post(
+  '/addCharity',
+  upload.single('charityPhotoUrl'),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await addCharity(req, res);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.delete(
   '/deleteCharity/:charityId',

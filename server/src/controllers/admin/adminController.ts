@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { db } from '../../drizzle/database/connection';
 import { charityTable, foodDonationTable, usersTable } from '../../drizzle/tableSchema';
 import { eq, and, sql } from 'drizzle-orm';
+import { cloudinary } from '../../config/cloudinary';
 
 export const addCharity = async (req: Request, res: Response) => {
   const { charityName, streetAddress, barangay, city, province, contactNumber, email } = req.body;
@@ -25,6 +26,21 @@ export const addCharity = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Charity already exists' });
     }
 
+    let charityPhotoUrl = '';
+
+    if (req.file) {
+      const file = req.file;
+      const uploadResponse = await cloudinary.v2.uploader.upload(file.path, {
+        folder: 'food-donation/charity',
+      });
+
+      if (!uploadResponse || !uploadResponse.secure_url) {
+        return res.status(400).json({ message: 'Photo upload failed, URL is empty' });
+      }
+
+      charityPhotoUrl = uploadResponse.secure_url;
+    }
+
     await db.insert(charityTable).values({
       userId: adminUserExist[0].Id,
       charityName,
@@ -34,6 +50,7 @@ export const addCharity = async (req: Request, res: Response) => {
       province,
       contactNumber,
       email,
+      charityPhotoUrl,
     });
 
     // io.emit('addCharity', addCharity);

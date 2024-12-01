@@ -18,6 +18,7 @@ import {
   AdmDonationHistory,
   ApprovalDonation,
   CharityTable,
+  CharityView,
 } from './pages/Pages';
 import ProtectedRoute from './components/protectedRoutes/ProtectedRoutes';
 
@@ -86,6 +87,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/restaurant/res-overview',
         element: <ResOverview />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/dashboard/restaurant/charity-view',
+        element: <CharityView />,
         errorElement: <Error />,
       },
     ],
