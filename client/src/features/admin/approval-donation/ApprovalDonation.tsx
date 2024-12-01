@@ -85,7 +85,7 @@ const ApprovalDonation = () => {
       </div>
 
       <Dialog open={!!selectedDonation} onOpenChange={() => setSelectedDonation(null)}>
-        <DialogContent>
+        <DialogContent className="max-w-[300px] sm:max-w-[500px] lg:max-w-[600px]">
           <DialogHeader>
             <DialogTitle className="text-center font-bold">Donation Request</DialogTitle>
             <DialogDescription className="text-center">
@@ -95,100 +95,110 @@ const ApprovalDonation = () => {
               </span>
             </DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Donation Details</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Food Item:{' '}
-                  <span className="text-black font-semibold">
-                    {selectedDonation?.restaurantName}
-                  </span>
+          <div className="flex flex-col sm:flex-row sm:space-x-4">
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Donation Details</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Restaurant Name:{' '}
+                    <span className="text-black font-semibold">
+                      {selectedDonation?.restaurantName}
+                    </span>
+                  </div>
+                  <div>
+                    Food Item Name:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.foodItemName}
+                    </span>
+                  </div>
+                  <div>
+                    Quantity:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.quantity}
+                    </span>
+                  </div>
+                  <div>
+                    Category:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.category}
+                    </span>
+                  </div>
+                  <div>
+                    Description:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.description}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Quantity:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.foodItemName}
-                  </span>
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Pickup Information</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Pickup Location:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.streetAddress}, {selectedDonation?.barangay},{' '}
+                      {selectedDonation?.city},{' '}
+                    </span>
+                  </div>
+                  <div>
+                    Pickup Date:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {formatDatePickup(selectedDonation?.pickupDate ?? '')},
+                    </span>
+                  </div>
+                  <div>
+                    Special Instructions:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.specialInstructions}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Category:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.quantity}
-                  </span>
-                </div>
-                <div>
-                  Description:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.description}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
+              </DialogDescription>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Pickup Information</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Pickup Location:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.streetAddress}, {selectedDonation?.barangay},{' '}
-                    {selectedDonation?.city},{' '}
-                  </span>
+          <div className="flex flex-col sm:flex-row sm:space-x-4">
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Contact Details</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Contact Person:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.contactName}
+                    </span>
+                  </div>
+                  <div>
+                    Contact Number:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.contactNumber}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Pickup Date:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {formatDatePickup(selectedDonation?.pickupDate ?? '')},
-                  </span>
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col w-full sm:w-1/2">
+              <h1 className="text-black text-1xl mb-3 font-semibold">Additional Information</h1>
+              <DialogDescription className="text-black flex flex-col">
+                <div className="flex flex-col ml-2">
+                  <div>
+                    Allergens:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.allergens}
+                    </span>
+                  </div>
+                  <div>
+                    Storage Requirements:{' '}
+                    <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
+                      {selectedDonation?.storageRequirements}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  Special Instructions:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.specialInstructions}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Contact Details</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Contact Person:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.contactName}
-                  </span>
-                </div>
-                <div>
-                  Contact Number:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.contactNumber}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-black text-1xl mb-3 font-semibold">Additional Information</h1>
-            <DialogDescription className="text-black flex flex-col">
-              <div className="flex flex-col ml-2">
-                <div>
-                  Allergens:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.allergens}
-                  </span>
-                </div>
-                <div>
-                  Storage Requirements:{' '}
-                  <span style={{ wordBreak: 'break-word' }} className="text-black font-semibold">
-                    {selectedDonation?.storageRequirements}
-                  </span>
-                </div>
-              </div>
-            </DialogDescription>
+              </DialogDescription>
+            </div>
           </div>
           <div className="flex justify-center items-center m-auto">
             <div className="text-center">
@@ -196,7 +206,7 @@ const ApprovalDonation = () => {
               <img
                 src={selectedDonation?.photoUrl}
                 alt="Donation request Image"
-                style={{ width: '100%', height: 'auto' }}
+                style={{ width: 'auto', height: '400px' }}
               />
             </div>
           </div>

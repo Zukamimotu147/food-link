@@ -253,7 +253,7 @@ export const viewDonationStatusSummary = async (req: Request, res: Response) => 
       )
       .groupBy(foodDonationTable.status);
 
-    res.status(200).json({ count: donationStatusSummary.length });
+    res.status(200).json({ donationStatusSummary });
   } catch (error) {
     res.status(500).json({
       message: 'Error retrieving donation status summary',
