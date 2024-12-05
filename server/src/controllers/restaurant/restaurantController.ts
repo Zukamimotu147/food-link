@@ -11,6 +11,7 @@ import {
   charityTable,
   usersTable,
 } from '../../drizzle/tableSchema';
+import { create } from 'domain';
 
 export const addDonationRequest = async (req: Request, res: Response) => {
   const { userId, charityName } = req.params;
@@ -295,11 +296,15 @@ export const viewTotalDonations = async (req: Request, res: Response) => {
   const { userId } = req.params;
   try {
     const totalDonations = await db
+
       .select({
-        count: sql<number>`COUNT(*)`.as('count'),
+        month: sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`.as('month'),
+        count: sql`COUNT(*)`.as('count'),
       })
       .from(foodDonationTable)
-      .where(eq(foodDonationTable.userId, parseInt(userId)));
+      //   .where(eq(foodDonationTable.userId, parseInt(userId)))
+      .groupBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`)
+      .orderBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`);
 
     res.status(200).json({ totalDonations });
   } catch (error) {

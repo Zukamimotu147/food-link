@@ -11,7 +11,7 @@ const useFetchCharities = () => {
     const getData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/admin/getCharities');
-        console.log('Charity data successfully fetched', response.data);
+        // console.log('Charity data successfully fetched', response.data);
         setData(response.data);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

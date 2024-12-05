@@ -19,31 +19,6 @@ export const contactTable = mysqlTable('Contact', {
   message: varchar({ length: 255 }).notNull(),
 });
 
-// Change restaurant account details vvvv
-export const restaurantTable = mysqlTable('Restaurant', {
-  restaurantId: int().primaryKey().autoincrement().notNull(),
-  userId: int()
-    .references(() => usersTable.Id)
-    .notNull(),
-  restaurantName: varchar({ length: 255 }).notNull(),
-  streetAddress: varchar({ length: 255 }).notNull(),
-  barangay: varchar({ length: 255 }).notNull(),
-  city: varchar({ length: 255 }).notNull(),
-  province: varchar({ length: 255 }).notNull(),
-  contactNumber: varchar({ length: 255 }).notNull(),
-});
-
-// export const adminTable = mysqlTable('Admin', {
-//   adminId: int().primaryKey().autoincrement().notNull(),
-//   userId: int()
-//     .references(() => usersTable.Id)
-//     .notNull(),
-//   restaurantId: int()
-//     .references(() => restaurantTable.restaurantId)
-//     .notNull(),
-// });
-
-// ang admin mo gamit ani pang add sa charity niya ang restaurant kay makita ang details sa charity og pag pili sa charity ganahan i donate
 export const charityTable = mysqlTable('Charity', {
   charityId: int().primaryKey().autoincrement().notNull(),
   userId: int()
@@ -59,23 +34,11 @@ export const charityTable = mysqlTable('Charity', {
   charityPhotoUrl: varchar({ length: 255 }).notNull(),
 });
 
-// export const pickupLocationTable = mysqlTable('PickupLocation', {
-//   locationId: int().primaryKey().autoincrement().notNull(),
-//   streetAddress: varchar({ length: 255 }).notNull(),
-//   barangay: varchar({ length: 255 }).notNull(),
-//   city: varchar({ length: 255 }).notNull(),
-//   province: varchar({ length: 255 }).notNull(),
-// });
-
-// Sa restaurant side ni pag add og view sa donation niya sa admin side kay ma view nila details sa donation
 export const foodDonationTable = mysqlTable('FoodDonation', {
   donationId: int().primaryKey().autoincrement().notNull(),
   userId: int()
     .references(() => usersTable.Id)
     .notNull(),
-  //   restaurantId: int()
-  //     .references(() => restaurantTable.restaurantId)
-  //     .notNull(),
   charityId: int()
     .references(() => charityTable.charityId)
     .notNull(),
@@ -101,27 +64,19 @@ export const foodDonationTable = mysqlTable('FoodDonation', {
   createdAt: timestamp().defaultNow().notNull(),
 });
 
-// Sa restaurant side og admin side mo gamit  ani
-// export const pickupScheduleTable = mysqlTable('PickupSchedule', {
-//   scheduleId: int().primaryKey().autoincrement().notNull(),
-//   donationId: int()
-//     .references(() => foodDonationTable.donationId)
-//     .notNull(),
-//   charityId: int()
-//     .references(() => charityTable.charityId)
-//     .notNull(),
-//   status: varchar({ length: 255 }).notNull(),
-// });
-
-// Sa restaurant side ni
-// export const donationHistoryTable = mysqlTable('DonationHistory', {
-//   historyId: int().primaryKey().autoincrement().notNull(),
-//   scheduleId: int()
-//     .references(() => pickupScheduleTable.scheduleId)
-//     .notNull(),
-//   completionDate: date().notNull(),
-//   completionTime: timestamp().notNull(),
-// });
+// Change restaurant account details vvvv
+export const restaurantTable = mysqlTable('Restaurant', {
+  restaurantId: int().primaryKey().autoincrement().notNull(),
+  userId: int()
+    .references(() => usersTable.Id)
+    .notNull(),
+  restaurantName: varchar({ length: 255 }).notNull(),
+  streetAddress: varchar({ length: 255 }).notNull(),
+  barangay: varchar({ length: 255 }).notNull(),
+  city: varchar({ length: 255 }).notNull(),
+  province: varchar({ length: 255 }).notNull(),
+  contactNumber: varchar({ length: 255 }).notNull(),
+});
 
 // RELATIONS
 export const usersRelations = relations(usersTable, ({ many }) => ({
