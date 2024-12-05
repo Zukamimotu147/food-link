@@ -29,13 +29,12 @@ const chartConfig = {
 const ResPieChart = () => {
   const { chartData } = useFetchTotalDonationStatus();
   return (
-    <Card className="flex flex-col">
+    <Card className="w-full flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>Donation Status Chart</CardTitle>
-        {/* <CardDescription>January - June 2024</CardDescription> */}
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[500px]">
+      <CardContent className="flex-1">
+        <ChartContainer config={chartConfig} className="mx-auto aspect-video max-h-[500px]">
           <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie data={chartData} dataKey="count" nameKey="status" />

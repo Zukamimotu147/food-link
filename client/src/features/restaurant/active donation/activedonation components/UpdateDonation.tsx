@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, LoaderCircle } from 'lucide-react';
 import useFetchCharities from '@/hooks/useFetchCharities';
 import {
   Sheet,
@@ -38,7 +38,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 type updateDonationField = z.infer<typeof updateDonationSchema>;
 
@@ -46,11 +46,14 @@ type UpdateDonationProps = {
   donationId: number;
 };
 const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
   const { data: Charitydata } = useFetchCharities();
 
   const form = useForm<updateDonationField>({
     resolver: zodResolver(updateDonationSchema),
     defaultValues: {
+      restaurantName: '',
       foodItemName: '',
       quantity: 0,
       category: '',
@@ -70,31 +73,53 @@ const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImgFile(file);
+    }
+  };
+
   const saveChanges = async (data: updateDonationField) => {
     const formattedPickupDate = format(data.pickupDate, 'yyyy-MM-dd');
+    const formData = new FormData();
+
+    formData.append('restaurantName', data.restaurantName);
+    formData.append('foodItemName', data.foodItemName);
+    formData.append('quantity', data.quantity.toString());
+    formData.append('category', data.category);
+    formData.append('description', data.description);
+    formData.append('streetAddress', data.streetAddress);
+    formData.append('barangay', data.barangay);
+    formData.append('city', data.city);
+    formData.append('province', data.province);
+    formData.append('pickupDate', formattedPickupDate);
+    formData.append('specialInstructions', data.specialInstructions);
+    formData.append('contactName', data.contactName);
+    formData.append('contactNumber', data.contactNumber);
+    formData.append('allergens', data.allergens);
+    formData.append('storageRequirements', data.storageRequirements);
+    formData.append('charity', data.charity);
+    if (imgFile) {
+      formData.append('photoUrl', imgFile);
+    }
+    setLoading(true);
     try {
-      await axios.put(`http://localhost:3000/api/restaurant/updateDonationRequest/${donationId}`, {
-        foodItemName: data.foodItemName,
-        quantity: data.quantity,
-        category: data.category,
-        description: data.description,
-        streetAddress: data.streetAddress,
-        barangay: data.barangay,
-        city: data.city,
-        province: data.province,
-        pickupDate: formattedPickupDate,
-        specialInstructions: data.specialInstructions,
-        contactName: data.contactName,
-        contactNumber: data.contactNumber,
-        allergens: data.allergens,
-        storageRequirements: data.storageRequirements,
-        photoUrl: data.photoUrl,
-        charity: data.charity,
-      });
+      await axios.put(
+        `http://localhost:3000/api/restaurant/updateDonationRequest/${donationId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       toast.success('Donation request updated successfully');
       window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -399,7 +424,15 @@ const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
                   <FormItem>
                     <FormLabel className="text-white">Upload Photos</FormLabel>
                     <FormControl>
-                      <Input placeholder="Upload Photos..." {...field} type="file" />
+                      <Input
+                        placeholder="Upload Photos..."
+                        {...field}
+                        type="file"
+                        onChange={(e) => {
+                          handleFileChange(e);
+                          field.onChange(e);
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -408,7 +441,7 @@ const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
 
               <SheetClose asChild>
                 <Button type="submit" disabled={Charitydata?.length === 0} className="w-full">
-                  Save Changes
+                  {loading ? <LoaderCircle className="animate-spin" /> : 'Save Changes'}
                 </Button>
               </SheetClose>
             </form>

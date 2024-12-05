@@ -85,16 +85,13 @@ router.get('/viewTotalCharities', async (req: Request, res: Response, next: Next
   }
 });
 
-router.get(
-  '/viewTotalDonations/:userId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await viewTotalDonations(req, res);
-    } catch (error) {
-      next(error);
-    }
+router.get('/viewTotalDonations', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await viewTotalDonations(req, res);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 router.get(
   '/viewDonationStatusSummary/:userId',

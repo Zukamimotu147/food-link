@@ -43,7 +43,7 @@ const useFetchTotalDonationStatus = () => {
           fill: item.status === 'ACCEPTED' ? '#008000' : '#FF4141',
         }));
 
-        console.log('Total Donation Status Data', res.data.donationStatusSummary);
+        // console.log('Total Donation Status Data', res.data.donationStatusSummary);
         setChartData(formattedData);
       } catch (error) {
         console.error('Error fetching total donation status:', error);

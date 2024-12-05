@@ -14,7 +14,7 @@ const useFetchDonationRequest = () => {
     const fetchDonationRequests = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/admin/getDonationRequest');
-        console.log('Donation request data successfully fetched', response.data);
+        // console.log('Donation request data successfully fetched', response.data);
         setDonationRequests(response.data);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
