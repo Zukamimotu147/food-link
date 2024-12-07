@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "360db32f-bd3c-42a3-9d4e-ef4981ca09cc",
+  "id": "ae00f20f-0e19-4040-b27d-9898d1c0587c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Charity": {
@@ -17,6 +17,13 @@
         "userId": {
           "name": "userId",
           "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "charityDescription": {
+          "name": "charityDescription",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

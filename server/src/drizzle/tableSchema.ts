@@ -1,5 +1,5 @@
 import { int, mysqlTable, varchar, date, timestamp, mysqlEnum } from 'drizzle-orm/mysql-core';
-import { relations } from 'drizzle-orm';
+import { desc, relations } from 'drizzle-orm';
 
 export const usersTable = mysqlTable('Users', {
   Id: int().primaryKey().autoincrement().notNull(),
@@ -24,6 +24,7 @@ export const charityTable = mysqlTable('Charity', {
   userId: int()
     .references(() => usersTable.Id)
     .notNull(),
+  charityDescription: varchar({ length: 255 }).notNull(),
   charityName: varchar({ length: 255 }).notNull(),
   streetAddress: varchar({ length: 255 }).notNull(),
   barangay: varchar({ length: 255 }).notNull(),

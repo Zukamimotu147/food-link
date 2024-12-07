@@ -21,13 +21,13 @@ type CardWrapperProps = {
   children: React.ReactNode;
 };
 const CardWrapper = ({ label, title, children }: CardWrapperProps) => {
-  const addCharityFormRef = useRef(null);
+  const activeDonationRef = useRef(null);
 
   useGSAP(() => {
-    gsap.from(addCharityFormRef.current, { opacity: 0, y: 50, duration: 1, ease: 'power2.out' });
+    gsap.from(activeDonationRef.current, { opacity: 0, y: 50, duration: 1, ease: 'power2.out' });
   });
   return (
-    <Card className="cursor-pointer" ref={addCharityFormRef}>
+    <Card className="cursor-pointer" ref={activeDonationRef}>
       <CardHeader>
         <FormHeader label={label} title={title} />
       </CardHeader>

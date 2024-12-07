@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { loginAuthSchema } from './schema/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
@@ -149,6 +149,11 @@ const LoginForm = () => {
                   className="w-6 h-6"
                 />
                 Sign In with Google
+              </Button>
+            </div>
+            <div className="flex justify-center">
+              <Button variant={'link'} className="text-white">
+                <Link to="/">Go Back to Home</Link>
               </Button>
             </div>
           </Form>

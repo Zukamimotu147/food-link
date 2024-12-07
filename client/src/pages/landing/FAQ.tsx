@@ -37,11 +37,11 @@ const FAQ = () => {
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-lg sm:text-2xl font-medium">
-                How is the pickup time set?
+                How is the pickup date set?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
-                You specify the pickup time when you submit the donation details. We’ll then confirm
-                the time with the selected charity and arrange for them to collect the donation
+                You specify the pickup date when you submit the donation details. We’ll then confirm
+                the date with the selected charity and arrange for them to collect the donation
                 accordingly.
               </AccordionContent>
             </AccordionItem>
@@ -79,7 +79,7 @@ const FAQ = () => {
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
                 Yes, you can track all previous donations through our donation history feature,
-                including details on the receiving charities and pickup arrangements.
+                including details on the receiving charities.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-8">

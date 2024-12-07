@@ -2,8 +2,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(useGSAP);
-// THANK YOU GPT
-const NoDonationReqAvail = () => {
+
+const NoApprovalDonationReq = () => {
   const text = 'No Donation Request Available';
 
   // Function to split text into spans, including spaces
@@ -52,4 +52,4 @@ const NoDonationReqAvail = () => {
   );
 };
 
-export default NoDonationReqAvail;
+export default NoApprovalDonationReq;

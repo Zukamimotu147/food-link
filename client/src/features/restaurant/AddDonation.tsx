@@ -154,7 +154,7 @@ const AddDonation = () => {
                 control={form.control}
                 name="foodItemName"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel className="text-black">Food Item Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Food Item Name..." className="w-full" {...field} />
@@ -186,7 +186,7 @@ const AddDonation = () => {
                 control={form.control}
                 name="category"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel className="text-black">Category</FormLabel>
                     <FormControl>
                       <Input placeholder="Category..." {...field} />

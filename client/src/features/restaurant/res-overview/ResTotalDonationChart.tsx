@@ -35,7 +35,7 @@ const ResTotalDonationChart = () => {
             }}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="day"
               tickLine={false}
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 10)}

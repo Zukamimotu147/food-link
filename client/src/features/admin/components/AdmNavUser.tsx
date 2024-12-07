@@ -1,4 +1,4 @@
-import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from 'lucide-react';
+import { BadgeCheck, Bell, ChevronsUpDown, LogOut, LoaderCircle } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/sidebar';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'sonner';
 
 type AdminUser = {
@@ -29,6 +28,7 @@ type AdminUser = {
 };
 const AdmNavUser = () => {
   const [adminUser, setAdminUser] = useState<AdminUser>();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,12 +39,31 @@ const AdmNavUser = () => {
   }, []);
   const { isMobile } = useSidebar();
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
-    localStorage.removeItem('role');
-    toast.success('Logged out successfully');
-    navigate('/');
+    setIsLoggingOut(true);
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('role');
+      toast.success('Logged out successfully');
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      toast.error('Failed to log out');
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
+
+  if (isLoggingOut) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="flex justify-center text-white gap-2">
+          <LoaderCircle className="animate-spin m-1" />
+          <h1 className="text-2xl font-bold mb-4">Logging out...</h1>
+        </div>
+      </div>
+    );
+  }
   return (
     <SidebarMenu>
       <SidebarMenuItem>

@@ -18,6 +18,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
 type CharityFields = z.infer<typeof addCharitySchema>;
 const AddCharity = () => {
@@ -27,6 +28,7 @@ const AddCharity = () => {
   const form = useForm<CharityFields>({
     defaultValues: {
       charityName: '',
+      charityDescription: '',
       streetAddress: '',
       barangay: '',
       city: '',
@@ -48,6 +50,7 @@ const AddCharity = () => {
   const addCharity = async (data: CharityFields) => {
     const formData = new FormData();
     formData.append('charityName', data.charityName);
+    formData.append('charityDescription', data.charityDescription);
     formData.append('streetAddress', data.streetAddress);
     formData.append('barangay', data.barangay);
     formData.append('city', data.city);
@@ -81,8 +84,8 @@ const AddCharity = () => {
     }
   };
   return (
-    <section className="h-screen flex justify-center items-center">
-      <CardWrapper label="Add Charity" title="Add Charity">
+    <section className="flex justify-center items-center">
+      <CardWrapper label="Add Charity Form" title="Add Charity">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(addCharity)} className="space-y-8">
             <div className="flex justify-between gap-2">
@@ -114,6 +117,25 @@ const AddCharity = () => {
                 )}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="charityDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Charity Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      placeholder="Charity description..."
+                      className="block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground outline-none ring-offset-background focus:ring-1 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      style={{ maxHeight: '150px' }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}
