@@ -14,7 +14,7 @@ import Foodlinklogo from '../../../assets/Foodlinklogo.png';
 
 const ResSidebar = () => {
   return (
-    <Sidebar collapsible="icon" className="bg-customGreen text-white">
+    <Sidebar collapsible="icon" className="bg-customGreen  text-white sm:bg-customGreen">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuButton

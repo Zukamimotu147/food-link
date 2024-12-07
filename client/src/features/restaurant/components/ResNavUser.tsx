@@ -1,4 +1,4 @@
-import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from 'lucide-react';
+import { BadgeCheck, Bell, ChevronsUpDown, LoaderCircle, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -22,7 +22,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { set } from 'date-fns';
 
 type ResUser = {
   Id?: string;
@@ -41,6 +40,7 @@ const ResNavUser = () => {
   const [currentGoogleUser, setCurrentGoogleUser] = useState<ResUser | null>();
   const [googleUserPP, setGoogleUserPP] = useState<string | null>();
   const [userPP, setUserPP] = useState<string | null>();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const { isMobile } = useSidebar();
 
@@ -80,8 +80,9 @@ const ResNavUser = () => {
   };
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
-      await axios.get('http://localhost:3000/auth/logout', { withCredentials: true });
+      await axios.get('http://localhost:3000/auth/logout');
       toast.success('Logged out successfully');
       localStorage.removeItem('token');
       localStorage.removeItem('userData');
@@ -90,8 +91,21 @@ const ResNavUser = () => {
     } catch (error) {
       console.error('Logout failed:', error);
       toast.error('Failed to log out');
+    } finally {
+      setIsLoggingOut(false);
     }
   };
+
+  if (isLoggingOut) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="flex justify-center text-white gap-2">
+          <LoaderCircle className="animate-spin m-1" />
+          <h1 className="text-2xl font-bold mb-4">Logging out...</h1>
+        </div>
+      </div>
+    );
+  }
   return (
     <SidebarMenu>
       <SidebarMenuItem>

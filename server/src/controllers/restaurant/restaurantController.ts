@@ -296,15 +296,15 @@ export const viewTotalDonations = async (req: Request, res: Response) => {
   const { userId } = req.params;
   try {
     const totalDonations = await db
-
       .select({
-        month: sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`.as('month'),
+        day: sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m-%d')`.as('day'),
         count: sql`COUNT(*)`.as('count'),
       })
       .from(foodDonationTable)
-      //   .where(eq(foodDonationTable.userId, parseInt(userId)))
-      .groupBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`)
-      .orderBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m')`);
+      // Uncomment and modify the line below if you want to filter by userId
+      // .where(eq(foodDonationTable.userId, parseInt(userId)))
+      .groupBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m-%d')`)
+      .orderBy(sql`DATE_FORMAT(${foodDonationTable.createdAt}, '%Y-%m-%d')`);
 
     res.status(200).json({ totalDonations });
   } catch (error) {

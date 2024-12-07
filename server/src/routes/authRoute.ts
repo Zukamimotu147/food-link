@@ -32,7 +32,10 @@ type User = {
   userType: string;
 };
 
-router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' })
+);
 router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: 'http://localhost:5173/auth/login' }),

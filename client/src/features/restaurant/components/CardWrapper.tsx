@@ -28,7 +28,7 @@ const CardWrapper = ({ label, title, children }: CardWrapperProps) => {
   });
   return (
     <Card
-      className="bg-transparent backdrop-blur-none rounded-3xl shadow-2xl border border-gray-700/50 sm:w-[300px] lg:w-[600px]"
+      className="bg-transparent backdrop-blur-none rounded-3xl shadow-2xl border border-gray-700/50 w-[400px] sm:w-[400px] lg:w-[600px] 2xl:w-[800px]"
       ref={addCharityFormRef}>
       <CardHeader>
         <FormHeader label={label} title={title} />

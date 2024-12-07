@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 export type CharityInfo = {
   charityId: number;
   charityName: number;
+  charityDescription: string;
   streetAddress: string;
   barangay: string;
   city: string;

@@ -5,7 +5,16 @@ import { eq, and, sql } from 'drizzle-orm';
 import { cloudinary } from '../../config/cloudinary';
 
 export const addCharity = async (req: Request, res: Response) => {
-  const { charityName, streetAddress, barangay, city, province, contactNumber, email } = req.body;
+  const {
+    charityName,
+    streetAddress,
+    barangay,
+    city,
+    province,
+    contactNumber,
+    email,
+    charityDescription,
+  } = req.body;
 
   try {
     const adminUserExist = await db
@@ -43,6 +52,7 @@ export const addCharity = async (req: Request, res: Response) => {
 
     await db.insert(charityTable).values({
       userId: adminUserExist[0].Id,
+      charityDescription,
       charityName,
       streetAddress,
       barangay,

@@ -75,8 +75,8 @@ const ApprovalDonation = () => {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <main className="m-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4">
         <CardApprovalDonation
           onClick={(request: any) => {
             setSelectedDonation(request);
@@ -264,7 +264,7 @@ const ApprovalDonation = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </main>
   );
 };
 

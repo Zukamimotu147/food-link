@@ -6,7 +6,6 @@ import {
   CardHeader,
   //   CardTitle,
 } from '@/components/ui/card';
-import FormHeader from './FormHeader';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -20,18 +19,20 @@ type CardWrapperProps = {
 
   children: React.ReactNode;
 };
-const CardWrapper = ({ label, title, children }: CardWrapperProps) => {
+const CardWrapper = ({ title, children }: CardWrapperProps) => {
   const addCharityFormRef = useRef(null);
 
   useGSAP(() => {
     gsap.from(addCharityFormRef.current, { opacity: 0, y: 50, duration: 1, ease: 'power2.out' });
   });
   return (
-    <Card className="cursor-pointer" ref={addCharityFormRef}>
+    <Card className="cursor-pointer max-w-full" ref={addCharityFormRef}>
       <CardHeader>
-        <FormHeader label={label} title={title} />
+        <p className="font-bold text-1xl sm:text-2xl lg:text-3xl text-customGreen text-center truncate max-w-full">
+          {title}
+        </p>
       </CardHeader>
-      <CardContent className="bg-transparent">{children}</CardContent>
+      <CardContent>{children}</CardContent>
     </Card>
   );
 };

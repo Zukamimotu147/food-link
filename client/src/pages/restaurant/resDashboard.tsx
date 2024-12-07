@@ -29,7 +29,7 @@ const ResDashboard = () => {
               <h1 className="contentText text-customGreen font-semibold"></h1>
             </div>
           </header>
-          <div className="">
+          <div className="padding">
             <Outlet />
           </div>
         </SidebarInset>

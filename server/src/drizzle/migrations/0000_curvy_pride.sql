@@ -1,6 +1,7 @@
 CREATE TABLE `Charity` (
 	`charityId` int AUTO_INCREMENT NOT NULL,
 	`userId` int NOT NULL,
+	`charityDescription` varchar(255) NOT NULL,
 	`charityName` varchar(255) NOT NULL,
 	`streetAddress` varchar(255) NOT NULL,
 	`barangay` varchar(255) NOT NULL,
