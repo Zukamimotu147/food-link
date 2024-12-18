@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      'https://food-link-theta.vercel.app/',
+      'https://food-link-theta.vercel.app',
       'http://localhost:5173',
-      'https://food-link-byo2qvalk-marcs-projects-a91672ad.vercel.app/',
+      'https://food-link-git-main-marcs-projects-a91672ad.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
