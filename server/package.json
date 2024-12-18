@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "tsc",
     "start": "ts-node src/server.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
