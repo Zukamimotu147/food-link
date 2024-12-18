@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import AdmSidebar from '@/features/admin/components/AdmSidebar';
 import { Outlet } from 'react-router-dom';
 gsap.registerPlugin(useGSAP);
-const AdminDashboard = () => {
+const adminDashboard = () => {
   useGSAP(() => {
     gsap.to('.contentText', {
       duration: 2,
@@ -36,4 +36,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default adminDashboard;
