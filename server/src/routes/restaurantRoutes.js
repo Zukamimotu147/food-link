@@ -18,7 +18,7 @@ const router = Router();
 router.post(
   '/addDonationRequest/:userId/:charityName',
   upload.single('photoUrl'),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res, next) => {
     try {
       await addDonationRequest(req, res);
     } catch (error) {
@@ -27,40 +27,31 @@ router.post(
   }
 );
 
-router.delete(
-  '/deleteDonationRequest/:donationId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await deleteDonationRequest(req, res);
-    } catch (error) {
-      next(error);
-    }
+router.delete('/deleteDonationRequest/:donationId', async (req, res, next) => {
+  try {
+    await deleteDonationRequest(req, res);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.put(
-  '/updateDonationRequest/:donationId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await updateDonationRequest(req, res);
-    } catch (error) {
-      next(error);
-    }
+router.put('/updateDonationRequest/:donationId', async (req, res, next) => {
+  try {
+    await updateDonationRequest(req, res);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.get(
-  '/viewDonationRequests/:userId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await viewDonationRequests(req, res);
-    } catch (error) {
-      next(error);
-    }
+router.get('/viewDonationRequests/:userId', async (req, res, next) => {
+  try {
+    await viewDonationRequests(req, res);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.get('/viewResDonationHistory/:userId', async (req: Request, res: Response) => {
+router.get('/viewResDonationHistory/:userId', async (req, res) => {
   try {
     await viewResDonationHistory(req, res);
   } catch (error) {
@@ -69,7 +60,7 @@ router.get('/viewResDonationHistory/:userId', async (req: Request, res: Response
 });
 
 // RESTAURANT OVERVIEW
-router.get('/viewTotalUsers', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/viewTotalUsers', async (req, res, next) => {
   try {
     await viewTotalUsers(req, res);
   } catch (error) {
@@ -77,7 +68,7 @@ router.get('/viewTotalUsers', async (req: Request, res: Response, next: NextFunc
   }
 });
 
-router.get('/viewTotalCharities', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/viewTotalCharities', async (req, res, next) => {
   try {
     await viewTotalCharities(req, res);
   } catch (error) {
@@ -85,7 +76,7 @@ router.get('/viewTotalCharities', async (req: Request, res: Response, next: Next
   }
 });
 
-router.get('/viewTotalDonations', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/viewTotalDonations', async (req, res, next) => {
   try {
     await viewTotalDonations(req, res);
   } catch (error) {
@@ -93,16 +84,13 @@ router.get('/viewTotalDonations', async (req: Request, res: Response, next: Next
   }
 });
 
-router.get(
-  '/viewDonationStatusSummary/:userId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await viewDonationStatusSummary(req, res);
-    } catch (error) {
-      next(error);
-    }
+router.get('/viewDonationStatusSummary/:userId', async (req, res, next) => {
+  try {
+    await viewDonationStatusSummary(req, res);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 // router.put(
 //   '/editRestaurantProfile/:restaurantId',

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export const generateToken = (user: any) => {
+export const generateToken = (user) => {
   return jwt.sign(
     {
       userId: user[0]?.Id,
@@ -9,7 +9,7 @@ export const generateToken = (user: any) => {
       email: user[0]?.email,
       role: user[0]?.role,
     },
-    process.env.JWT_SECRET!,
+    process.env.JWT_SECRET,
     { expiresIn: '1d' }
   );
 };

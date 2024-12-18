@@ -13,7 +13,7 @@ import {
 } from '../../drizzle/tableSchema';
 import { create } from 'domain';
 
-export const addDonationRequest = async (req: Request, res: Response) => {
+export const addDonationRequest = async (req, res) => {
   const { userId, charityName } = req.params;
 
   const {
@@ -99,7 +99,7 @@ export const addDonationRequest = async (req: Request, res: Response) => {
   }
 };
 
-export const updateDonationRequest = async (req: Request, res: Response) => {
+export const updateDonationRequest = async (req, res) => {
   const { donationId } = req.params;
   const {
     foodItemName,
@@ -149,7 +149,7 @@ export const updateDonationRequest = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteDonationRequest = async (req: Request, res: Response) => {
+export const deleteDonationRequest = async (req, res) => {
   const { donationId } = req.params;
 
   try {
@@ -167,7 +167,7 @@ export const deleteDonationRequest = async (req: Request, res: Response) => {
   }
 };
 
-export const viewDonationRequests = async (req: Request, res: Response) => {
+export const viewDonationRequests = async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -195,7 +195,7 @@ export const viewDonationRequests = async (req: Request, res: Response) => {
   }
 };
 
-export const viewResDonationHistory = async (req: Request, res: Response) => {
+export const viewResDonationHistory = async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -236,14 +236,14 @@ export const viewResDonationHistory = async (req: Request, res: Response) => {
 };
 
 //RESTAURANT OVERVIEW
-export const viewDonationStatusSummary = async (req: Request, res: Response) => {
+export const viewDonationStatusSummary = async (req, res) => {
   const { userId } = req.params;
 
   try {
     const donationStatusSummary = await db
       .select({
         status: foodDonationTable.status,
-        count: sql<number>`COUNT(*)`.as('count'),
+        count: sql < number > `COUNT(*)`.as('count'),
       })
       .from(foodDonationTable)
       .where(
@@ -263,11 +263,11 @@ export const viewDonationStatusSummary = async (req: Request, res: Response) => 
   }
 };
 
-export const viewTotalUsers = async (req: Request, res: Response) => {
+export const viewTotalUsers = async (req, res) => {
   try {
     const totalUsers = await db
       .select({
-        count: sql<number>`COUNT(*)`.as('count'),
+        count: sql < number > `COUNT(*)`.as('count'),
       })
       .from(usersTable)
       .where(eq(usersTable.userType, 'RESTAURANT'));
@@ -278,11 +278,11 @@ export const viewTotalUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const viewTotalCharities = async (req: Request, res: Response) => {
+export const viewTotalCharities = async (req, res) => {
   try {
     const totalCharities = await db
       .select({
-        count: sql<number>`COUNT(*)`.as('count'),
+        count: sql < number > `COUNT(*)`.as('count'),
       })
       .from(charityTable);
 
@@ -292,7 +292,7 @@ export const viewTotalCharities = async (req: Request, res: Response) => {
   }
 };
 
-export const viewTotalDonations = async (req: Request, res: Response) => {
+export const viewTotalDonations = async (req, res) => {
   const { userId } = req.params;
   try {
     const totalDonations = await db

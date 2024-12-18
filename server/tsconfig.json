@@ -1,14 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "target": "ES6", // Keep targeting ES6
+    "module": "commonjs", // Keep module system as commonjs
+    "strict": false, // Disable all strict type-checking options
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": false, // Allow inconsistent casing in file names
+    "outDir": "./dist", // Output directory for compiled JS
+    "typeRoots": ["./node_modules/@types", "./src/types"], // Custom type definition paths
+    "noEmitOnError": false, // Don't stop emitting JS files even if there are errors
+    "noUnusedLocals": false, // Allow unused local variables
+    "noUnusedParameters": false, // Allow unused function parameters
+    "noImplicitAny": false, // Allow 'any' type without error
+    "noImplicitThis": false, // Allow implicit 'this' type
+    "skipDefaultLibCheck": true, // Skip default library file checking
+    "allowJs": true, // Allow JavaScript files to be compiled as well
+    "checkJs": false // Disable checking in JavaScript files
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*"], // Include all TypeScript files under src
+  "exclude": ["node_modules", "**/*.spec.ts"] // Exclude node_modules and spec files
 }

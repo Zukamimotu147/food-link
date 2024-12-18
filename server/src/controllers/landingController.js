@@ -3,7 +3,7 @@ import { db } from '../drizzle/database/connection';
 import { contactTable } from '../drizzle/tableSchema';
 import { eq } from 'drizzle-orm';
 
-export const contactController = async (req: Request, res: Response) => {
+export const contactController = async (req, res) => {
   const { email, firstname, lastname, message } = req.body;
   try {
     const existingContact = await db
