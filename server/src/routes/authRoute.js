@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { login, register } from '../controllers/authController';
@@ -7,7 +7,7 @@ import { authenticateJWT } from '../middleware/authenticateJWT';
 
 const router = Router();
 
-router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/register', async (req, res, next) => {
   try {
     await register(req, res);
   } catch (error) {
@@ -15,22 +15,13 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
   }
 });
 
-router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/login', async (req, res, next) => {
   try {
     await login(req, res);
   } catch (error) {
     next(error);
   }
 });
-type User = {
-  Id: string;
-  googleId: string;
-  googleProfilePic: string;
-  name: string;
-  email: string;
-  password: string;
-  userType: string;
-};
 
 router.get(
   '/google',
@@ -40,7 +31,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: 'http://localhost:5173/auth/login' }),
   (req, res, next) => {
-    const userData = req.user as User;
+    const userData = req.user;
 
     const token = jwt.sign(
       {
@@ -52,7 +43,7 @@ router.get(
         role: userData.userType,
         name: userData.name,
       },
-      process.env.JWT_SECRET!,
+      process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
 
@@ -69,7 +60,7 @@ router.get(
   (req, res, next) => {
     authenticateJWT(req, res, next);
   },
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res, next) => {
     res.send(req.user);
   }
 );

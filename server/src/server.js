@@ -29,7 +29,7 @@ app.use(
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET!,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -48,11 +48,11 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 
 // Basic route
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.use((err: any, req: Request, res: Response, next: Function) => {
+app.use((err, req, res, next) => {
   console.error('Error occurred:', err);
 
   if (!res.headersSent) {

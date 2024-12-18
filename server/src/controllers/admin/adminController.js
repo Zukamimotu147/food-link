@@ -4,7 +4,7 @@ import { charityTable, foodDonationTable, usersTable } from '../../drizzle/table
 import { eq, and, sql } from 'drizzle-orm';
 import { cloudinary } from '../../config/cloudinary';
 
-export const addCharity = async (req: Request, res: Response) => {
+export const addCharity = async (req, res) => {
   const {
     charityName,
     streetAddress,
@@ -70,7 +70,7 @@ export const addCharity = async (req: Request, res: Response) => {
   }
 };
 
-export const updateCharity = async (req: Request, res: Response) => {
+export const updateCharity = async (req, res) => {
   const { charityId } = req.params;
   const { charityName, streetAddress, barangay, city, province, contactNumber, email } = req.body;
 
@@ -97,7 +97,7 @@ export const updateCharity = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteCharity = async (req: Request, res: Response) => {
+export const deleteCharity = async (req, res) => {
   const { charityId } = req.params;
 
   try {
@@ -109,7 +109,7 @@ export const deleteCharity = async (req: Request, res: Response) => {
   }
 };
 
-export const getCharities = async (req: Request, res: Response) => {
+export const getCharities = async (req, res) => {
   try {
     const charities = await db.select().from(charityTable);
     res.status(200).json(charities);
@@ -118,7 +118,7 @@ export const getCharities = async (req: Request, res: Response) => {
   }
 };
 
-export const getDonationRequests = async (req: Request, res: Response) => {
+export const getDonationRequests = async (req, res) => {
   try {
     const donationRequests = await db
       .select({
@@ -154,7 +154,7 @@ export const getDonationRequests = async (req: Request, res: Response) => {
   }
 };
 
-export const approveDonation = async (req: Request, res: Response) => {
+export const approveDonation = async (req, res) => {
   const { donationId } = req.params;
   try {
     await db
@@ -168,7 +168,7 @@ export const approveDonation = async (req: Request, res: Response) => {
   }
 };
 
-export const rejectDonation = async (req: Request, res: Response) => {
+export const rejectDonation = async (req, res) => {
   const { donationId } = req.params;
   try {
     await db
@@ -182,7 +182,7 @@ export const rejectDonation = async (req: Request, res: Response) => {
   }
 };
 
-export const getAdminDonationHistory = async (req: Request, res: Response) => {
+export const getAdminDonationHistory = async (req, res) => {
   try {
     const donations = await db
       .select({

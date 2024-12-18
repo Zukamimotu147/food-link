@@ -1,15 +1,15 @@
-import 'express-session';
+// import 'express-session';
 
-declare module 'express-session' {
-  interface SessionData {
-    user: {
-      id: string; // Adjust the type according to your user ID type
+// declare module 'express-session' {
+//   interface SessionData {
+//     user: {
+//       id: string; // Adjust the type according to your user ID type
 
-      displayName?: string;
+//       displayName?: string;
 
-      email?: string;
+//       email?: string;
 
-      // Add any other properties you want to include
-    };
-  }
-}
+//       // Add any other properties you want to include
+//     };
+//   }
+// }

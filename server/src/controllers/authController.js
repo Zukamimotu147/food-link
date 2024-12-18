@@ -7,7 +7,7 @@ import { usersTable } from '../drizzle/tableSchema';
 
 import { generateToken } from '../services/generateToken';
 
-export const register = async (req: Request, res: Response): Promise<Response> => {
+export const register = async (req, res) => {
   const { name, email, password, userType } = req.body;
 
   try {
@@ -32,7 +32,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
