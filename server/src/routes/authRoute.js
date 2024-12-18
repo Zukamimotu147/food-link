@@ -73,7 +73,7 @@ router.get('/logout', (req, res) => {
       if (err) {
         throw err;
       }
-      res.redirect('https://food-link-murex.vercel.app/auth/login');
+      res.redirect('https://food-link-theta.vercel.app/auth/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }
