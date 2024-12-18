@@ -29,7 +29,7 @@ router.get(
 );
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: 'https://food-link.onrender.com/auth/login' }),
+  passport.authenticate('google', { failureRedirect: 'https://food-link.netlify.app/auth/login' }),
   (req, res, next) => {
     const userData = req.user;
 
