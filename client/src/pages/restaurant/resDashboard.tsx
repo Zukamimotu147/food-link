@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 
 gsap.registerPlugin(useGSAP);
 
-const ResDashboard = () => {
+const resDashboard = () => {
   useGSAP(() => {
     gsap.to('.contentText', {
       duration: 2,
@@ -38,4 +38,4 @@ const ResDashboard = () => {
   );
 };
 
-export default ResDashboard;
+export default resDashboard;
