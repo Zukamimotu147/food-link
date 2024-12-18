@@ -21,7 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ['https://food-link.netlify.app/', 'http://localhost:5173'],
+    origin: [
+      'https://food-link.netlify.app/',
+      'http://localhost:5173',
+      'https://food-link-murex.vercel.app/',
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
