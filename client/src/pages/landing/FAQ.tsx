@@ -15,7 +15,7 @@ const FAQ = () => {
           </h1>
           <Accordion type="single" collapsible className="mt-12">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 How does the food donation process work?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -26,7 +26,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 Who will receive our food donation?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -36,7 +36,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 How is the pickup date set?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -46,7 +46,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 What types of food donations are accepted?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -56,7 +56,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 How often can we donate?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -65,7 +65,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-6">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 How is food safety managed during the donation process?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -74,7 +74,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-7">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 Can we view a history of our donations?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -83,7 +83,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-8">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 What happens if our donation isn’t approved?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -93,7 +93,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-9">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 Is there a cost to participate in the donation program?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">
@@ -102,7 +102,7 @@ const FAQ = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-10">
-              <AccordionTrigger className="text-lg sm:text-2xl font-medium">
+              <AccordionTrigger className="text-lg text-left sm:text-2xl font-medium">
                 Who can we contact if we have additional questions?
               </AccordionTrigger>
               <AccordionContent className="mt-4 sm:mt-6 text-base sm:text-lg">

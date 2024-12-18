@@ -13,7 +13,7 @@ const useFetchTotalDonations = () => {
     const fetchTotalDonations = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/restaurant/viewTotalDonations`);
-        console.log('Total Donations Data', res.data.totalDonations);
+        // console.log('Total Donations Data', res.data.totalDonations);
 
         setTotalDonations(res.data.totalDonations);
       } catch (error) {

@@ -15,7 +15,9 @@ export const updateDonationSchema = z.object({
   contactName: z.string().min(1, { message: 'Contact name is required' }),
   contactNumber: z
     .string()
-    .regex(/^\d{11}$/, { message: 'Invalid contact number' })
+    .regex(/^[0-9()+\- ]+$/, {
+      message: 'Contact number must contain only numbers and valid symbols',
+    })
     .min(1, { message: 'Contact number is required' }),
   allergens: z.string().min(1, { message: 'Allergens are required' }),
   storageRequirements: z.string().min(1, { message: 'Storage requirements are required' }),

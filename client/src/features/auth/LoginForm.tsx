@@ -43,7 +43,7 @@ const LoginForm = () => {
   const handleLogin = async (data: AuthFields) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/login', data);
-      console.log('User Info:', response.data);
+      //   console.log('User Info:', response.data);
       const decodedToken: DecodedToken = jwtDecode(response.data.token);
 
       localStorage.setItem('userData', JSON.stringify(response.data.user));

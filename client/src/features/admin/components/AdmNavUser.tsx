@@ -34,7 +34,7 @@ const AdmNavUser = () => {
   useEffect(() => {
     const adminUserData = localStorage.getItem('userData');
     const adminUserObject = adminUserData ? JSON.parse(adminUserData) : null;
-    console.log('adminUserData', adminUserData);
+    // console.log('adminUserData', adminUserData);
     setAdminUser(adminUserObject);
   }, []);
   const { isMobile } = useSidebar();
@@ -94,8 +94,10 @@ const AdmNavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={adminUser?.googleProfilePic} alt="" />
-                  <img src={adminUser?.googleProfilePic} alt="" />
+                  <AvatarImage
+                    src="https://img.icons8.com/?size=100&id=52883&format=png&color=000000"
+                    alt="Profile Pic"
+                  />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -105,13 +107,13 @@ const AdmNavUser = () => {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
