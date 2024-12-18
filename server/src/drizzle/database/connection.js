@@ -10,6 +10,16 @@ const poolConnection = mysql.createPool({
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
 });
-const db = drizzle({ client: poolConnection, logger: true });
+const db = drizzle(poolConnection, { logger: true });
+
+poolConnection
+  .getConnection()
+  .then((connection) => {
+    console.log('Connected to database');
+    connection.release();
+  })
+  .catch((err) => {
+    console.error('Database connection failed:', err.message);
+  });
 
 export { db };
