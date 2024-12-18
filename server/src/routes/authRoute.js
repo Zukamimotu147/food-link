@@ -29,7 +29,9 @@ router.get(
 );
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: 'https://food-link.netlify.app/auth/login' }),
+  passport.authenticate('google', {
+    failureRedirect: 'https://food-link-murex.vercel.app/auth/login',
+  }),
   (req, res, next) => {
     const userData = req.user;
 
@@ -48,9 +50,9 @@ router.get(
     );
 
     if (userData.userType === 'ADMIN') {
-      res.redirect(`https://food-link.netlify.app/dasboard/admin?token=${token}`);
+      res.redirect(`https://food-link-murex.vercel.app/dashboard/admin?token=${token}`);
     } else if (userData.userType === 'RESTAURANT') {
-      res.redirect(`https://food-link.netlify.app/dashboard/restaurant?token=${token}`);
+      res.redirect(`https://food-link-murex.vercel.app/dashboard/restaurant?token=${token}`);
     }
   }
 );
@@ -71,7 +73,7 @@ router.get('/logout', (req, res) => {
       if (err) {
         throw err;
       }
-      res.redirect('https://food-link.netlify.app/auth/login');
+      res.redirect('https://food-link-murex.vercel.app/auth/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }
