@@ -75,9 +75,9 @@ const LoginForm = () => {
     }
   };
 
-  const handleLoginGoogle = async () => {
-    window.open('https://food-link.onrender.com/auth/google', '_self');
-  };
+  //   const handleLoginGoogle = async () => {
+  //     window.open('https://food-link.onrender.com/auth/google', '_self');
+  //   };
   return (
     <section className="relative h-screen w-screen">
       <video
@@ -141,7 +141,7 @@ const LoginForm = () => {
               </Button>
             </form>
 
-            <div className="flex justify-center mt-2">
+            {/* <div className="flex justify-center mt-2">
               <Button className="m-2" onClick={handleLoginGoogle}>
                 <img
                   src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000"
@@ -150,7 +150,7 @@ const LoginForm = () => {
                 />
                 Sign In with Google
               </Button>
-            </div>
+            </div> */}
             <div className="flex justify-center">
               <Button variant={'link'} className="text-white">
                 <Link to="/">Go Back to Home</Link>
