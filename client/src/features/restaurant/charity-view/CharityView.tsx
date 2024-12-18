@@ -25,7 +25,7 @@ const CharityView = () => {
               <img
                 src={charity.charityPhotoUrl}
                 alt="charity image"
-                className="w-full h-full object-cover rounded-md"
+                className="w-full h-full object-contain rounded-md"
               />
             </div>
 
