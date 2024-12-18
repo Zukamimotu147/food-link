@@ -106,7 +106,7 @@ const UpdateDonation: FC<UpdateDonationProps> = ({ donationId }) => {
     setLoading(true);
     try {
       await axios.put(
-        `http://localhost:3000/api/restaurant/updateDonationRequest/${donationId}`,
+        `https://food-link.onrender.com/restaurant/updateDonationRequest/${donationId}`,
         formData,
         {
           headers: {

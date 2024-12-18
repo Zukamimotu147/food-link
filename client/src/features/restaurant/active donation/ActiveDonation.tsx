@@ -70,7 +70,7 @@ const ActiveDonation = () => {
   const deleteDonation = async (donationId: number) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/restaurant/deleteDonationRequest/${donationId}`
+        `https://food-link.onrender.com/api/restaurant/deleteDonationRequest/${donationId}`
       );
       console.log('Donation Deleted', res.data);
       toast.success('Donation request deleted successfully');

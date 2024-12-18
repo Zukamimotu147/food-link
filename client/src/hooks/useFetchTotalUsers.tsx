@@ -11,7 +11,7 @@ const useFetchTotalUsers = () => {
   useEffect(() => {
     const fetchTotalUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/restaurant/viewTotalUsers');
+        const res = await axios.get('https://food-link.onrender.com/api/restaurant/viewTotalUsers');
         // console.log('Total Users Data', res.data.totalUsers);
         const totalUsers = res.data.totalUsers;
         setTotalUsers(totalUsers);

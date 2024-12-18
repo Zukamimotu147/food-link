@@ -10,7 +10,9 @@ const useFetchTotalUsers = () => {
   useEffect(() => {
     const fetchTotalCharities = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/restaurant/viewTotalCharities');
+        const res = await axios.get(
+          'https://food-link.onrender.com/api/restaurant/viewTotalCharities'
+        );
         // console.log('Total Charities Data', res.data.totalCharities);
         setTotalCharities(res.data.totalCharities);
       } catch (error) {

@@ -31,7 +31,7 @@ const useActiveDonations = () => {
         }
 
         const res = await axios.get(
-          `http://localhost:3000/api/restaurant/viewDonationRequests/${userId}`
+          `https://food-link.onrender.com/api/restaurant/viewDonationRequests/${userId}`
         );
         setActiveDonationList(res.data.donations);
       } catch (error) {

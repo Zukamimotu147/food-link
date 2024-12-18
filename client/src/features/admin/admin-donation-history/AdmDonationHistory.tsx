@@ -9,7 +9,9 @@ const AdmDonationHistory = () => {
   useEffect(() => {
     const getAdminDonationHistory = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/admin/getAdminDonationHistory');
+        const res = await axios.get(
+          'https://food-link.onrender.com/api/admin/getAdminDonationHistory'
+        );
         console.log('Admin Donation History Data', res.data);
         setData(res.data);
       } catch (error) {

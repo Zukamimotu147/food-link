@@ -56,7 +56,7 @@ const ApprovalDonation = () => {
 
   const approveDonation = async (donationId: number) => {
     try {
-      await axios.put(`http://localhost:3000/api/admin/approveDonation/${donationId}`);
+      await axios.put(`https://food-link.onrender.com/api/admin/approveDonation/${donationId}`);
       toast.success('Donation approved successfully');
       window.location.reload();
     } catch (error) {
@@ -66,7 +66,7 @@ const ApprovalDonation = () => {
 
   const rejectDonation = async (donationId: number) => {
     try {
-      await axios.put(`http://localhost:3000/api/admin/rejectDonation/${donationId}`);
+      await axios.put(`https://food-link.onrender.com/api/admin/rejectDonation/${donationId}`);
       toast.success('Donation rejected successfully');
       window.location.reload();
     } catch (error) {
