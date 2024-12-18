@@ -62,7 +62,7 @@ const ResNavUser = () => {
 
   const getCurrentUser = async (token: string) => {
     try {
-      await axios.get('http://localhost:3000/auth/currentUser', {
+      await axios.get('https://food-link.onrender.com/auth/currentUser', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,7 +81,7 @@ const ResNavUser = () => {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      await axios.get('http://localhost:3000/auth/logout');
+      await axios.get('https://food-link.onrender.com/auth/logout');
       toast.success('Logged out successfully');
       localStorage.removeItem('token');
       localStorage.removeItem('userData');

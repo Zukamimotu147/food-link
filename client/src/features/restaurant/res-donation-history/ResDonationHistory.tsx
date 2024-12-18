@@ -35,7 +35,7 @@ const ResDonationHistory = () => {
     const getResDonationHistory = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/restaurant/viewResDonationHistory/${userId}`
+          `https://food-link.onrender.com/api/restaurant/viewResDonationHistory/${userId}`
         );
         console.log('Res Donation History Data', res.data.resDonationHistory);
         setData(res.data.resDonationHistory);

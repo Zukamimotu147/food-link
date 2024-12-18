@@ -12,7 +12,9 @@ const useFetchTotalDonations = () => {
   useEffect(() => {
     const fetchTotalDonations = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/restaurant/viewTotalDonations`);
+        const res = await axios.get(
+          `https://food-link.onrender.com/api/restaurant/viewTotalDonations`
+        );
         // console.log('Total Donations Data', res.data.totalDonations);
 
         setTotalDonations(res.data.totalDonations);

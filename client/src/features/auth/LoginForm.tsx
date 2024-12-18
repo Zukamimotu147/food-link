@@ -42,7 +42,7 @@ const LoginForm = () => {
 
   const handleLogin = async (data: AuthFields) => {
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', data);
+      const response = await axios.post('https://food-link.onrender.com/auth/login', data);
       //   console.log('User Info:', response.data);
       const decodedToken: DecodedToken = jwtDecode(response.data.token);
 
@@ -76,7 +76,7 @@ const LoginForm = () => {
   };
 
   const handleLoginGoogle = async () => {
-    window.open('http://localhost:3000/auth/google', '_self');
+    window.open('https://food-link.onrender.com/auth/google', '_self');
   };
   return (
     <section className="relative h-screen w-screen">

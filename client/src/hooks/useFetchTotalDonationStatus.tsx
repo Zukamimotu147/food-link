@@ -34,7 +34,7 @@ const useFetchTotalDonationStatus = () => {
           throw new Error('User ID is missing.');
         }
         const res = await axios.get(
-          `http://localhost:3000/api/restaurant/viewDonationStatusSummary/${userId}`
+          `https://food-link.onrender.com/api/restaurant/viewDonationStatusSummary/${userId}`
         );
 
         const formattedData = res.data.donationStatusSummary.map((item: TotalDonationStatus) => ({

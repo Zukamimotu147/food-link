@@ -62,7 +62,7 @@ const AddCharity = () => {
     }
     setLoading(true);
     try {
-      await axios.post('http://localhost:3000/api/admin/addCharity', formData, {
+      await axios.post('https://food-link.onrender.com/api/admin/addCharity', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

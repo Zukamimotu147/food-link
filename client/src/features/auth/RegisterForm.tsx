@@ -35,7 +35,7 @@ const RegisterForm = () => {
 
   const handleRegister = async (data: AuthFields) => {
     try {
-      await axios.post('http://localhost:3000/auth/register', data);
+      await axios.post('https://food-link.onrender.com/auth/register', data);
 
       toast.success('User registered successfully');
       navigation('/auth/login');

@@ -13,7 +13,9 @@ const useFetchDonationRequest = () => {
   useEffect(() => {
     const fetchDonationRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/admin/getDonationRequest');
+        const response = await axios.get(
+          'https://food-link.onrender.com/api/admin/getDonationRequest'
+        );
         // console.log('Donation request data successfully fetched', response.data);
         setDonationRequests(response.data);
       } catch (error) {

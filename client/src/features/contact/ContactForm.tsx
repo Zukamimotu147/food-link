@@ -37,7 +37,7 @@ const ContactForm = () => {
     setSubmitting(true);
 
     try {
-      await axios.post('http://localhost:3000/api/landing/contact', data);
+      await axios.post('https://food-link.onrender.com/api/landing/contact', data);
 
       toast.success('Message sent successfully');
     } catch (error) {
