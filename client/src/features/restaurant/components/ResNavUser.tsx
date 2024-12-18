@@ -81,7 +81,7 @@ const ResNavUser = () => {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      await axios.get('https://food-link.onrender.com/auth/logout');
+      //   await axios.get('https://food-link.onrender.com/auth/logout');
       toast.success('Logged out successfully');
       localStorage.removeItem('token');
       localStorage.removeItem('userData');
