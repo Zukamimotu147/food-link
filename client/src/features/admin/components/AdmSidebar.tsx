@@ -6,12 +6,18 @@ import {
   SidebarRail,
   SidebarMenu,
   SidebarMenuButton,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import AdmNavMain from './AdmNavMain';
 import AdmNavUser from './AdmNavUser';
 import Foodlinklogo from '../../../assets/Foodlinklogo.png';
+import { useEffect } from 'react';
 const AdmSidebar = () => {
+  const { setOpen } = useSidebar();
+  useEffect(() => {
+    setOpen(false);
+  }, []);
   return (
     <Sidebar collapsible="icon" className="bg-customGreen text-white">
       <SidebarHeader>

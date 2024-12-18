@@ -2,6 +2,7 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
@@ -15,6 +16,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -26,10 +28,17 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
     <div>
+      <Input
+        placeholder="Search By Charity Name..."
+        value={(table.getColumn('charityName')?.getFilterValue() as string) ?? ''}
+        onChange={(event) => table.getColumn('charityName')?.setFilterValue(event.target.value)}
+        className="max-w-sm mb-2"
+      />
       <div className="overflow-hidden shadow-lg rounded-lg border border-gray-200">
         <Table>
           <TableHeader className="bg-gray-100">

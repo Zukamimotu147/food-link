@@ -46,8 +46,10 @@ const AboutUs = () => {
       <div ref={aboutUsRef}>
         <section className="aboutContent max-container padding flex flex-col sm:flex-row items-center gap-4">
           <div className="space-y-5">
-            <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">Mission</h1>
-            <p className="text-lg sm:text-2xl text-balance">
+            <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-customGreen">
+              Mission
+            </h1>
+            <p className="text-lg text-center sm:text-left sm:text-2xl text-balance">
               At food link, our mission is simple, to bridge the gaps in our food system to build
               healthier communities
             </p>
@@ -65,8 +67,10 @@ const AboutUs = () => {
             className=" h-[3125%] object-cover"
           />
           <div className="space-y-5">
-            <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">Vision</h1>
-            <p className="text-lg sm:text-2xl text-balance">
+            <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-customGreen">
+              Vision
+            </h1>
+            <p className="text-lg text-center sm:text-left sm:text-2xl text-balance">
               Food link envisions a world where our food ecosystem thrives on real time,
               open-network collaboration and scalable distribution services to enable equitable
               access to healthy food resources At food link, our mission is simple, to bridge the
@@ -82,8 +86,10 @@ const AboutUs = () => {
               className="h-[250px] sm:h-[400px] object-cover"
             />
             <div className="space-y-5">
-              <h1 className="text-3xl sm:text-5xl font-bold text-white">What we are doing</h1>
-              <ul className="text-lg sm:text-2xl text-white text-balance space-y-4 list-disc">
+              <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-white">
+                What we are doing
+              </h1>
+              <ul className="text-lg text-center sm:text-left sm:text-2xl sm:text-balance text-white space-y-4 list-disc">
                 <li>
                   We connect restaurants with charities to ensure surplus food goes to those in
                   need, helping reduce food waste and combat hunger.

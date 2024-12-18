@@ -51,8 +51,8 @@ const Content = () => {
     <main ref={contentRef}>
       <section className="bg-customGreen text-white mt-3">
         <div className="content flex flex-col items-center justify-center max-container padding space-y-5">
-          <h1 className="text-3xl sm:text-5xl font-bold">ABOUT FOOD WASTE</h1>
-          <p className="max-w-[800px] text-balance text-center">
+          <h1 className="text-3xl text-center sm:text-5xl font-bold">ABOUT FOOD WASTE</h1>
+          <p className="max-w-[800px] text-lg text-balance text-center">
             Food waste is a global challenge. Understanding its scale and impacts helps us to make a
             real difference for the better . Let’s dive into the facts and statistics behind the
             topic of food waste.
@@ -71,10 +71,10 @@ const Content = () => {
           className=" h-[3125%] object-cover"
         />
         <div className="space-y-5">
-          <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">
+          <h1 className="text-2xl text-center sm:text-left sm:text-5xl font-bold text-customGreen">
             HOW MUCH FOOD IS WASTED GLOBALLY?
           </h1>
-          <p className="text-lg sm:text-2xl text-balance">
+          <p className="text-lg text-center sm:text-2xl sm:text-left">
             According to WWF (2021), 40% of the food that we produce globally goes to waste. This
             means that 2.5 billion tonnes of food is wasted every year. This equates to 80,000
             kilograms of food being wasted around the world, every single second.
@@ -83,10 +83,10 @@ const Content = () => {
       </section>
       <section className="content2 max-container padding flex flex-col sm:flex-row items-center gap-4">
         <div className="space-y-5">
-          <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">
+          <h1 className="text-2xl text-center sm:text-left sm:text-5xl font-bold text-customGreen">
             WHICH FOOD IS WASTED THE MOST?
           </h1>
-          <p className="text-lg sm:text-2xl text-balance">
+          <p className="text-lg text-center sm:text-2xl sm:text-left">
             Food waste appears across almost every food category. On average across the globe,
             vegetables (25%), cereals (24%), and fruits (12%) are the food most wasted at home.
             <br />
@@ -101,8 +101,8 @@ const Content = () => {
           className=" h-[3125%] object-cover"
         />
       </section>
-      <section className="h-[100px] bg-customGreen flex justify-center items-center">
-        <h1 className="contentText text-5xl font-bold text-white"></h1>
+      <section className="h-[75px] sm:h-[100px] bg-customGreen flex justify-center items-center">
+        <h1 className="contentText text-2xl sm:text-5xl font-bold text-white"></h1>
       </section>
       <section className="content3 max-container padding flex flex-col sm:flex-row items-center gap-4">
         <img
@@ -111,8 +111,10 @@ const Content = () => {
           className=" h-[3125%] object-cover"
         />
         <div className="space-y-5">
-          <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">FOOD WASTE DEFINITION</h1>
-          <p className="text-lg sm:text-2xl text-balance">
+          <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-customGreen">
+            FOOD WASTE DEFINITION
+          </h1>
+          <p className="text-lg text-center sm:text-2xl sm:text-left">
             When we talk about food waste, we refer to all food intended for human consumption that
             goes to waste, from farm to fork. <br /> <br />
             This includes both 'food loss' - food wasted as part of production and supply chains -
@@ -123,8 +125,10 @@ const Content = () => {
       <section className="bg-customGreen">
         <div className="content4 max-container padding flex flex-col sm:flex-row items-center gap-4">
           <div className="space-y-5">
-            <h1 className="text-3xl sm:text-5xl font-bold text-white">WHAT IS SURPLUS FOOD?</h1>
-            <p className="text-lg sm:text-2xl text-white text-balance">
+            <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-white">
+              WHAT IS SURPLUS FOOD?
+            </h1>
+            <p className="text-lg text-center sm:text-left sm:text-2xl text-white">
               Surplus food is generated at any stage of the supply chain from farm to fork.
               <br /> <br /> Food surplus is not food waste, but unfortunately often ends up as
               waste. In fact, in most cases it's perfectly good food that for any of many reasons,
@@ -140,10 +144,10 @@ const Content = () => {
         </div>
       </section>
       <section className="content5 flex flex-col items-center justify-center max-container padding space-y-5">
-        <h1 className="text-3xl sm:text-5xl font-bold text-center text-customGreen">
+        <h1 className="text-2xl sm:text-5xl font-bold text-center text-customGreen">
           THE DIFFERENCE BETWEEN FOOD LOSS AND FOOD WASTE
         </h1>
-        <p className="text-lg sm:text-xl text-balance">
+        <p className="text-lg text-center sm:text-xl sm:text-left">
           Food loss happens at an earlier stage in the supply chain and this food does not re-enter
           the supply chain for any other production use, like animal feed. It happens at harvest,
           slaughter or catch, so before the food reaches the store shelves, restaurants, food
@@ -165,7 +169,7 @@ const Content = () => {
         <h1 className="text-3xl sm:text-5xl font-bold text-center text-customGreen">
           WHY IS FOOD WASTE A PROBLEM?
         </h1>
-        <p className="text-lg sm:text-xl text-balance text-center">
+        <p className="text-lg sm:text-xl text-center">
           Food waste has an enormous impact on society, the economy and the environment. As
           such,reducing food waste presents a powerful opportunity to make a positive impact on
           climate change, the cost of living, and food accessibility.
@@ -174,47 +178,49 @@ const Content = () => {
       <section className="content7 flex flex-col items-center justify-center max-container padding space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-3 grid-rows-1 sm:grid-rows-2 gap-5">
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">
+            <h1 className="text-customGreen font-bold text-xl">
               10% OF ALL GREENHOUSE GAS EMISSIONS WORLDWIDE
             </h1>
-            <p className="text-balance">are caused by food waste (WWF, 2024)</p>
+            <p className="text-balance text-lg">are caused by food waste (WWF, 2024)</p>
           </div>
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">25% OF FRESH WATER USED ANNUALLY</h1>
-            <p className="text-balance">goes into food that ultimately goes to waste (WWF, 2024)</p>
+            <h1 className="text-customGreen font-bold text-xl">25% OF FRESH WATER USED ANNUALLY</h1>
+            <p className="text-balance text-lg">
+              goes into food that ultimately goes to waste (WWF, 2024)
+            </p>
           </div>
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">11.5% OF ALL LANG IN THE WORLD</h1>
-            <p className="text-balance">
+            <h1 className="text-customGreen font-bold text-xl">11.5% OF ALL LANG IN THE WORLD</h1>
+            <p className="text-balance text-lg">
               Producing food that ultimately goes to waste takes up a land area larger than China
               (WWF, 2024)
             </p>
           </div>
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">$1.1 TRILLION</h1>
-            <p className="text-balance">
+            <h1 className="text-customGreen font-bold text-xl">$1.1 TRILLION</h1>
+            <p className="text-balance text-lg">
               is the amount of money lost through food waste every year(WWF, 2024)
             </p>
           </div>
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">2,4 BILLION PEOPLE</h1>
-            <p className="text-balance">
+            <h1 className="text-customGreen font-bold text-xl">2,4 BILLION PEOPLE</h1>
+            <p className="text-balance text-lg">
               do not have access to adequate, nutritious food (FAO, 2023)
             </p>
           </div>
           <div className="p-5 text-center">
-            <h1 className="text-customGreen font-bold text-lg">783 MILLION PEOPLE</h1>
-            <p className="text-balance">are affected by hunger every day (FAO, 2023)</p>
+            <h1 className="text-customGreen font-bold text-xl">783 MILLION PEOPLE</h1>
+            <p className="text-balance text-lg">are affected by hunger every day (FAO, 2023)</p>
           </div>
         </div>
       </section>
       <section className="bg-customGreen">
         <div className="content8 max-container padding flex flex-col sm:flex-row items-center gap-4">
           <div className="space-y-5">
-            <h1 className="text-3xl sm:text-5xl font-bold text-white">
+            <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-white">
               A REAL OPPORTUNITY TO TACKLE CLIMATE CHANGE
             </h1>
-            <p className="text-lg sm:text-2xl text-white text-balance">
+            <p className="text-lg text-center sm:text-2xl text-white sm:text-left">
               Reducing food waste is the number 1 action we can take to help tackle climate change,
               by limiting the temperature increase to 2°C by 2100 (Project Drawdown, 2020). Easy,
               effective and rewarding - Reducing or avoiding food waste helps us make a real
@@ -234,10 +240,10 @@ const Content = () => {
             className=" h-[3125%] object-cover"
           />
           <div className="space-y-5">
-            <h1 className="text-3xl sm:text-5xl font-bold text-white">
+            <h1 className="text-3xl text-center sm:text-left sm:text-5xl font-bold text-white">
               HOW DOES FOOD WASTE AFFECT THE ENVIRONMENT AND CLIMATE ?
             </h1>
-            <p className="text-lg sm:text-2xl text-white text-balance">
+            <p className="text-lg text-center sm:text-2xl text-white sm:text-left">
               As part of the process of food production, greenhouse gas emissions are released into
               the atmosphere. Additionally, the food system has an impact on biodiversity loss and
               our environmental ecosystems. When food is wasted, we do not only waste the food in
@@ -249,7 +255,7 @@ const Content = () => {
         </div>
       </section>
       <section className="content10 flex flex-col items-center justify-center max-container padding space-y-5">
-        <h1 className="text-3xl sm:text-5xl font-bold text-customGreen">
+        <h1 className="text-3xl text-center sm:text-5xl font-bold text-customGreen">
           Join the Movement to End Food Waste
         </h1>
         <p className="text-lg sm:text-2xl text-balance text-center">

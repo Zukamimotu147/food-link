@@ -71,7 +71,7 @@ const ResNavUser = () => {
       toast.success('User logged in successfully');
       //   localStorage.setItem('token', token);
       const decodedToken: any = jwtDecode(token);
-      console.log('User data successfully fetched', res.data);
+      //   console.log('User data successfully fetched', res.data);
       setGoogleUserPP(decodedToken.googleProfilePic);
       setCurrentGoogleUser(decodedToken);
     } catch (error) {
@@ -167,13 +167,13 @@ const ResNavUser = () => {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> maybe in the far future I will add this*/}
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
