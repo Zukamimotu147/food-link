@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import { login, register } from '../controllers/authController';
-import { generateToken } from '../services/generateToken';
-import { authenticateJWT } from '../middleware/authenticateJWT';
+import { login, register } from '../controllers/authController.js';
+// import { generateToken } from '../services/generateToken';
+import { authenticateJWT } from '../middleware/authenticateJWT.js';
 
 const router = Router();
 
@@ -29,7 +29,7 @@ router.get(
 );
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/auth/login' }),
+  passport.authenticate('google', { failureRedirect: 'https://food-link.netlify.app/auth/login' }),
   (req, res, next) => {
     const userData = req.user;
 
@@ -48,9 +48,9 @@ router.get(
     );
 
     if (userData.userType === 'ADMIN') {
-      res.redirect(`http://localhost:5173/dasboard/admin?token=${token}`);
+      res.redirect(`https://food-link.netlify.app/dasboard/admin?token=${token}`);
     } else if (userData.userType === 'RESTAURANT') {
-      res.redirect(`http://localhost:5173/dashboard/restaurant?token=${token}`);
+      res.redirect(`https://food-link.netlify.app/dashboard/restaurant?token=${token}`);
     }
   }
 );
@@ -71,7 +71,7 @@ router.get('/logout', (req, res) => {
       if (err) {
         throw err;
       }
-      res.redirect('http://localhost:5173/auth/login');
+      res.redirect('https://food-link.netlify.app/auth/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }

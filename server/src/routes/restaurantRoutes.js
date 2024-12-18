@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import {
   addDonationRequest,
   deleteDonationRequest,
@@ -10,8 +10,8 @@ import {
   viewTotalUsers,
   viewTotalCharities,
   viewTotalDonations,
-} from '../controllers/restaurant/restaurantController';
-import { upload } from '../middleware/multer';
+} from '../controllers/restaurant/restaurantController.js';
+import { upload } from '../middleware/multer.js';
 
 const router = Router();
 

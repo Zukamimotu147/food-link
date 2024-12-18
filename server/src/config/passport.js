@@ -1,9 +1,9 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { db } from '../drizzle/database/connection';
-import { usersTable } from '../drizzle/tableSchema';
+import { db } from '../drizzle/database/connection.js';
+import { usersTable } from '../drizzle/tableSchema.js';
 import { eq, and } from 'drizzle-orm';
-import { generateToken } from '../services/generateToken';
+// import { generateToken } from '../services/generateToken';
 
 passport.use(
   new GoogleStrategy(

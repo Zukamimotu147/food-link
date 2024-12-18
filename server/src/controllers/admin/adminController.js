@@ -1,8 +1,7 @@
-import { Request, Response } from 'express';
-import { db } from '../../drizzle/database/connection';
-import { charityTable, foodDonationTable, usersTable } from '../../drizzle/tableSchema';
+import { db } from '../../drizzle/database/connection.js';
+import { charityTable, foodDonationTable, usersTable } from '../../drizzle/tableSchema.js';
 import { eq, and, sql } from 'drizzle-orm';
-import { cloudinary } from '../../config/cloudinary';
+import { cloudinary } from '../../config/cloudinary.js';
 
 export const addCharity = async (req, res) => {
   const {

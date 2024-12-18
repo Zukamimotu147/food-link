@@ -1,11 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { db } from '../drizzle/database/connection';
+import { db } from '../drizzle/database/connection.js';
 import { eq } from 'drizzle-orm';
-import { usersTable } from '../drizzle/tableSchema';
+import { usersTable } from '../drizzle/tableSchema.js';
 
-import { generateToken } from '../services/generateToken';
+import { generateToken } from '../services/generateToken.js';
 
 export const register = async (req, res) => {
   const { name, email, password, userType } = req.body;
