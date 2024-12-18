@@ -25,6 +25,7 @@ app.use(
       'https://food-link.netlify.app',
       'http://localhost:5173',
       'https://food-link-q0n1lkssh-marcs-projects-a91672ad.vercel.app',
+      'https://food-link-murex.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
