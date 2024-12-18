@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      'https://food-link.netlify.app/',
+      'https://food-link.netlify.app',
       'http://localhost:5173',
-      'https://food-link-q0n1lkssh-marcs-projects-a91672ad.vercel.app/',
+      'https://food-link-q0n1lkssh-marcs-projects-a91672ad.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
