@@ -55,14 +55,14 @@ const AboutUs = () => {
             </p>
           </div>
           <img
-            src=".../../../../src/assets/image 11.png"
+            src="https://res.cloudinary.com/doh05rxbc/image/upload/v1734502008/food-donation/xgjv0ku85xpranzhuyka.png"
             alt="Food Waste1"
             className=" h-[3125%] object-cover"
           />
         </section>
         <section className="aboutContent1 max-container padding flex flex-col sm:flex-row items-center gap-4">
           <img
-            src=".../../../../src/assets/image 12.png"
+            src="https://res.cloudinary.com/doh05rxbc/image/upload/v1734502009/food-donation/grquihpwoaq3gqne1nfv.png"
             alt="Food Waste1"
             className=" h-[3125%] object-cover"
           />

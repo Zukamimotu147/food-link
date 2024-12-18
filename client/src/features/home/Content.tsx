@@ -66,7 +66,7 @@ const Content = () => {
       </section>
       <section className="content1 max-container padding flex flex-col sm:flex-row items-center gap-4">
         <img
-          src=".../../../../src/assets/image 2.png"
+          src="https://cdn.sanity.io/images/nqimd3nr/production/116c9f7fb85752d7d0dc97b189f364ffa4caf9f6-1200x1200.png?w=588&h=588&fit=max&auto=format"
           alt="Food Waste1"
           className=" h-[3125%] object-cover"
         />
@@ -96,7 +96,7 @@ const Content = () => {
           </p>
         </div>
         <img
-          src=".../../../../src/assets/image 2.png"
+          src="https://cdn.sanity.io/images/nqimd3nr/production/c821d7b4e6dec6c93272f6345e3fe40dc9a4900d-1200x1200.png?w=588&h=588&fit=max&auto=format"
           alt="Food Waste1"
           className=" h-[3125%] object-cover"
         />
@@ -106,7 +106,7 @@ const Content = () => {
       </section>
       <section className="content3 max-container padding flex flex-col sm:flex-row items-center gap-4">
         <img
-          src=".../../../../src/assets/image 4.png"
+          src="https://cdn.sanity.io/images/nqimd3nr/production/f3b8054ec97b3549e4f70e93ef61aaa4e50305af-1200x1200.png?w=588&h=588&fit=max&auto=format"
           alt="Food Waste1"
           className=" h-[3125%] object-cover"
         />
@@ -137,7 +137,7 @@ const Content = () => {
             </p>
           </div>
           <img
-            src=".../../../../src/assets/image 10.png"
+            src="https://res.cloudinary.com/doh05rxbc/image/upload/v1734501758/food-donation/jasi8ud6ekuvip9ueyxr.png"
             alt="Food Waste1"
             className=" h-[3125%] object-cover"
           />
@@ -228,14 +228,14 @@ const Content = () => {
             </p>
           </div>
           <img
-            src=".../../../../src/assets/image 6.png"
+            src="https://cdn.sanity.io/images/nqimd3nr/production/b283bf7592d34a90a921643eb9fd731ab7606364-1200x1200.png?w=588&h=588&fit=max&auto=format"
             alt="Food Waste1"
             className=" h-[3125%] object-cover"
           />
         </div>
         <div className="content9 max-container padding flex flex-col sm:flex-row items-center gap-4">
           <img
-            src=".../../../../src/assets/image 7.png"
+            src="https://cdn.sanity.io/images/nqimd3nr/production/b3b25120cf92ef5e8940f152b4c6f99485ef15a7-1200x1200.png?w=588&h=588&fit=max&auto=format"
             alt="Food Waste1"
             className=" h-[3125%] object-cover"
           />
