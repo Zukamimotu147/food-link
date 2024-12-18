@@ -1,13 +1,5 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1733820388598,
-      "tag": "0000_premium_amazoness",
-      "breakpoints": true
-    }
-  ]
+  "entries": []
 }

@@ -25,5 +25,8 @@
     "passport-google-oauth20": "^2.0.0",
     "socket.io": "^4.8.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "drizzle-kit": "^0.30.1"
+  }
 }
