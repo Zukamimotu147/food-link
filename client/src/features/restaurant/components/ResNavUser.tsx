@@ -1,10 +1,9 @@
-import { BadgeCheck, Bell, ChevronsUpDown, LoaderCircle, LogOut } from 'lucide-react';
+import { ChevronsUpDown, LoaderCircle, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -39,7 +38,7 @@ const ResNavUser = () => {
   const [resUser, setResUser] = useState<ResUser | null>();
   const [currentGoogleUser, setCurrentGoogleUser] = useState<ResUser | null>();
   const [googleUserPP, setGoogleUserPP] = useState<string | null>();
-  const [userPP, setUserPP] = useState<string | null>();
+  //   const [userPP, setUserPP] = useState<string | null>();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const { isMobile } = useSidebar();
@@ -63,7 +62,7 @@ const ResNavUser = () => {
 
   const getCurrentUser = async (token: string) => {
     try {
-      const res = await axios.get('http://localhost:3000/auth/currentUser', {
+      await axios.get('http://localhost:3000/auth/currentUser', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,7 +114,7 @@ const ResNavUser = () => {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={googleUserPP ?? userPP ?? ''} alt="Profile Pic" />
+                <AvatarImage src={googleUserPP ?? ''} alt="Profile Pic" />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -145,7 +144,7 @@ const ResNavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={googleUserPP ?? userPP ?? ''} alt="" />
+                  <AvatarImage src={googleUserPP ?? ''} alt="" />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

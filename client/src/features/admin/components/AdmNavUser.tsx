@@ -1,10 +1,9 @@
-import { BadgeCheck, Bell, ChevronsUpDown, LogOut, LoaderCircle } from 'lucide-react';
+import { ChevronsUpDown, LogOut, LoaderCircle } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
