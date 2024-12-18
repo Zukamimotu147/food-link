@@ -107,7 +107,7 @@ const AddDonation = () => {
     setLoading(true);
     try {
       await axios.post(
-        `http://localhost:3000/api/restaurant/addDonationRequest/${userId}/${data.charity}`,
+        `https://food-link.onrender.com/api/restaurant/addDonationRequest/${userId}/${data.charity}`,
         formData,
         {
           headers: {
