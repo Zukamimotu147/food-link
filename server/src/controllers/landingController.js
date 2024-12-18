@@ -1,6 +1,5 @@
-import { Request, Response } from 'express';
-import { db } from '../drizzle/database/connection';
-import { contactTable } from '../drizzle/tableSchema';
+import { db } from '../drizzle/database/connection.js';
+import { contactTable } from '../drizzle/tableSchema.js';
 import { eq } from 'drizzle-orm';
 
 export const contactController = async (req, res) => {

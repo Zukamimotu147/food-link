@@ -1,14 +1,14 @@
-import express, { Response, Request } from 'express';
+import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import cors from 'cors';
 import dotenv, { config } from 'dotenv';
-import authRoutes from './routes/authRoute';
-import landingRoutes from './routes/landingRoutes';
+import authRoutes from './routes/authRoute.js';
+import landingRoutes from './routes/landingRoutes.js';
 
-import './config/passport';
-import restaurantRoutes from './routes/restaurantRoutes';
-import adminRoutes from './routes/adminRoutes';
+import './config/passport.js';
+import restaurantRoutes from './routes/restaurantRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 

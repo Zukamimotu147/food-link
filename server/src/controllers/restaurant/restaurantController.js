@@ -1,7 +1,6 @@
-import { db } from '../../drizzle/database/connection';
+import { db } from '../../drizzle/database/connection.js';
 import { eq, and, or, sql } from 'drizzle-orm';
-import { NextFunction, Request, Response } from 'express';
-import { cloudinary } from '../../config/cloudinary';
+import { cloudinary } from '../../config/cloudinary.js';
 
 import {
   restaurantTable,
@@ -10,7 +9,7 @@ import {
   //   donationHistoryTable,
   charityTable,
   usersTable,
-} from '../../drizzle/tableSchema';
+} from '../../drizzle/tableSchema.js';
 import { create } from 'domain';
 
 export const addDonationRequest = async (req, res) => {

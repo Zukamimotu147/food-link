@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import {
   addCharity,
   deleteCharity,
@@ -9,8 +9,8 @@ import {
   rejectDonation,
   getDonationRequests,
   //   getCurrentAdminUser,
-} from '../controllers/admin/adminController';
-import { upload } from '../middleware/multer';
+} from '../controllers/admin/adminController.js';
+import { upload } from '../middleware/multer.js';
 
 const router = Router();
 

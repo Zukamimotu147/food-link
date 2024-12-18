@@ -1,5 +1,5 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { contactController } from '../controllers/landingController';
+import { Router } from 'express';
+import { contactController } from '../controllers/landingController.js';
 const router = Router();
 
 router.post('/contact', async (req, res, next) => {
