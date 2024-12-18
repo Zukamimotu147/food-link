@@ -8,10 +8,7 @@ export default defineConfig({
   out: './src/drizzle/migrations',
   dialect: 'mysql',
   dbCredentials: {
-    host: process.env.HOST!,
-    user: process.env.USER!,
-    password: process.env.PASSWORD!,
-    database: process.env.DATABASE!,
+    url: process.env.DATABASE_URL!,
   },
   verbose: true,
   strict: true,
